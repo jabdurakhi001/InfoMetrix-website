@@ -4,6 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>InfoMetrix LLC | Data-Driven Consulting</title>
+
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="InfoMetrix helps operators turn data into actionable decisions. We bring clarity to finances, efficiency to processes, and intelligence to operations through management consulting, AI automation, and logistics optimization.">
+    <meta name="keywords" content="data consulting, business consulting, management consulting, AI automation, logistics optimization, financial clarity, process design, Chicago consulting">
+    <meta name="author" content="InfoMetrix LLC">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://infometrix.com">
+
+    <!-- Open Graph / Social Media -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="InfoMetrix LLC | Data-Driven Consulting">
+    <meta property="og:description" content="InfoMetrix helps operators turn data into actionable decisions. We bring clarity to finances, efficiency to processes, and intelligence to operations.">
+    <meta property="og:url" content="https://infometrix.com">
+    <meta property="og:site_name" content="InfoMetrix LLC">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="InfoMetrix LLC | Data-Driven Consulting">
+    <meta name="twitter:description" content="InfoMetrix helps operators turn data into actionable decisions. We bring clarity to finances, efficiency to processes, and intelligence to operations.">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
@@ -225,6 +248,53 @@
             height: 2px;
             background: var(--text-primary);
             transition: all 0.3s ease;
+        }
+
+        /* Mobile menu open state */
+        .mobile-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .mobile-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .mobile-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 72px;
+            left: 0;
+            right: 0;
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border-color);
+            padding: 1rem 2rem 2rem;
+            z-index: 999;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .mobile-menu.active {
+            display: block;
+        }
+
+        .mobile-menu .nav-link {
+            display: block;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--border-color);
+            font-size: 1rem;
+        }
+
+        .mobile-menu .nav-link:last-child {
+            border-bottom: none;
+        }
+
+        .mobile-menu .btn {
+            width: 100%;
+            justify-content: center;
+            margin-top: 1rem;
         }
 
         /* Hero Section */
@@ -1129,11 +1199,19 @@
                 </button>
                 <a href="#contact" class="btn btn-primary">Book a consultation</a>
             </div>
-            <button class="mobile-toggle" id="mobileToggle">
+            <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle mobile menu" aria-expanded="false">
                 <span></span>
                 <span></span>
                 <span></span>
             </button>
+        </div>
+        <div class="mobile-menu" id="mobileMenu" role="navigation" aria-label="Mobile navigation">
+            <a href="#services" class="nav-link">Services</a>
+            <a href="#industries" class="nav-link">Industries</a>
+            <a href="#work" class="nav-link">Work</a>
+            <a href="#process" class="nav-link">Process</a>
+            <a href="#faq" class="nav-link">FAQ</a>
+            <a href="#contact" class="btn btn-primary">Book a consultation</a>
         </div>
     </nav>
 
@@ -1148,9 +1226,9 @@
             <p class="hero-description">InfoMetrix helps operators turn data into actionable decisions and results. We bring clarity to your finances, efficiency to your processes, and intelligence to your operations.</p>
             <div class="hero-cta">
                 <a href="#contact" class="btn btn-primary">Start a project</a>
-                <a href="#" class="btn btn-secondary">
+                <a href="#contact" class="btn btn-secondary">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6zm4 18H6V4h7v5h5v11z"/></svg>
-                    View our capability deck
+                    Request capability deck
                 </a>
             </div>
             <div class="hero-features">
@@ -1636,6 +1714,24 @@
     </footer>
 
     <script>
+        // Storage helper with fallback for browsers without localStorage
+        const storage = {
+            get: function(key) {
+                try {
+                    return localStorage.getItem(key);
+                } catch (e) {
+                    return null;
+                }
+            },
+            set: function(key, value) {
+                try {
+                    localStorage.setItem(key, value);
+                } catch (e) {
+                    // localStorage not available, continue without persistence
+                }
+            }
+        };
+
         // Theme Toggle
         const themeToggle = document.getElementById('themeToggle');
         const html = document.documentElement;
@@ -1643,7 +1739,7 @@
         const moonIcon = themeToggle.querySelector('.moon-icon');
 
         // Check for saved theme preference or default to light
-        const savedTheme = localStorage.getItem('theme') || 'light';
+        const savedTheme = storage.get('theme') || 'light';
         html.setAttribute('data-theme', savedTheme);
         updateThemeIcon(savedTheme);
 
@@ -1651,7 +1747,7 @@
             const currentTheme = html.getAttribute('data-theme');
             const newTheme = currentTheme === 'light' ? 'dark' : 'light';
             html.setAttribute('data-theme', newTheme);
-            localStorage.setItem('theme', newTheme);
+            storage.set('theme', newTheme);
             updateThemeIcon(newTheme);
         });
 
@@ -1665,17 +1761,66 @@
             }
         }
 
-        // FAQ Accordion
+        // Mobile Menu Toggle
+        const mobileToggle = document.getElementById('mobileToggle');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        mobileToggle.addEventListener('click', () => {
+            const isActive = mobileToggle.classList.contains('active');
+            mobileToggle.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+            mobileToggle.setAttribute('aria-expanded', !isActive);
+        });
+
+        // Close mobile menu when clicking a link
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileToggle.classList.remove('active');
+                mobileMenu.classList.remove('active');
+                mobileToggle.setAttribute('aria-expanded', 'false');
+            });
+        });
+
+        // Close mobile menu on escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && mobileMenu.classList.contains('active')) {
+                mobileToggle.classList.remove('active');
+                mobileMenu.classList.remove('active');
+                mobileToggle.setAttribute('aria-expanded', 'false');
+                mobileToggle.focus();
+            }
+        });
+
+        // FAQ Accordion with accessibility
         const faqItems = document.querySelectorAll('.faq-item');
-        faqItems.forEach(item => {
+        faqItems.forEach((item, index) => {
             const question = item.querySelector('.faq-question');
+            const answer = item.querySelector('.faq-answer');
+
+            // Add ARIA attributes
+            question.setAttribute('aria-expanded', 'false');
+            question.setAttribute('aria-controls', `faq-answer-${index}`);
+            answer.setAttribute('id', `faq-answer-${index}`);
+
             question.addEventListener('click', () => {
                 const isActive = item.classList.contains('active');
-                // Close all items
-                faqItems.forEach(i => i.classList.remove('active'));
+                // Close all items and update ARIA
+                faqItems.forEach((i, idx) => {
+                    i.classList.remove('active');
+                    i.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
+                });
                 // Open clicked item if it wasn't active
                 if (!isActive) {
                     item.classList.add('active');
+                    question.setAttribute('aria-expanded', 'true');
+                }
+            });
+
+            // Keyboard navigation for FAQ
+            question.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    question.click();
                 }
             });
         });
@@ -1683,9 +1828,12 @@
         // Smooth scroll for navigation links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
+                const href = this.getAttribute('href');
+                if (href === '#') return; // Ignore empty hash links
+
+                const target = document.querySelector(href);
                 if (target) {
+                    e.preventDefault();
                     const navHeight = document.querySelector('.nav').offsetHeight;
                     const targetPosition = target.offsetTop - navHeight - 20;
                     window.scrollTo({
@@ -1696,12 +1844,81 @@
             });
         });
 
-        // Form submission (placeholder)
+        // Form validation and submission
         const form = document.querySelector('.contact-form');
+        const submitBtn = form.querySelector('button[type="submit"]');
+
+        // Email validation regex
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        // Add validation feedback styles
+        function showError(input, message) {
+            const group = input.closest('.form-group');
+            let error = group.querySelector('.error-message');
+            if (!error) {
+                error = document.createElement('span');
+                error.className = 'error-message';
+                error.style.cssText = 'color: #dc2626; font-size: 0.8rem; margin-top: 0.25rem;';
+                group.appendChild(error);
+            }
+            error.textContent = message;
+            input.style.borderColor = '#dc2626';
+        }
+
+        function clearError(input) {
+            const group = input.closest('.form-group');
+            const error = group.querySelector('.error-message');
+            if (error) error.remove();
+            input.style.borderColor = '';
+        }
+
+        // Real-time validation
+        form.querySelectorAll('input, textarea').forEach(input => {
+            input.addEventListener('blur', () => validateField(input));
+            input.addEventListener('input', () => clearError(input));
+        });
+
+        function validateField(input) {
+            clearError(input);
+            if (input.required && !input.value.trim()) {
+                showError(input, 'This field is required');
+                return false;
+            }
+            if (input.type === 'email' && input.value && !emailRegex.test(input.value)) {
+                showError(input, 'Please enter a valid email address');
+                return false;
+            }
+            return true;
+        }
+
         form.addEventListener('submit', (e) => {
             e.preventDefault();
-            alert('Thank you for your message! We\'ll be in touch within one business day.');
-            form.reset();
+
+            // Validate all fields
+            let isValid = true;
+            form.querySelectorAll('input, textarea').forEach(input => {
+                if (!validateField(input)) isValid = false;
+            });
+
+            if (!isValid) return;
+
+            // Disable button and show loading state
+            submitBtn.disabled = true;
+            const originalText = submitBtn.textContent;
+            submitBtn.textContent = 'Sending...';
+
+            // Simulate form submission (replace with actual backend integration)
+            setTimeout(() => {
+                submitBtn.textContent = 'Message sent!';
+                submitBtn.style.background = 'var(--accent-green)';
+
+                setTimeout(() => {
+                    form.reset();
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = originalText;
+                    submitBtn.style.background = '';
+                }, 2000);
+            }, 1000);
         });
 
         // Navigation scroll effect
