@@ -1,89 +1,115 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" id="top">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Privacy Policy | InfoMetrix</title>
-
+  <meta name="description" content="InfoMetrix privacy policy. Learn how we handle your data." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/css/styles.css" />
 </head>
 <body>
 
-  <!-- NAV -->
-  <header class="nav">
-    <div class="container nav-inner">
-      <div class="logo">
-        <a href="index.html">InfoMetrix</a>
-      </div>
+  <a href="#main" class="skip-link">Skip to content</a>
 
-      <nav class="menu desktop-menu">
+  <!-- HEADER / NAV -->
+  <header class="nav" role="banner">
+    <div class="container nav-inner">
+      <a class="logo" href="index.html#top" aria-label="InfoMetrix Home">InfoMetrix</a>
+
+      <nav class="menu desktop-menu" aria-label="Primary navigation">
         <a href="index.html#services">Services</a>
         <a href="index.html#approach">Approach</a>
         <a href="contact.html#book" class="btn-primary">Schedule a Call</a>
       </nav>
+
+      <button
+        class="mobile-toggle"
+        id="mobileToggle"
+        aria-label="Open menu"
+        aria-expanded="false"
+        aria-controls="mobileMenu"
+        type="button"
+      >
+        &#9776;
+      </button>
+    </div>
+
+    <div class="mobile-menu" id="mobileMenu">
+      <div class="container mobile-menu-inner">
+        <a href="index.html#services">Services</a>
+        <a href="index.html#approach">Approach</a>
+        <a class="btn-primary full" href="contact.html#book">Schedule a Call</a>
+      </div>
     </div>
   </header>
 
-  <main class="section">
-    <div class="container">
-      <div class="card">
-        <h1 class="section-title">Privacy Policy</h1>
-        <p class="muted">Last updated: February 2026</p>
+  <main id="main" class="page">
+    <section class="section">
+      <div class="container" style="max-width:760px;">
+        <div class="card card-wide privacy-content fade-in">
+          <h1 class="section-title">Privacy Policy</h1>
+          <p class="muted" style="margin-top:4px;">Last updated: February 2026</p>
 
-        <p>
-          InfoMetrix (“we,” “our,” or “us”) respects your privacy and is committed
-          to protecting it through this Privacy Policy.
-        </p>
+          <p>
+            InfoMetrix ("we," "our," or "us") respects your privacy and is committed
+            to protecting it through this Privacy Policy.
+          </p>
 
-        <h3>Information We Collect</h3>
-        <p>
-          We may collect personal information such as your name, email address,
-          and message content when you submit a form on our website.
-        </p>
+          <h3>Information We Collect</h3>
+          <p>
+            We may collect personal information such as your name, email address,
+            and message content when you submit a form on our website.
+          </p>
 
-        <h3>How We Use Information</h3>
-        <p>
-          Information is used only to respond to inquiries, communicate regarding
-          services, and improve our operations. We do not sell or share personal
-          information for marketing purposes.
-        </p>
+          <h3>How We Use Information</h3>
+          <p>
+            Information is used only to respond to inquiries, communicate regarding
+            services, and improve our operations. We do not sell or share personal
+            information for marketing purposes.
+          </p>
 
-        <h3>Third-Party Services</h3>
-        <p>
-          We use third-party services such as form handling and scheduling tools
-          to operate this website. These providers receive only the information
-          necessary to perform their services.
-        </p>
+          <h3>Third-Party Services</h3>
+          <p>
+            We use third-party services such as form handling and scheduling tools
+            to operate this website. These providers receive only the information
+            necessary to perform their services.
+          </p>
 
-        <h3>Data Security</h3>
-        <p>
-          Reasonable safeguards are in place to protect your information, though
-          no system can guarantee complete security.
-        </p>
+          <h3>Data Security</h3>
+          <p>
+            Reasonable safeguards are in place to protect your information, though
+            no system can guarantee complete security.
+          </p>
 
-        <h3>Your Rights</h3>
-        <p>
-          You may request access, correction, or deletion of your personal
-          information by contacting us.
-        </p>
+          <h3>Your Rights</h3>
+          <p>
+            You may request access, correction, or deletion of your personal
+            information by contacting us.
+          </p>
 
-        <h3>Contact</h3>
-        <p>
-          InfoMetrix<br />
-          Email: <a href="mailto:info@infometrix.us">info@infometrix.us</a>
-        </p>
+          <h3>Contact</h3>
+          <p>
+            InfoMetrix<br />
+            Email: <a href="mailto:info@infometrix.us">info@infometrix.us</a>
+          </p>
+        </div>
       </div>
-    </div>
+    </section>
   </main>
 
-  <footer class="footer">
+  <footer class="footer" role="contentinfo">
     <div class="container">
-      <p>© InfoMetrix. All rights reserved.</p>
-      <p class="disclaimer">
-        Consulting services only. No legal or tax advice.
-      </p>
+      <p>&copy; InfoMetrix. All rights reserved.</p>
+      <span class="separator"></span>
+      <p><a href="privacy.html">Privacy Policy</a></p>
+      <span class="separator"></span>
+      <p class="disclaimer">Consulting services only. No legal or tax advice.</p>
     </div>
   </footer>
 
+  <script src="assets/js/main.js"></script>
 </body>
 </html>

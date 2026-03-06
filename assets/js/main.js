@@ -1,5 +1,3 @@
-console.log("InfoMetrix site loaded");
-
 // -------------------------
 // Mobile menu toggle + scroll-lock
 // -------------------------
@@ -65,7 +63,7 @@ if (contactForm && formStatus) {
       });
 
       if (response.ok) {
-        formStatus.textContent = "Thanks — message sent. We’ll be in touch shortly.";
+        formStatus.textContent = "Thanks — message sent. We'll be in touch shortly.";
         contactForm.reset();
       } else {
         formStatus.textContent = "Something went wrong. Please try again or book a call.";
@@ -74,4 +72,43 @@ if (contactForm && formStatus) {
       formStatus.textContent = "Network error. Please try again later.";
     }
   });
+}
+
+// -------------------------
+// Scroll-triggered fade-in animations
+// -------------------------
+const fadeElements = document.querySelectorAll(".fade-in");
+
+if (fadeElements.length > 0 && "IntersectionObserver" in window) {
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.1, rootMargin: "0px 0px -40px 0px" }
+  );
+
+  fadeElements.forEach((el) => observer.observe(el));
+}
+
+// -------------------------
+// Navbar background on scroll
+// -------------------------
+const nav = document.querySelector(".nav");
+
+if (nav) {
+  const updateNav = () => {
+    if (window.scrollY > 10) {
+      nav.style.boxShadow = "0 1px 12px rgba(15,23,42,.08)";
+    } else {
+      nav.style.boxShadow = "none";
+    }
+  };
+
+  window.addEventListener("scroll", updateNav, { passive: true });
+  updateNav();
 }

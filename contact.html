@@ -4,6 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Contact | InfoMetrix</title>
+  <meta name="description" content="Get in touch with InfoMetrix. Send a message or book a consultation call." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/css/styles.css" />
 </head>
 <body>
@@ -29,7 +33,7 @@
         aria-controls="mobileMenu"
         type="button"
       >
-        ☰
+        &#9776;
       </button>
     </div>
 
@@ -46,10 +50,10 @@
     <section class="section">
       <div class="container contact-grid">
         <!-- FORM -->
-        <section class="card">
+        <section class="card fade-in">
           <h1 class="section-title">Contact</h1>
-          <p class="muted">
-            Send a message with context. If it’s a fit, we’ll reply with next steps.
+          <p class="muted" style="margin-top:8px;">
+            Send a message with context. If it's a fit, we'll reply with next steps.
           </p>
 
           <form
@@ -73,27 +77,27 @@
             <button class="btn-primary form-btn" type="submit">Send message</button>
             <p class="form-status" id="formStatus"></p>
 
-            <p class="muted tiny" style="margin-top:10px;">
+            <p class="muted tiny" style="margin-top:12px;">
               Prefer to skip email? Book directly on the right.
             </p>
           </form>
         </section>
 
         <!-- CALENDLY -->
-        <aside class="card" id="book">
+        <aside class="card fade-in" id="book">
           <h2 class="section-title">Book a Call</h2>
-          <p class="muted">Pick a time. We’ll confirm scope and next steps.</p>
+          <p class="muted" style="margin-top:8px;">Pick a time. We'll confirm scope and next steps.</p>
 
           <div
             class="calendly-inline-widget"
             data-url="https://calendly.com/ajk-networking/30min"
-            style="min-width:320px;height:720px;"
+            style="min-width:320px;height:720px;margin-top:16px;"
           ></div>
 
           <script src="https://assets.calendly.com/assets/external/widget.js" async></script>
 
-          <p class="tiny muted" style="margin-top:10px;">
-            If the widget doesn’t load, disable ad-blockers for this site.
+          <p class="tiny muted" style="margin-top:12px;">
+            If the widget doesn't load, disable ad-blockers for this site.
           </p>
         </aside>
       </div>
@@ -102,8 +106,10 @@
 
   <footer class="footer" role="contentinfo">
     <div class="container">
-      <p>© InfoMetrix. All rights reserved.</p>
-      <p> <a href="privacy.html">Privacy Policy</a></p>
+      <p>&copy; InfoMetrix. All rights reserved.</p>
+      <span class="separator"></span>
+      <p><a href="privacy.html">Privacy Policy</a></p>
+      <span class="separator"></span>
       <p class="disclaimer">Consulting services only. No legal or tax advice.</p>
     </div>
   </footer>
