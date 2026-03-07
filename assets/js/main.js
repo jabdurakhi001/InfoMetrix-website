@@ -1,34 +1,36 @@
 // -------------------------
-// Mobile menu toggle + scroll-lock
+// Mobile menu toggle
 // -------------------------
 const mobileToggle = document.getElementById("mobileToggle");
 const mobileMenu = document.getElementById("mobileMenu");
 
 function closeMenu() {
   if (!mobileMenu || !mobileToggle) return;
-  mobileMenu.classList.remove("open");
+  mobileMenu.classList.add("hidden");
   mobileToggle.setAttribute("aria-expanded", "false");
-  document.body.classList.remove("no-scroll");
+  const icon = mobileToggle.querySelector(".material-symbols-outlined");
+  if (icon) icon.textContent = "menu";
 }
 
 function openMenu() {
   if (!mobileMenu || !mobileToggle) return;
-  mobileMenu.classList.add("open");
+  mobileMenu.classList.remove("hidden");
   mobileToggle.setAttribute("aria-expanded", "true");
-  document.body.classList.add("no-scroll");
+  const icon = mobileToggle.querySelector(".material-symbols-outlined");
+  if (icon) icon.textContent = "close";
 }
 
 if (mobileToggle && mobileMenu) {
   mobileToggle.addEventListener("click", () => {
-    const isOpen = mobileMenu.classList.contains("open");
+    const isOpen = !mobileMenu.classList.contains("hidden");
     if (isOpen) closeMenu();
     else openMenu();
   });
 
   // Close when clicking a menu link
   mobileMenu.addEventListener("click", (e) => {
-    const target = e.target;
-    if (target && target.tagName === "A") closeMenu();
+    const target = e.target.closest("a");
+    if (target) closeMenu();
   });
 
   // Close on ESC
@@ -36,9 +38,9 @@ if (mobileToggle && mobileMenu) {
     if (e.key === "Escape") closeMenu();
   });
 
-  // Safety: close menu when resizing to desktop
+  // Close menu when resizing to desktop
   window.addEventListener("resize", () => {
-    if (window.innerWidth > 900) closeMenu();
+    if (window.innerWidth >= 1024) closeMenu();
   });
 }
 
@@ -64,51 +66,31 @@ if (contactForm && formStatus) {
 
       if (response.ok) {
         formStatus.textContent = "Thanks — message sent. We'll be in touch shortly.";
+        formStatus.className = "text-sm text-green-600 text-center mt-3";
         contactForm.reset();
       } else {
         formStatus.textContent = "Something went wrong. Please try again or book a call.";
+        formStatus.className = "text-sm text-red-500 text-center mt-3";
       }
     } catch {
       formStatus.textContent = "Network error. Please try again later.";
+      formStatus.className = "text-sm text-red-500 text-center mt-3";
     }
   });
 }
 
 // -------------------------
-// Scroll-triggered fade-in animations
+// Smooth scroll for anchor links
 // -------------------------
-const fadeElements = document.querySelectorAll(".fade-in");
-
-if (fadeElements.length > 0 && "IntersectionObserver" in window) {
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("visible");
-          observer.unobserve(entry.target);
-        }
-      });
-    },
-    { threshold: 0.1, rootMargin: "0px 0px -40px 0px" }
-  );
-
-  fadeElements.forEach((el) => observer.observe(el));
-}
-
-// -------------------------
-// Navbar background on scroll
-// -------------------------
-const nav = document.querySelector(".nav");
-
-if (nav) {
-  const updateNav = () => {
-    if (window.scrollY > 10) {
-      nav.style.boxShadow = "0 1px 12px rgba(15,23,42,.08)";
-    } else {
-      nav.style.boxShadow = "none";
+document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+  anchor.addEventListener("click", function (e) {
+    const targetId = this.getAttribute("href");
+    if (targetId === "#") return;
+    const target = document.querySelector(targetId);
+    if (target) {
+      e.preventDefault();
+      target.scrollIntoView({ behavior: "smooth" });
+      closeMenu();
     }
-  };
-
-  window.addEventListener("scroll", updateNav, { passive: true });
-  updateNav();
-}
+  });
+});
