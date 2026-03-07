@@ -6,7 +6,7 @@
   <title>Privacy Policy | InfoMetrix</title>
   <meta name="description" content="InfoMetrix privacy policy. Learn how we handle your data." />
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
   <script>
     tailwind.config = {
@@ -14,94 +14,101 @@
       theme: {
         extend: {
           colors: {
-            "primary": "#1162d4",
-            "background-light": "#f6f7f8",
-            "background-dark": "#101822",
+            "primary": "#ec5b13",
+            "infometrix-blue": "#004a99",
+            "background-light": "#f8f6f6",
+            "background-dark": "#221610",
           },
           fontFamily: {
-            "display": ["Inter", "sans-serif"]
+            "display": ["Public Sans", "sans-serif"]
           },
-          borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          borderRadius: {
+            "DEFAULT": "0rem",
+            "lg": "0.25rem",
+            "xl": "0.5rem",
+            "full": "9999px"
+          },
         },
       },
     }
   </script>
+  <style>
+    body { font-family: 'Public Sans', sans-serif; }
+  </style>
 </head>
-<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 overflow-x-hidden">
-<div class="relative flex min-h-screen flex-col">
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 antialiased">
 
   <!-- Top Navigation -->
-  <header id="siteNav" class="sticky top-0 z-50 w-full border-b border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-background-dark/80 backdrop-blur-md px-6 md:px-20 py-4">
-    <div class="max-w-7xl mx-auto flex items-center justify-between">
-      <div class="flex items-center gap-10">
-        <a href="index.html" class="flex items-center gap-2">
-          <span class="material-symbols-outlined text-primary text-3xl">deployed_code</span>
-          <h2 class="text-slate-900 dark:text-white text-xl font-extrabold tracking-tight">InfoMetrix</h2>
+  <header class="sticky top-0 z-50 w-full border-b border-slate-200 dark:border-slate-800 bg-background-light/95 dark:bg-background-dark/95 backdrop-blur-md">
+    <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+      <div class="flex items-center gap-12">
+        <a href="index.html" class="flex items-center gap-2 text-infometrix-blue dark:text-slate-100">
+          <span class="material-symbols-outlined text-4xl font-bold">query_stats</span>
+          <h2 class="text-2xl font-black uppercase tracking-tighter">InfoMetrix</h2>
         </a>
-        <nav class="hidden lg:flex items-center gap-8">
-          <a class="text-slate-600 dark:text-slate-300 text-sm font-semibold hover:text-primary transition-colors" href="index.html#services">Services</a>
-          <a class="text-slate-600 dark:text-slate-300 text-sm font-semibold hover:text-primary transition-colors" href="index.html#why">Why Us</a>
-          <a class="text-slate-600 dark:text-slate-300 text-sm font-semibold hover:text-primary transition-colors" href="index.html#approach">Approach</a>
+        <nav class="hidden md:flex items-center gap-8">
+          <a class="text-sm font-bold uppercase tracking-widest hover:text-primary transition-colors" href="index.html#services">Services</a>
+          <a class="text-sm font-bold uppercase tracking-widest hover:text-primary transition-colors" href="index.html#why">Why Us</a>
+          <a class="text-sm font-bold uppercase tracking-widest hover:text-primary transition-colors" href="index.html#approach">Approach</a>
         </nav>
       </div>
-      <div class="flex items-center gap-4">
-        <a href="contact.html#book" class="bg-primary hover:bg-primary/90 text-white px-6 py-2.5 rounded-lg text-sm font-bold transition-all shadow-md shadow-primary/20 hidden sm:inline-flex">
+      <div class="flex items-center gap-6">
+        <a href="contact.html#book" class="bg-primary hover:bg-primary/90 text-white px-6 py-2.5 text-xs font-black uppercase tracking-widest transition-all hidden sm:inline-flex">
           Book a Call
         </a>
-        <button id="mobileToggle" class="lg:hidden flex items-center justify-center p-2 rounded-lg border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
+        <button id="mobileToggle" class="md:hidden flex items-center justify-center p-2 border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
           <span class="material-symbols-outlined text-slate-600 dark:text-slate-300">menu</span>
         </button>
       </div>
     </div>
-    <div id="mobileMenu" class="hidden lg:hidden mt-4 pb-4 border-t border-slate-100 dark:border-slate-800 pt-4">
-      <nav class="flex flex-col gap-2">
-        <a class="text-slate-700 dark:text-slate-200 text-sm font-semibold py-3 px-4 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors" href="index.html#services">Services</a>
-        <a class="text-slate-700 dark:text-slate-200 text-sm font-semibold py-3 px-4 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors" href="index.html#why">Why Us</a>
-        <a class="text-slate-700 dark:text-slate-200 text-sm font-semibold py-3 px-4 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors" href="index.html#approach">Approach</a>
-        <a class="bg-primary text-white text-sm font-bold py-3 px-4 rounded-lg text-center mt-2" href="contact.html#book">Book a Call</a>
+    <div id="mobileMenu" class="hidden md:hidden border-t border-slate-200 dark:border-slate-800 bg-background-light dark:bg-background-dark">
+      <nav class="max-w-7xl mx-auto px-6 py-6 flex flex-col gap-1">
+        <a class="text-sm font-bold uppercase tracking-widest py-3 px-4 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" href="index.html#services">Services</a>
+        <a class="text-sm font-bold uppercase tracking-widest py-3 px-4 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" href="index.html#why">Why Us</a>
+        <a class="text-sm font-bold uppercase tracking-widest py-3 px-4 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" href="index.html#approach">Approach</a>
+        <a class="bg-primary text-white text-xs font-black uppercase tracking-widest py-3 px-4 text-center mt-4" href="contact.html#book">Book a Call</a>
       </nav>
     </div>
   </header>
 
-  <main class="flex-grow">
+  <main>
     <!-- Page Header -->
-    <section class="px-6 md:px-20 py-16 md:py-20">
-      <div class="max-w-3xl mx-auto">
-        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-bold uppercase tracking-wider w-fit mb-6">
-          <span class="material-symbols-outlined text-sm">policy</span>
-          Legal
-        </div>
-        <h1 class="text-4xl md:text-5xl font-black text-slate-900 dark:text-white tracking-tight mb-4">Privacy Policy</h1>
-        <p class="text-slate-500 text-sm">Last updated: February 2026</p>
+    <section class="border-b border-slate-200 dark:border-slate-800">
+      <div class="max-w-7xl mx-auto px-6 py-16 md:py-20">
+        <span class="text-primary font-black uppercase tracking-[0.3em] text-sm mb-4 block">Legal</span>
+        <h1 class="text-5xl md:text-7xl font-black tracking-tighter uppercase">Privacy.</h1>
+        <p class="text-slate-500 text-sm mt-4">Last updated: February 2026</p>
       </div>
     </section>
 
     <!-- Privacy Content -->
-    <section class="px-6 md:px-20 pb-24">
-      <div class="max-w-3xl mx-auto">
-        <div class="bg-white dark:bg-slate-900 rounded-2xl p-8 md:p-12 border border-slate-100 dark:border-slate-800 shadow-sm space-y-8">
+    <section class="py-16 md:py-24">
+      <div class="max-w-3xl mx-auto px-6">
+        <div class="border border-slate-200 dark:border-slate-800 bg-white dark:bg-background-dark">
 
-          <p class="text-slate-600 dark:text-slate-400 leading-relaxed">
-            InfoMetrix ("we," "our," or "us") respects your privacy and is committed
-            to protecting it through this Privacy Policy.
-          </p>
+          <div class="p-8 md:p-12 border-b border-slate-200 dark:border-slate-800">
+            <p class="text-slate-600 dark:text-slate-400 leading-relaxed">
+              InfoMetrix ("we," "our," or "us") respects your privacy and is committed
+              to protecting it through this Privacy Policy.
+            </p>
+          </div>
 
-          <div>
-            <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-3 flex items-center gap-2">
-              <span class="material-symbols-outlined text-primary text-xl">folder_open</span>
-              Information We Collect
-            </h3>
+          <div class="p-8 md:p-12 border-b border-slate-200 dark:border-slate-800">
+            <div class="flex items-center gap-3 mb-4">
+              <span class="material-symbols-outlined text-primary text-2xl">folder_open</span>
+              <h3 class="text-lg font-black uppercase tracking-tight">Information We Collect</h3>
+            </div>
             <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
               We may collect personal information such as your name, email address,
               and message content when you submit a form on our website.
             </p>
           </div>
 
-          <div>
-            <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-3 flex items-center gap-2">
-              <span class="material-symbols-outlined text-primary text-xl">data_usage</span>
-              How We Use Information
-            </h3>
+          <div class="p-8 md:p-12 border-b border-slate-200 dark:border-slate-800">
+            <div class="flex items-center gap-3 mb-4">
+              <span class="material-symbols-outlined text-primary text-2xl">data_usage</span>
+              <h3 class="text-lg font-black uppercase tracking-tight">How We Use Information</h3>
+            </div>
             <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
               Information is used only to respond to inquiries, communicate regarding
               services, and improve our operations. We do not sell or share personal
@@ -109,11 +116,11 @@
             </p>
           </div>
 
-          <div>
-            <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-3 flex items-center gap-2">
-              <span class="material-symbols-outlined text-primary text-xl">share</span>
-              Third-Party Services
-            </h3>
+          <div class="p-8 md:p-12 border-b border-slate-200 dark:border-slate-800">
+            <div class="flex items-center gap-3 mb-4">
+              <span class="material-symbols-outlined text-primary text-2xl">share</span>
+              <h3 class="text-lg font-black uppercase tracking-tight">Third-Party Services</h3>
+            </div>
             <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
               We use third-party services such as form handling and scheduling tools
               to operate this website. These providers receive only the information
@@ -121,36 +128,36 @@
             </p>
           </div>
 
-          <div>
-            <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-3 flex items-center gap-2">
-              <span class="material-symbols-outlined text-primary text-xl">lock</span>
-              Data Security
-            </h3>
+          <div class="p-8 md:p-12 border-b border-slate-200 dark:border-slate-800">
+            <div class="flex items-center gap-3 mb-4">
+              <span class="material-symbols-outlined text-primary text-2xl">lock</span>
+              <h3 class="text-lg font-black uppercase tracking-tight">Data Security</h3>
+            </div>
             <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
               Reasonable safeguards are in place to protect your information, though
               no system can guarantee complete security.
             </p>
           </div>
 
-          <div>
-            <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-3 flex items-center gap-2">
-              <span class="material-symbols-outlined text-primary text-xl">person</span>
-              Your Rights
-            </h3>
+          <div class="p-8 md:p-12 border-b border-slate-200 dark:border-slate-800">
+            <div class="flex items-center gap-3 mb-4">
+              <span class="material-symbols-outlined text-primary text-2xl">person</span>
+              <h3 class="text-lg font-black uppercase tracking-tight">Your Rights</h3>
+            </div>
             <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
               You may request access, correction, or deletion of your personal
               information by contacting us.
             </p>
           </div>
 
-          <div class="border-t border-slate-100 dark:border-slate-800 pt-8">
-            <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-3 flex items-center gap-2">
-              <span class="material-symbols-outlined text-primary text-xl">contact_mail</span>
-              Contact
-            </h3>
+          <div class="p-8 md:p-12">
+            <div class="flex items-center gap-3 mb-4">
+              <span class="material-symbols-outlined text-primary text-2xl">contact_mail</span>
+              <h3 class="text-lg font-black uppercase tracking-tight">Contact</h3>
+            </div>
             <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
               InfoMetrix<br />
-              Email: <a class="text-primary font-semibold hover:underline" href="mailto:info@infometrix.us">info@infometrix.us</a>
+              Email: <a class="text-primary font-bold hover:underline" href="mailto:info@infometrix.us">info@infometrix.us</a>
             </p>
           </div>
         </div>
@@ -159,57 +166,58 @@
   </main>
 
   <!-- Footer -->
-  <footer class="bg-slate-950 text-slate-400 py-16 px-6 md:px-20 border-t border-slate-900">
-    <div class="max-w-7xl mx-auto grid md:grid-cols-4 gap-12">
-      <div class="flex flex-col gap-6">
-        <div class="flex items-center gap-2">
-          <span class="material-symbols-outlined text-primary text-3xl">deployed_code</span>
-          <h2 class="text-white text-xl font-extrabold tracking-tight">InfoMetrix</h2>
+  <footer class="bg-background-light dark:bg-background-dark border-t border-slate-200 dark:border-slate-800 py-16">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-12 mb-16">
+        <div class="col-span-2">
+          <a href="index.html" class="flex items-center gap-2 text-infometrix-blue dark:text-slate-100 mb-6">
+            <span class="material-symbols-outlined text-3xl font-bold">query_stats</span>
+            <h2 class="text-xl font-black uppercase tracking-tighter">InfoMetrix</h2>
+          </a>
+          <p class="text-slate-500 text-sm max-w-xs leading-relaxed">
+            Consulting & management services built for control, visibility, and disciplined execution.
+          </p>
         </div>
-        <p class="text-sm leading-relaxed">
-          Consulting & management services built for control, visibility, and disciplined execution.
-        </p>
+        <div>
+          <h6 class="font-black uppercase text-xs tracking-widest mb-6">Services</h6>
+          <ul class="flex flex-col gap-4 text-sm text-slate-600 dark:text-slate-400">
+            <li><a class="hover:text-primary transition-colors" href="index.html#services">Operational</a></li>
+            <li><a class="hover:text-primary transition-colors" href="index.html#services">Financial</a></li>
+            <li><a class="hover:text-primary transition-colors" href="index.html#services">Compliance</a></li>
+          </ul>
+        </div>
+        <div>
+          <h6 class="font-black uppercase text-xs tracking-widest mb-6">Company</h6>
+          <ul class="flex flex-col gap-4 text-sm text-slate-600 dark:text-slate-400">
+            <li><a class="hover:text-primary transition-colors" href="index.html#approach">Our Approach</a></li>
+            <li><a class="hover:text-primary transition-colors" href="contact.html">Contact</a></li>
+            <li><a class="hover:text-primary transition-colors" href="privacy.html">Privacy Policy</a></li>
+          </ul>
+        </div>
+        <div>
+          <h6 class="font-black uppercase text-xs tracking-widest mb-6">Contact</h6>
+          <ul class="flex flex-col gap-4 text-sm text-slate-600 dark:text-slate-400">
+            <li class="flex items-start gap-2">
+              <span class="material-symbols-outlined text-primary text-sm">mail</span>
+              <a class="hover:text-primary transition-colors" href="mailto:info@infometrix.us">info@infometrix.us</a>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="material-symbols-outlined text-primary text-sm">calendar_month</span>
+              <a class="hover:text-primary transition-colors" href="contact.html#book">Book a Call</a>
+            </li>
+          </ul>
+        </div>
       </div>
-      <div>
-        <h4 class="text-white font-bold mb-6">Services</h4>
-        <ul class="space-y-4 text-sm">
-          <li><a class="hover:text-white transition-colors" href="index.html#services">Operational</a></li>
-          <li><a class="hover:text-white transition-colors" href="index.html#services">Financial</a></li>
-          <li><a class="hover:text-white transition-colors" href="index.html#services">Compliance</a></li>
-        </ul>
-      </div>
-      <div>
-        <h4 class="text-white font-bold mb-6">Company</h4>
-        <ul class="space-y-4 text-sm">
-          <li><a class="hover:text-white transition-colors" href="index.html#approach">Our Approach</a></li>
-          <li><a class="hover:text-white transition-colors" href="contact.html">Contact</a></li>
-          <li><a class="hover:text-white transition-colors" href="privacy.html">Privacy Policy</a></li>
-        </ul>
-      </div>
-      <div>
-        <h4 class="text-white font-bold mb-6">Contact</h4>
-        <ul class="space-y-4 text-sm">
-          <li class="flex items-start gap-2">
-            <span class="material-symbols-outlined text-primary text-sm">mail</span>
-            <a class="hover:text-white transition-colors" href="mailto:info@infometrix.us">info@infometrix.us</a>
-          </li>
-          <li class="flex items-start gap-2">
-            <span class="material-symbols-outlined text-primary text-sm">calendar_month</span>
-            <a class="hover:text-white transition-colors" href="contact.html#book">Book a Call</a>
-          </li>
-        </ul>
-      </div>
-    </div>
-    <div class="max-w-7xl mx-auto border-t border-slate-900 mt-16 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs">
-      <p>&copy; InfoMetrix. All rights reserved.</p>
-      <div class="flex gap-6">
-        <a class="hover:text-white transition-colors" href="privacy.html">Privacy Policy</a>
-        <span class="text-slate-700">Consulting services only. No legal or tax advice.</span>
+      <div class="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-slate-200 dark:border-slate-800 gap-6">
+        <p class="text-xs text-slate-500 font-bold uppercase tracking-widest">&copy; InfoMetrix. All Rights Reserved.</p>
+        <div class="flex gap-8 text-xs text-slate-500">
+          <a class="hover:text-primary transition-colors font-bold uppercase tracking-widest" href="privacy.html">Privacy Policy</a>
+          <span>Consulting services only. No legal or tax advice.</span>
+        </div>
       </div>
     </div>
   </footer>
-</div>
 
-<script src="assets/js/main.js"></script>
+  <script src="assets/js/main.js"></script>
 </body>
 </html>

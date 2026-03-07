@@ -40,7 +40,7 @@ if (mobileToggle && mobileMenu) {
 
   // Close menu when resizing to desktop
   window.addEventListener("resize", () => {
-    if (window.innerWidth >= 1024) closeMenu();
+    if (window.innerWidth >= 768) closeMenu();
   });
 }
 
