@@ -1,0 +1,74 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@400;500;600;700;800&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Manrope", ui-sans-serif, system-ui, sans-serif;
+
+  --color-primary: var(--color-primary);
+  --color-secondary: var(--color-secondary);
+  --color-tertiary: var(--color-tertiary);
+  
+  --color-surface: var(--color-surface);
+  --color-surface-container-low: var(--color-surface-container-low);
+  --color-surface-container-lowest: var(--color-surface-container-lowest);
+  
+  --color-text-main: var(--color-text-main);
+  --color-text-muted: var(--color-text-muted);
+  --color-border: var(--color-border);
+  --color-nav-bg: var(--color-nav-bg);
+
+  --shadow-ambient: var(--shadow-ambient);
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 80px;
+}
+
+:root {
+  --color-primary: #0F172A;
+  --color-secondary: #2563EB;
+  --color-tertiary: #06B6D4;
+  
+  --color-surface: #F8FAFC;
+  --color-surface-container-low: #F1F5F9;
+  --color-surface-container-lowest: #FFFFFF;
+  
+  --color-text-main: #0F172A;
+  --color-text-muted: #475569;
+  --color-border: #E2E8F0;
+  --color-nav-bg: rgba(255, 255, 255, 0.8);
+  --shadow-ambient: 0 20px 50px rgba(15, 23, 42, 0.06);
+}
+
+.dark {
+  --color-primary: #0F172A;
+  --color-secondary: #3B82F6;
+  --color-tertiary: #22D3EE;
+  
+  --color-surface: #020617;
+  --color-surface-container-low: #0F172A;
+  --color-surface-container-lowest: #1E293B;
+  
+  --color-text-main: #F8FAFC;
+  --color-text-muted: #94A3B8;
+  --color-border: #334155;
+  --color-nav-bg: rgba(2, 6, 23, 0.8);
+  --shadow-ambient: 0 20px 50px rgba(0, 0, 0, 0.3);
+}
+
+@layer utilities {
+  .dot-matrix {
+    background-image: radial-gradient(circle, var(--color-border) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+  .dot-matrix-dark {
+    background-image: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+  .glass-nav {
+    background: var(--color-nav-bg);
+    backdrop-filter: blur(20px);
+  }
+}
