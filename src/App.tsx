@@ -31,6 +31,19 @@ const staggerContainer = {
   }
 };
 
+const scrollFadeIn = {
+  initial: { opacity: 0, y: 30 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true, amount: 0.2 },
+  transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] }
+};
+
+const scrollStagger = {
+  initial: { opacity: 0, y: 30 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true, amount: 0.2 },
+};
+
 export default function App() {
   const { theme, toggleTheme } = useTheme();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -158,7 +171,7 @@ export default function App() {
         </section>
 
         {/* Trust / Authority Strip */}
-        <section className="bg-primary py-12">
+        <motion.section {...scrollFadeIn} className="bg-primary py-12">
           <div className="max-w-7xl mx-auto px-8">
             <div className="flex flex-col md:flex-row items-center justify-between gap-8 md:gap-16">
               <div className="text-white text-center md:text-left">
@@ -177,12 +190,12 @@ export default function App() {
               </div>
             </div>
           </div>
-        </section>
+        </motion.section>
 
         {/* Core Capabilities */}
         <section className="py-32 bg-surface transition-colors duration-300" id="services">
           <div className="max-w-7xl mx-auto px-8">
-            <div className="flex flex-col md:flex-row justify-between items-end mb-20 gap-8">
+            <motion.div {...scrollFadeIn} className="flex flex-col md:flex-row justify-between items-end mb-20 gap-8">
               <div className="max-w-2xl">
                 <span className="text-secondary font-sans font-bold uppercase tracking-widest text-sm mb-4 block">Our Expertise</span>
                 <h2 className="text-4xl md:text-6xl font-display font-extrabold text-text-main leading-tight tracking-tight">
@@ -192,11 +205,13 @@ export default function App() {
               <div className="text-text-muted text-lg font-medium">
                 Structured logic for complex business environments.
               </div>
-            </div>
+            </motion.div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               {/* Card 1 */}
-              <motion.div 
+              <motion.div
+                {...scrollStagger}
+                transition={{ duration: 0.5, delay: 0 }}
                 whileHover={{ y: -8 }}
                 className="bg-surface-container-lowest p-10 rounded-2xl shadow-ambient group transition-colors duration-300"
               >
@@ -214,7 +229,9 @@ export default function App() {
               </motion.div>
 
               {/* Card 2 */}
-              <motion.div 
+              <motion.div
+                {...scrollStagger}
+                transition={{ duration: 0.5, delay: 0.1 }}
                 whileHover={{ y: -8 }}
                 className="bg-surface-container-lowest p-10 rounded-2xl shadow-ambient group lg:col-span-1 transition-colors duration-300"
               >
@@ -231,7 +248,9 @@ export default function App() {
               </motion.div>
 
               {/* Card 3 */}
-              <motion.div 
+              <motion.div
+                {...scrollStagger}
+                transition={{ duration: 0.5, delay: 0.2 }}
                 whileHover={{ y: -8 }}
                 className="bg-surface-container-lowest p-10 rounded-2xl shadow-ambient group transition-colors duration-300"
               >
@@ -247,7 +266,7 @@ export default function App() {
               </motion.div>
 
               {/* Card 4 - Large/Impact */}
-              <div className="bg-primary text-white p-10 rounded-2xl md:col-span-2 group relative overflow-hidden shadow-ambient">
+              <motion.div {...scrollStagger} transition={{ duration: 0.5, delay: 0.3 }} className="bg-primary text-white p-10 rounded-2xl md:col-span-2 group relative overflow-hidden shadow-ambient">
                 <div className="absolute top-0 right-0 w-64 h-64 bg-secondary/20 blur-[100px] -mr-32 -mt-32"></div>
                 <div className="relative z-10">
                   <Zap className="text-tertiary mb-6 fill-tertiary/20" size={48} strokeWidth={1.5} />
@@ -269,10 +288,12 @@ export default function App() {
                     </div>
                   </div>
                 </div>
-              </div>
+              </motion.div>
 
               {/* Card 5 */}
-              <motion.div 
+              <motion.div
+                {...scrollStagger}
+                transition={{ duration: 0.5, delay: 0.4 }}
                 whileHover={{ y: -8 }}
                 className="bg-surface-container-lowest p-10 rounded-2xl shadow-ambient group transition-colors duration-300"
               >
@@ -293,10 +314,10 @@ export default function App() {
         {/* Process Section */}
         <section className="py-32 bg-surface-container-low transition-colors duration-300" id="process">
           <div className="max-w-7xl mx-auto px-8">
-            <div className="text-center mb-24">
+            <motion.div {...scrollFadeIn} className="text-center mb-24">
               <h2 className="text-4xl md:text-5xl font-display font-extrabold text-text-main mb-6 tracking-tight">A structured approach to control and scale</h2>
               <div className="w-24 h-1.5 bg-secondary mx-auto rounded-full"></div>
-            </div>
+            </motion.div>
 
             <div className="relative grid grid-cols-1 md:grid-cols-5 gap-8 md:gap-4">
               {/* Connector Line (Hidden on mobile) */}
@@ -308,8 +329,8 @@ export default function App() {
                 { step: 3, title: 'Implement', desc: 'Deploy infrastructure and clean books.' },
                 { step: 4, title: 'Automate', desc: 'Eliminate manual bottlenecks with logic.' },
                 { step: 5, title: 'Optimize', desc: 'Continuous scaling & performance tuning.' },
-              ].map((item) => (
-                <div key={item.step} className="relative z-10 text-center space-y-6 group">
+              ].map((item, i) => (
+                <motion.div key={item.step} {...scrollStagger} transition={{ duration: 0.5, delay: i * 0.1 }} className="relative z-10 text-center space-y-6 group">
                   <div className="w-16 h-16 rounded-full bg-surface-container-lowest shadow-ambient mx-auto flex items-center justify-center font-display font-black text-xl text-text-main border-4 border-surface-container-low group-hover:border-secondary transition-colors duration-300">
                     {item.step}
                   </div>
@@ -317,7 +338,7 @@ export default function App() {
                     <h4 className="font-display font-bold text-lg mb-2 text-text-main">{item.title}</h4>
                     <p className="text-sm text-text-muted px-4 leading-relaxed">{item.desc}</p>
                   </div>
-                </div>
+                </motion.div>
               ))}
             </div>
           </div>
@@ -326,7 +347,7 @@ export default function App() {
         {/* Why InfoMetrix (Comparison) */}
         <section className="py-32 overflow-hidden bg-surface transition-colors duration-300" id="why-us">
           <div className="max-w-7xl mx-auto px-8">
-            <div className="grid lg:grid-cols-2 gap-20 items-center">
+            <motion.div {...scrollFadeIn} className="grid lg:grid-cols-2 gap-20 items-center">
               <div>
                 <h2 className="text-4xl md:text-5xl font-display font-extrabold text-text-main mb-8 tracking-tight leading-tight">
                   We are not accountants.<br/>
@@ -371,14 +392,14 @@ export default function App() {
                   </div>
                 </div>
               </div>
-            </div>
+            </motion.div>
           </div>
         </section>
 
         {/* Visualization Section */}
         <section className="py-32 bg-primary overflow-hidden relative">
           <div className="absolute inset-0 dot-matrix-dark opacity-20"></div>
-          <div className="max-w-7xl mx-auto px-8 grid lg:grid-cols-2 gap-20 items-center relative z-10">
+          <motion.div {...scrollFadeIn} className="max-w-7xl mx-auto px-8 grid lg:grid-cols-2 gap-20 items-center relative z-10">
             <div className="order-2 lg:order-1">
               <img
                 src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2015&auto=format&fit=crop"
@@ -409,25 +430,27 @@ export default function App() {
                 </div>
               </div>
             </div>
-          </div>
+          </motion.div>
         </section>
 
         {/* Industries */}
         <section className="py-32 bg-surface transition-colors duration-300">
           <div className="max-w-7xl mx-auto px-8 text-center">
-            <h2 className="text-4xl md:text-5xl font-display font-extrabold text-text-main mb-6 tracking-tight">Built for operational businesses</h2>
-            <p className="text-lg text-text-muted mb-16 max-w-2xl mx-auto">If your business has moving parts, we bring structure to it.</p>
-            
+            <motion.div {...scrollFadeIn}>
+              <h2 className="text-4xl md:text-5xl font-display font-extrabold text-text-main mb-6 tracking-tight">Built for operational businesses</h2>
+              <p className="text-lg text-text-muted mb-16 max-w-2xl mx-auto">If your business has moving parts, we bring structure to it.</p>
+            </motion.div>
+
             <div className="grid md:grid-cols-3 gap-8">
-              <motion.div whileHover={{ y: -5 }} className="p-12 bg-surface-container-lowest rounded-3xl shadow-ambient transition-colors duration-300">
+              <motion.div {...scrollStagger} transition={{ duration: 0.5, delay: 0 }} whileHover={{ y: -5 }} className="p-12 bg-surface-container-lowest rounded-3xl shadow-ambient transition-colors duration-300">
                 <Truck className="text-secondary mx-auto mb-6" size={48} strokeWidth={1.5} />
                 <h4 className="text-xl font-display font-bold text-text-main">Logistics & Transportation</h4>
               </motion.div>
-              <motion.div whileHover={{ y: -5 }} className="p-12 bg-surface-container-lowest rounded-3xl shadow-ambient transition-colors duration-300">
+              <motion.div {...scrollStagger} transition={{ duration: 0.5, delay: 0.1 }} whileHover={{ y: -5 }} className="p-12 bg-surface-container-lowest rounded-3xl shadow-ambient transition-colors duration-300">
                 <Briefcase className="text-secondary mx-auto mb-6" size={48} strokeWidth={1.5} />
                 <h4 className="text-xl font-display font-bold text-text-main">Service-Based Companies</h4>
               </motion.div>
-              <motion.div whileHover={{ y: -5 }} className="p-12 bg-surface-container-lowest rounded-3xl shadow-ambient transition-colors duration-300">
+              <motion.div {...scrollStagger} transition={{ duration: 0.5, delay: 0.2 }} whileHover={{ y: -5 }} className="p-12 bg-surface-container-lowest rounded-3xl shadow-ambient transition-colors duration-300">
                 <TrendingUp className="text-secondary mx-auto mb-6" size={48} strokeWidth={1.5} />
                 <h4 className="text-xl font-display font-bold text-text-main">Growth-Stage Businesses</h4>
               </motion.div>
@@ -438,7 +461,7 @@ export default function App() {
         {/* Final CTA */}
         <section id="strategy-call" className="py-32 relative overflow-hidden bg-surface transition-colors duration-300">
           <div className="max-w-5xl mx-auto px-8 text-center relative z-10">
-            <div className="bg-primary text-white p-8 sm:p-16 md:p-24 rounded-[40px] shadow-2xl relative overflow-hidden">
+            <motion.div {...scrollFadeIn} className="bg-primary text-white p-8 sm:p-16 md:p-24 rounded-[40px] shadow-2xl relative overflow-hidden">
               <div className="absolute inset-0 dot-matrix-dark opacity-10"></div>
               <div className="relative z-10">
                 <h2 className="text-4xl md:text-6xl font-display font-black mb-6 tracking-tight">Stop operating in the dark</h2>
@@ -452,7 +475,7 @@ export default function App() {
                   Schedule a Strategy Call
                 </button>
               </div>
-            </div>
+            </motion.div>
           </div>
         </section>
       </main>
