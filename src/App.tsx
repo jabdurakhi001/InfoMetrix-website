@@ -61,7 +61,7 @@ export default function App() {
             <button onClick={toggleTheme} className="p-2 text-text-muted hover:text-text-main transition-colors" aria-label="Toggle Dark Mode">
               {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
             </button>
-            <button onClick={openCalendly} className="hidden sm:block bg-primary text-white px-6 py-3 font-display font-semibold text-sm rounded-md active:scale-95 transition-transform hover:bg-primary/90 cursor-pointer">
+            <button onClick={openCalendly} className="hidden md:block bg-primary text-white px-6 py-3 font-display font-semibold text-sm rounded-md active:scale-95 transition-transform hover:bg-primary/90 cursor-pointer">
               Book a Strategy Call
             </button>
             <button
@@ -88,7 +88,7 @@ export default function App() {
                 <a href="#why-us" onClick={() => setMobileMenuOpen(false)} className="block text-text-muted hover:text-secondary transition-colors font-display font-medium text-lg">Why Us</a>
                 <button
                   onClick={() => { openCalendly(); setMobileMenuOpen(false); }}
-                  className="sm:hidden w-full bg-primary text-white px-6 py-3 font-display font-semibold text-sm rounded-md active:scale-95 transition-transform cursor-pointer mt-2"
+                  className="md:hidden w-full bg-primary text-white px-6 py-3 font-display font-semibold text-sm rounded-md active:scale-95 transition-transform cursor-pointer mt-2"
                 >
                   Book a Strategy Call
                 </button>
@@ -463,7 +463,7 @@ export default function App() {
         {/* Final CTA */}
         <section id="strategy-call" className="py-32 relative overflow-hidden bg-surface transition-colors duration-300">
           <div className="max-w-5xl mx-auto px-8 text-center relative z-10">
-            <div className="bg-primary text-white p-16 md:p-24 rounded-[40px] shadow-2xl relative overflow-hidden">
+            <div className="bg-primary text-white p-8 sm:p-16 md:p-24 rounded-[40px] shadow-2xl relative overflow-hidden">
               <div className="absolute inset-0 dot-matrix-dark opacity-10"></div>
               <div className="relative z-10">
                 <h2 className="text-4xl md:text-6xl font-display font-black mb-6 tracking-tight">Stop operating in the dark</h2>
@@ -472,7 +472,7 @@ export default function App() {
                 </p>
                 <button
                   onClick={openCalendly}
-                  className="bg-secondary text-white px-10 py-5 rounded-md font-display font-bold text-lg hover:bg-blue-700 hover:shadow-xl transition-all active:scale-95 cursor-pointer mx-auto min-w-[280px]"
+                  className="block bg-secondary text-white px-10 py-5 rounded-md font-display font-bold text-lg hover:bg-blue-700 hover:shadow-xl transition-all active:scale-95 cursor-pointer mx-auto w-full sm:w-auto sm:min-w-[280px]"
                 >
                   Schedule a Strategy Call
                 </button>
