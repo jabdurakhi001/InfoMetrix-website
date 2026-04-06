@@ -1,8 +1,9 @@
-import { motion } from 'motion/react';
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
 import {
   Zap, BadgeCheck, Ruler, Landmark, Network, LineChart,
   Settings, Link as LinkIcon, BarChart3, X, Check,
-  Truck, Briefcase, TrendingUp, Moon, Sun
+  Truck, Briefcase, TrendingUp, Moon, Sun, Menu
 } from 'lucide-react';
 import { useTheme } from './components/ThemeProvider';
 import { AnimatedCounter } from './components/AnimatedCounter';
@@ -33,6 +34,7 @@ const staggerContainer = {
 
 export default function App() {
   const { theme, toggleTheme } = useTheme();
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const openCalendly = () => {
     if (window.Calendly) {
@@ -46,7 +48,7 @@ export default function App() {
     <div className="bg-surface text-text-main font-sans selection:bg-secondary/20 selection:text-secondary min-h-screen transition-colors duration-300">
       {/* Navigation */}
       <nav className="fixed top-0 w-full z-50 glass-nav border-b border-border transition-colors duration-300">
-        <div className="max-w-7xl mx-auto px-8 flex justify-between items-center h-20">
+        <div className="max-w-7xl mx-auto px-6 sm:px-8 flex justify-between items-center h-16 sm:h-20">
           <div className="text-2xl font-black tracking-tighter text-text-main font-display">
             InfoMetrix
           </div>
@@ -55,18 +57,48 @@ export default function App() {
             <a href="#process" className="text-text-muted hover:text-secondary transition-colors duration-300">Process</a>
             <a href="#why-us" className="text-text-muted hover:text-secondary transition-colors duration-300">Why Us</a>
           </div>
-          <div className="flex items-center gap-6">
+          <div className="flex items-center gap-3 sm:gap-6">
             <button onClick={toggleTheme} className="p-2 text-text-muted hover:text-text-main transition-colors" aria-label="Toggle Dark Mode">
               {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
             </button>
-            <button onClick={openCalendly} className="bg-primary text-white px-6 py-3 font-display font-semibold text-sm rounded-md active:scale-95 transition-transform hover:bg-primary/90 cursor-pointer">
+            <button onClick={openCalendly} className="hidden sm:block bg-primary text-white px-6 py-3 font-display font-semibold text-sm rounded-md active:scale-95 transition-transform hover:bg-primary/90 cursor-pointer">
               Book a Strategy Call
+            </button>
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="md:hidden p-2 text-text-muted hover:text-text-main transition-colors"
+              aria-label="Toggle Menu"
+            >
+              {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
           </div>
         </div>
+        <AnimatePresence>
+          {mobileMenuOpen && (
+            <motion.div
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: 'auto', opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              className="md:hidden overflow-hidden border-t border-border"
+            >
+              <div className="px-6 py-6 space-y-4">
+                <a href="#services" onClick={() => setMobileMenuOpen(false)} className="block text-text-muted hover:text-secondary transition-colors font-display font-medium text-lg">Services</a>
+                <a href="#process" onClick={() => setMobileMenuOpen(false)} className="block text-text-muted hover:text-secondary transition-colors font-display font-medium text-lg">Process</a>
+                <a href="#why-us" onClick={() => setMobileMenuOpen(false)} className="block text-text-muted hover:text-secondary transition-colors font-display font-medium text-lg">Why Us</a>
+                <button
+                  onClick={() => { openCalendly(); setMobileMenuOpen(false); }}
+                  className="sm:hidden w-full bg-primary text-white px-6 py-3 font-display font-semibold text-sm rounded-md active:scale-95 transition-transform cursor-pointer mt-2"
+                >
+                  Book a Strategy Call
+                </button>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </nav>
 
-      <main className="pt-20">
+      <main className="pt-16 sm:pt-20">
         {/* Hero Section */}
         <section className="relative min-h-[90vh] flex items-center overflow-hidden dot-matrix">
           <div className="max-w-7xl mx-auto px-8 grid lg:grid-cols-2 gap-16 items-center py-20">
@@ -373,9 +405,9 @@ export default function App() {
           <div className="absolute inset-0 dot-matrix-dark opacity-20"></div>
           <div className="max-w-7xl mx-auto px-8 grid lg:grid-cols-2 gap-20 items-center relative z-10">
             <div className="order-2 lg:order-1">
-              <img 
-                src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop" 
-                alt="Financial Clarity Dashboard" 
+              <img
+                src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2015&auto=format&fit=crop"
+                alt="Business Analytics Dashboard"
                 className="rounded-3xl shadow-2xl border border-white/10 opacity-80 mix-blend-luminosity hover:mix-blend-normal transition-all duration-700"
                 referrerPolicy="no-referrer"
               />
@@ -429,7 +461,7 @@ export default function App() {
         </section>
 
         {/* Final CTA */}
-        <section id="strategy-call" className="py-32 relative overflow-hidden bg-surface-container-low transition-colors duration-300">
+        <section id="strategy-call" className="py-32 relative overflow-hidden bg-surface transition-colors duration-300">
           <div className="max-w-5xl mx-auto px-8 text-center relative z-10">
             <div className="bg-primary text-white p-16 md:p-24 rounded-[40px] shadow-2xl relative overflow-hidden">
               <div className="absolute inset-0 dot-matrix-dark opacity-10"></div>
