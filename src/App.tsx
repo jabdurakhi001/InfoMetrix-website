@@ -6,7 +6,6 @@ import {
   Truck, Briefcase, TrendingUp, Moon, Sun, Menu
 } from 'lucide-react';
 import { useTheme } from './components/ThemeProvider';
-import { AnimatedCounter } from './components/AnimatedCounter';
 
 declare global {
   interface Window {
@@ -201,14 +200,8 @@ export default function App() {
                 whileHover={{ y: -8 }}
                 className="bg-surface-container-lowest p-10 rounded-2xl shadow-ambient group transition-colors duration-300"
               >
-                <div className="flex justify-between items-start mb-6">
+                <div className="mb-6">
                   <Landmark className="text-secondary" size={40} strokeWidth={1.5} />
-                  <div className="text-right">
-                    <div className="text-3xl font-display font-black text-tertiary">
-                      <AnimatedCounter value={5} suffix="x" />
-                    </div>
-                    <div className="text-[10px] font-sans font-bold text-text-muted uppercase tracking-wider">Faster Close</div>
-                  </div>
                 </div>
                 <h3 className="text-xl font-display font-bold mb-4 text-text-main group-hover:text-secondary transition-colors">Financial Operations Management</h3>
                 <ul className="space-y-3 text-text-muted font-medium text-sm">
@@ -225,14 +218,8 @@ export default function App() {
                 whileHover={{ y: -8 }}
                 className="bg-surface-container-lowest p-10 rounded-2xl shadow-ambient group lg:col-span-1 transition-colors duration-300"
               >
-                <div className="flex justify-between items-start mb-6">
+                <div className="mb-6">
                   <Network className="text-secondary" size={40} strokeWidth={1.5} />
-                  <div className="text-right">
-                    <div className="text-3xl font-display font-black text-tertiary">
-                      <AnimatedCounter value={100} suffix="%" />
-                    </div>
-                    <div className="text-[10px] font-sans font-bold text-text-muted uppercase tracking-wider">Audit Ready</div>
-                  </div>
                 </div>
                 <h3 className="text-xl font-display font-bold mb-4 text-text-main group-hover:text-secondary transition-colors">Accounting & Infrastructure</h3>
                 <ul className="space-y-3 text-text-muted font-medium text-sm">
@@ -248,14 +235,8 @@ export default function App() {
                 whileHover={{ y: -8 }}
                 className="bg-surface-container-lowest p-10 rounded-2xl shadow-ambient group transition-colors duration-300"
               >
-                <div className="flex justify-between items-start mb-6">
+                <div className="mb-6">
                   <LineChart className="text-secondary" size={40} strokeWidth={1.5} />
-                  <div className="text-right">
-                    <div className="text-3xl font-display font-black text-tertiary">
-                      <AnimatedCounter value={98} suffix="%" />
-                    </div>
-                    <div className="text-[10px] font-sans font-bold text-text-muted uppercase tracking-wider">Accuracy</div>
-                  </div>
                 </div>
                 <h3 className="text-xl font-display font-bold mb-4 text-text-main group-hover:text-secondary transition-colors">Forecasting & Planning</h3>
                 <ul className="space-y-3 text-text-muted font-medium text-sm">
@@ -295,14 +276,8 @@ export default function App() {
                 whileHover={{ y: -8 }}
                 className="bg-surface-container-lowest p-10 rounded-2xl shadow-ambient group transition-colors duration-300"
               >
-                <div className="flex justify-between items-start mb-6">
+                <div className="mb-6">
                   <BarChart3 className="text-secondary" size={40} strokeWidth={1.5} />
-                  <div className="text-right">
-                    <div className="text-3xl font-display font-black text-tertiary">
-                      <AnimatedCounter value={360} suffix="°" />
-                    </div>
-                    <div className="text-[10px] font-sans font-bold text-text-muted uppercase tracking-wider">Visibility</div>
-                  </div>
                 </div>
                 <h3 className="text-xl font-display font-bold mb-4 text-text-main group-hover:text-secondary transition-colors">Business Intelligence</h3>
                 <ul className="space-y-3 text-text-muted font-medium text-sm">
