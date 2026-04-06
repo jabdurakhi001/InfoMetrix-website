@@ -61,8 +61,8 @@ export default function App() {
       {/* Navigation */}
       <nav className="fixed top-0 w-full z-50 glass-nav border-b border-border transition-colors duration-300">
         <div className="max-w-7xl mx-auto px-6 sm:px-8 flex justify-between items-center h-16 sm:h-20">
-          <div className="text-2xl font-black tracking-tighter text-text-main font-display">
-            InfoMetrix
+          <div className="text-2xl font-black tracking-tighter font-display">
+            <span className="text-secondary">Info</span><span className="text-text-main">Metrix</span>
           </div>
           <div className="hidden md:flex items-center space-x-12 font-display font-medium tracking-tight">
             <a href="#services" className="text-text-muted hover:text-secondary transition-colors duration-300">Services</a>
@@ -485,7 +485,7 @@ export default function App() {
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
             <div className="col-span-1 md:col-span-2">
-              <div className="text-2xl font-black text-text-main font-display mb-6 tracking-tighter">InfoMetrix</div>
+              <div className="text-2xl font-black font-display mb-6 tracking-tighter"><span className="text-secondary">Info</span><span className="text-text-main">Metrix</span></div>
               <p className="font-sans text-sm leading-relaxed text-text-muted max-w-sm mb-6">
                 InfoMetrix provides outsourced CFO services, financial operations management, and workflow automation for growing businesses.
               </p>
