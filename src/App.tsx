@@ -1,4 +1,5 @@
 import { useState, useRef } from 'react';
+import type { MouseEvent } from 'react';
 import { motion, AnimatePresence, useScroll, useTransform } from 'motion/react';
 import {
   Zap, BadgeCheck, Ruler, Landmark, Network, LineChart,
@@ -9,7 +10,7 @@ import {
 import { useTheme } from './components/ThemeProvider';
 import { AnimatedCounter } from './components/AnimatedCounter';
 import { LiveDashboard } from './components/LiveDashboard';
-import { SmoothScroll } from './components/SmoothScroll';
+import { SmoothScroll, scrollToSection } from './components/SmoothScroll';
 import { CustomCursor } from './components/CustomCursor';
 import { Preloader } from './components/Preloader';
 import { ConstellationField } from './components/ConstellationField';
@@ -112,6 +113,14 @@ export default function App() {
     }
   };
 
+  // Mobile nav: close the menu first, then scroll to the section once the
+  // collapse animation has settled so it doesn't interrupt the scroll.
+  const handleMobileNav = (e: MouseEvent<HTMLAnchorElement>, hash: string) => {
+    e.preventDefault();
+    setMobileMenuOpen(false);
+    setTimeout(() => scrollToSection(hash), 280);
+  };
+
   return (
     <div className="grain bg-surface text-text-main font-sans selection:bg-secondary/20 selection:text-secondary min-h-screen transition-colors duration-300">
       <Preloader />
@@ -158,9 +167,9 @@ export default function App() {
               className="md:hidden overflow-hidden border-t border-border"
             >
               <div className="px-6 py-6 space-y-4">
-                <a href="#services" onClick={() => setMobileMenuOpen(false)} className="block text-text-muted hover:text-secondary transition-colors font-display font-medium text-lg">Services</a>
-                <a href="#process" onClick={() => setMobileMenuOpen(false)} className="block text-text-muted hover:text-secondary transition-colors font-display font-medium text-lg">Process</a>
-                <a href="#why-us" onClick={() => setMobileMenuOpen(false)} className="block text-text-muted hover:text-secondary transition-colors font-display font-medium text-lg">Why Us</a>
+                <a href="#services" data-self-scroll onClick={(e) => handleMobileNav(e, '#services')} className="block text-text-muted hover:text-secondary transition-colors font-display font-medium text-lg">Services</a>
+                <a href="#process" data-self-scroll onClick={(e) => handleMobileNav(e, '#process')} className="block text-text-muted hover:text-secondary transition-colors font-display font-medium text-lg">Process</a>
+                <a href="#why-us" data-self-scroll onClick={(e) => handleMobileNav(e, '#why-us')} className="block text-text-muted hover:text-secondary transition-colors font-display font-medium text-lg">Why Us</a>
                 <button
                   onClick={() => { openCalendly(); setMobileMenuOpen(false); }}
                   className="md:hidden w-full bg-primary text-white px-6 py-3 font-display font-semibold text-sm rounded-md active:scale-95 transition-transform cursor-pointer mt-2"
