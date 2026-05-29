@@ -9,8 +9,13 @@ import {
 import { useTheme } from './components/ThemeProvider';
 import { AnimatedCounter } from './components/AnimatedCounter';
 import { LiveDashboard } from './components/LiveDashboard';
+import { SmoothScroll } from './components/SmoothScroll';
+import { CustomCursor } from './components/CustomCursor';
+import { Preloader } from './components/Preloader';
+import { ConstellationField } from './components/ConstellationField';
 import {
   ScrollProgress, BackToTop, Magnetic, SpotlightCard, TiltCard,
+  AnimatedHeadline,
 } from './components/interactive';
 
 declare global {
@@ -108,7 +113,10 @@ export default function App() {
   };
 
   return (
-    <div className="bg-surface text-text-main font-sans selection:bg-secondary/20 selection:text-secondary min-h-screen transition-colors duration-300">
+    <div className="grain bg-surface text-text-main font-sans selection:bg-secondary/20 selection:text-secondary min-h-screen transition-colors duration-300">
+      <Preloader />
+      <SmoothScroll />
+      <CustomCursor />
       <ScrollProgress />
       <BackToTop />
       {/* Navigation */}
@@ -169,8 +177,9 @@ export default function App() {
         {/* Hero Section */}
         <section className="relative min-h-[90vh] flex items-center overflow-hidden dot-matrix">
           <div className="aurora" />
+          <ConstellationField className="absolute inset-0 z-[1] opacity-70" />
           <div className="relative z-10 max-w-7xl mx-auto px-8 grid lg:grid-cols-2 gap-16 items-center py-20">
-            <motion.div 
+            <motion.div
               className="z-10"
               initial="initial"
               animate="animate"
@@ -179,9 +188,14 @@ export default function App() {
               <motion.span variants={fadeIn} className="inline-block px-4 py-1.5 rounded-full bg-tertiary/10 text-tertiary font-sans text-xs font-bold uppercase tracking-widest mb-8">
                 System-Driven Finance
               </motion.span>
-              <motion.h1 variants={fadeIn} className="text-5xl lg:text-7xl font-display font-extrabold text-text-main leading-[1.1] tracking-tight mb-8">
-                Outsourced CFO, Financial Systems & <span className="gradient-text">Workflow Automation</span>
-              </motion.h1>
+              <AnimatedHeadline
+                className="text-5xl lg:text-7xl font-display font-extrabold text-text-main leading-[1.1] tracking-tight mb-8"
+                start={0.15}
+                segments={[
+                  { text: "Outsourced CFO, Financial Systems &" },
+                  { text: "Workflow Automation", accent: true },
+                ]}
+              />
               <motion.p variants={fadeIn} className="text-xl text-text-muted leading-relaxed mb-6 max-w-xl">
                 We design and operate financial systems that give you control, visibility, and scalability — without the overhead of building an internal team.
               </motion.p>

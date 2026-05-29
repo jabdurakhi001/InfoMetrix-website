@@ -238,6 +238,26 @@ html {
     0 24px 70px -24px color-mix(in srgb, var(--color-secondary) 45%, transparent);
 }
 
+/* Hide the native cursor on fine-pointer devices once our custom cursor
+   is mounted (the component adds data-custom-cursor to <html>). */
+html[data-custom-cursor="true"],
+html[data-custom-cursor="true"] a,
+html[data-custom-cursor="true"] button,
+html[data-custom-cursor="true"] [role="button"] {
+  cursor: none;
+}
+
+/* Subtle film-grain texture overlay for depth (very low opacity). */
+.grain::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
 /* Respect reduced motion */
 @media (prefers-reduced-motion: reduce) {
   *,

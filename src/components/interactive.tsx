@@ -198,3 +198,71 @@ export function Reveal({
     </motion.div>
   );
 }
+
+/* ============== WORD-BY-WORD HEADLINE REVEAL ==============
+   Editorial entrance: each word rises and fades in on a stagger, after
+   the preloader curtain lifts. Words flagged `accent` get the animated
+   gradient treatment. Driven by `animate` (not whileInView) since the
+   hero is above the fold. */
+export function AnimatedHeadline({
+  segments,
+  className = "",
+  start = 0.2,
+}: {
+  segments: { text: string; accent?: boolean }[];
+  className?: string;
+  start?: number;
+}) {
+  const reduce = useReducedMotion();
+  const words = segments.flatMap((seg) =>
+    seg.text.split(" ").map((w) => ({ word: w, accent: seg.accent })),
+  );
+
+  return (
+    <h1 className={className} aria-label={segments.map((s) => s.text).join(" ")}>
+      {words.map((w, i) => (
+        <span key={i} className="inline-block overflow-hidden align-bottom">
+          <motion.span
+            aria-hidden
+            className={`inline-block ${w.accent ? "gradient-text" : ""}`}
+            initial={reduce ? false : { y: "110%", opacity: 0 }}
+            animate={{ y: "0%", opacity: 1 }}
+            transition={{
+              duration: 0.7,
+              delay: start + i * 0.07,
+              ease: [0.22, 1, 0.36, 1],
+            }}
+          >
+            {w.word}
+            {i < words.length - 1 ? " " : ""}
+          </motion.span>
+        </span>
+      ))}
+    </h1>
+  );
+}
+
+/* ============== PARALLAX ==============
+   Translates its child on the Y axis as it moves through the viewport. */
+export function Parallax({
+  children,
+  amount = 60,
+  className = "",
+}: {
+  children: ReactNode;
+  amount?: number;
+  className?: string;
+}) {
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"],
+  });
+  const y = useTransform(scrollYProgress, [0, 1], [amount, -amount]);
+
+  return (
+    <motion.div ref={ref} style={{ y }} className={className}>
+      {children}
+    </motion.div>
+  );
+}
