@@ -1,4 +1,5 @@
 import { useRef, useState, useEffect } from "react";
+import type { ReactNode, MouseEvent } from "react";
 import {
   motion,
   useScroll,
@@ -34,7 +35,7 @@ export function Magnetic({
   strength = 0.35,
   className,
 }: {
-  children: React.ReactNode;
+  children: ReactNode;
   strength?: number;
   className?: string;
 }) {
@@ -45,7 +46,7 @@ export function Magnetic({
   const sx = useSpring(x, { stiffness: 250, damping: 18, mass: 0.4 });
   const sy = useSpring(y, { stiffness: 250, damping: 18, mass: 0.4 });
 
-  const handleMove = (e: React.MouseEvent) => {
+  const handleMove = (e: MouseEvent) => {
     if (reduce || !ref.current) return;
     const rect = ref.current.getBoundingClientRect();
     const relX = e.clientX - (rect.left + rect.width / 2);
@@ -78,12 +79,12 @@ export function SpotlightCard({
   children,
   className = "",
 }: {
-  children: React.ReactNode;
+  children: ReactNode;
   className?: string;
 }) {
   const ref = useRef<HTMLDivElement>(null);
 
-  const handleMove = (e: React.MouseEvent) => {
+  const handleMove = (e: MouseEvent) => {
     if (!ref.current) return;
     const rect = ref.current.getBoundingClientRect();
     ref.current.style.setProperty("--mx", `${e.clientX - rect.left}px`);
@@ -104,7 +105,7 @@ export function TiltCard({
   className = "",
   max = 10,
 }: {
-  children: React.ReactNode;
+  children: ReactNode;
   className?: string;
   max?: number;
 }) {
@@ -117,7 +118,7 @@ export function TiltCard({
   const rotateX = useTransform(sy, [0, 1], [max, -max]);
   const rotateY = useTransform(sx, [0, 1], [-max, max]);
 
-  const handleMove = (e: React.MouseEvent) => {
+  const handleMove = (e: MouseEvent) => {
     if (reduce || !ref.current) return;
     const rect = ref.current.getBoundingClientRect();
     px.set((e.clientX - rect.left) / rect.width);
@@ -180,7 +181,7 @@ export function Reveal({
   y = 28,
   className = "",
 }: {
-  children: React.ReactNode;
+  children: ReactNode;
   delay?: number;
   y?: number;
   className?: string;

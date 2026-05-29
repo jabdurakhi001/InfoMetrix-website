@@ -1,11 +1,17 @@
-import { useState } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
+import { useState, useRef } from 'react';
+import { motion, AnimatePresence, useScroll, useTransform } from 'motion/react';
 import {
   Zap, BadgeCheck, Ruler, Landmark, Network, LineChart,
   Settings, Link as LinkIcon, BarChart3, X, Check,
-  Truck, Briefcase, TrendingUp, Moon, Sun, Menu
+  Truck, Briefcase, TrendingUp, Moon, Sun, Menu,
+  Gauge, Clock, ShieldCheck, Sparkles
 } from 'lucide-react';
 import { useTheme } from './components/ThemeProvider';
+import { AnimatedCounter } from './components/AnimatedCounter';
+import { LiveDashboard } from './components/LiveDashboard';
+import {
+  ScrollProgress, BackToTop, Magnetic, SpotlightCard, TiltCard,
+} from './components/interactive';
 
 declare global {
   interface Window {
@@ -16,6 +22,11 @@ declare global {
 }
 
 const CALENDLY_URL = 'https://calendly.com/ajk-networking/30min';
+
+const integrationTools = [
+  'QuickBooks', 'NetSuite', 'Xero', 'Stripe', 'Bill.com',
+  'Ramp', 'Brex', 'Plaid', 'Power BI', 'Tableau',
+];
 
 const fadeIn = {
   initial: { opacity: 0, y: 20 },
@@ -44,6 +55,46 @@ const scrollStagger = {
   viewport: { once: true, amount: 0.2 },
 };
 
+const processStepData = [
+  { step: 1, title: 'Diagnose', desc: 'Full operational & financial health audit.' },
+  { step: 2, title: 'Design', desc: 'Architect your custom system blueprint.' },
+  { step: 3, title: 'Implement', desc: 'Deploy infrastructure and clean books.' },
+  { step: 4, title: 'Automate', desc: 'Eliminate manual bottlenecks with logic.' },
+  { step: 5, title: 'Optimize', desc: 'Continuous scaling & performance tuning.' },
+];
+
+function ProcessSteps() {
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ['start 75%', 'end 65%'],
+  });
+  const lineWidth = useTransform(scrollYProgress, [0, 1], ['0%', '100%']);
+
+  return (
+    <div ref={ref} className="relative grid grid-cols-1 md:grid-cols-5 gap-8 md:gap-4">
+      {/* Connector line + scroll-filling progress (hidden on mobile) */}
+      <div className="hidden md:block absolute top-8 left-0 w-full h-px bg-border -z-0 transition-colors duration-300" />
+      <motion.div
+        style={{ width: lineWidth }}
+        className="hidden md:block absolute top-8 left-0 h-[2px] bg-gradient-to-r from-secondary to-tertiary z-0"
+      />
+
+      {processStepData.map((item, i) => (
+        <motion.div key={item.step} {...scrollStagger} transition={{ duration: 0.5, delay: i * 0.1 }} className="relative z-10 text-center space-y-6 group">
+          <div className="w-16 h-16 rounded-full bg-surface-container-lowest shadow-ambient mx-auto flex items-center justify-center font-display font-black text-xl text-text-main border-4 border-surface-container-low group-hover:border-secondary group-hover:scale-110 transition-all duration-300">
+            {item.step}
+          </div>
+          <div>
+            <h4 className="font-display font-bold text-lg mb-2 text-text-main">{item.title}</h4>
+            <p className="text-sm text-text-muted px-4 leading-relaxed">{item.desc}</p>
+          </div>
+        </motion.div>
+      ))}
+    </div>
+  );
+}
+
 export default function App() {
   const { theme, toggleTheme } = useTheme();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -58,6 +109,8 @@ export default function App() {
 
   return (
     <div className="bg-surface text-text-main font-sans selection:bg-secondary/20 selection:text-secondary min-h-screen transition-colors duration-300">
+      <ScrollProgress />
+      <BackToTop />
       {/* Navigation */}
       <nav className="fixed top-0 w-full z-50 glass-nav border-b border-border transition-colors duration-300">
         <div className="max-w-7xl mx-auto px-6 sm:px-8 flex justify-between items-center h-16 sm:h-20">
@@ -65,17 +118,19 @@ export default function App() {
             <span className="text-secondary">Info</span><span className="text-text-main">Metrix</span>
           </div>
           <div className="hidden md:flex items-center space-x-12 font-display font-medium tracking-tight">
-            <a href="#services" className="text-text-muted hover:text-secondary transition-colors duration-300">Services</a>
-            <a href="#process" className="text-text-muted hover:text-secondary transition-colors duration-300">Process</a>
-            <a href="#why-us" className="text-text-muted hover:text-secondary transition-colors duration-300">Why Us</a>
+            <a href="#services" className="nav-link text-text-muted hover:text-secondary transition-colors duration-300">Services</a>
+            <a href="#process" className="nav-link text-text-muted hover:text-secondary transition-colors duration-300">Process</a>
+            <a href="#why-us" className="nav-link text-text-muted hover:text-secondary transition-colors duration-300">Why Us</a>
           </div>
           <div className="flex items-center gap-3 sm:gap-6">
             <button onClick={toggleTheme} className="p-2 text-text-muted hover:text-text-main transition-colors" aria-label="Toggle Dark Mode">
               {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
             </button>
-            <button onClick={openCalendly} className="hidden md:block bg-primary text-white px-6 py-3 font-display font-semibold text-sm rounded-md active:scale-95 transition-transform hover:bg-primary/90 cursor-pointer">
-              Book a Strategy Call
-            </button>
+            <Magnetic strength={0.4} className="hidden md:block">
+              <button onClick={openCalendly} className="bg-primary text-white px-6 py-3 font-display font-semibold text-sm rounded-md active:scale-95 transition-transform hover:bg-primary/90 cursor-pointer">
+                Book a Strategy Call
+              </button>
+            </Magnetic>
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="md:hidden p-2 text-text-muted hover:text-text-main transition-colors"
@@ -113,7 +168,8 @@ export default function App() {
       <main className="pt-16 sm:pt-20">
         {/* Hero Section */}
         <section className="relative min-h-[90vh] flex items-center overflow-hidden dot-matrix">
-          <div className="max-w-7xl mx-auto px-8 grid lg:grid-cols-2 gap-16 items-center py-20">
+          <div className="aurora" />
+          <div className="relative z-10 max-w-7xl mx-auto px-8 grid lg:grid-cols-2 gap-16 items-center py-20">
             <motion.div 
               className="z-10"
               initial="initial"
@@ -124,7 +180,7 @@ export default function App() {
                 System-Driven Finance
               </motion.span>
               <motion.h1 variants={fadeIn} className="text-5xl lg:text-7xl font-display font-extrabold text-text-main leading-[1.1] tracking-tight mb-8">
-                Outsourced CFO, Financial Systems & Workflow Automation
+                Outsourced CFO, Financial Systems & <span className="gradient-text">Workflow Automation</span>
               </motion.h1>
               <motion.p variants={fadeIn} className="text-xl text-text-muted leading-relaxed mb-6 max-w-xl">
                 We design and operate financial systems that give you control, visibility, and scalability — without the overhead of building an internal team.
@@ -133,39 +189,44 @@ export default function App() {
                 From accounting infrastructure to workflow automation, we turn fragmented operations into structured, decision-ready systems.
               </motion.p>
               <motion.div variants={fadeIn} className="flex flex-wrap gap-4">
-                <button onClick={openCalendly} className="bg-primary text-white px-8 py-4 rounded-md font-display font-bold text-lg hover:shadow-lg transition-all active:scale-95 cursor-pointer">
-                  Book a Strategy Call
-                </button>
+                <Magnetic strength={0.4}>
+                  <button onClick={openCalendly} className="bg-primary text-white px-8 py-4 rounded-md font-display font-bold text-lg hover:shadow-lg transition-all active:scale-95 cursor-pointer">
+                    Book a Strategy Call
+                  </button>
+                </Magnetic>
                 <a href="#services" className="border border-border text-text-main px-8 py-4 rounded-md font-display font-bold text-lg hover:bg-surface-container-low transition-all inline-block text-center">
                   View Capabilities
                 </a>
               </motion.div>
+
+              <motion.div variants={fadeIn} className="flex flex-wrap items-center gap-x-6 gap-y-3 mt-10 text-sm text-text-muted font-medium">
+                <span className="inline-flex items-center gap-2"><ShieldCheck size={16} className="text-tertiary" /> Audit-ready systems</span>
+                <span className="inline-flex items-center gap-2"><Clock size={16} className="text-tertiary" /> Real-time visibility</span>
+                <span className="inline-flex items-center gap-2"><Sparkles size={16} className="text-tertiary" /> Built to scale</span>
+              </motion.div>
             </motion.div>
 
-            <motion.div 
+            <motion.div
               className="relative hidden lg:block"
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.8, delay: 0.2 }}
             >
               <div className="absolute inset-0 bg-secondary/5 rounded-[40px] rotate-3 -z-10"></div>
-              <div className="bg-surface-container-lowest p-8 rounded-[40px] shadow-ambient border border-border">
-                <img 
-                  src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop" 
-                  alt="Financial Systems Dashboard" 
-                  className="rounded-2xl w-full h-auto object-cover aspect-[4/3]"
-                  referrerPolicy="no-referrer"
-                />
-              </div>
-              <div className="absolute -bottom-10 -left-10 bg-surface-container-lowest p-6 rounded-2xl shadow-ambient border border-border flex items-center gap-4">
-                <div className="h-12 w-12 rounded-full bg-tertiary/10 flex items-center justify-center text-tertiary">
-                  <Zap size={24} className="fill-current" />
+              <TiltCard max={8}>
+                <LiveDashboard />
+                <div className="absolute -bottom-10 -left-10 bg-surface-container-lowest p-6 rounded-2xl shadow-ambient border border-border flex items-center gap-4" style={{ transform: 'translateZ(60px)' }}>
+                  <div className="h-12 w-12 rounded-full bg-tertiary/10 flex items-center justify-center text-tertiary">
+                    <Zap size={24} className="fill-current" />
+                  </div>
+                  <div>
+                    <p className="text-xs font-sans text-text-muted font-bold uppercase tracking-wider">Operational Status</p>
+                    <p className="text-sm font-display font-bold text-text-main">
+                      Automation: <AnimatedCounter value={94} suffix="% Efficiency" />
+                    </p>
+                  </div>
                 </div>
-                <div>
-                  <p className="text-xs font-sans text-text-muted font-bold uppercase tracking-wider">Operational Status</p>
-                  <p className="text-sm font-display font-bold text-text-main">Automation: 94% Efficiency</p>
-                </div>
-              </div>
+              </TiltCard>
             </motion.div>
           </div>
         </section>
@@ -189,8 +250,59 @@ export default function App() {
                 </div>
               </div>
             </div>
+
+            {/* Integrations marquee */}
+            <div className="mt-12 pt-10 border-t border-white/10">
+              <p className="text-center text-xs uppercase tracking-[0.2em] text-white/40 mb-6">
+                Integrates with the tools you already run on
+              </p>
+              <div className="marquee-track relative overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_12%,black_88%,transparent)]">
+                <div className="marquee gap-12 pr-12">
+                  {[...integrationTools, ...integrationTools].map((tool, i) => (
+                    <span key={i} className="text-lg font-display font-semibold text-white/45 hover:text-white transition-colors whitespace-nowrap">
+                      {tool}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
           </div>
         </motion.section>
+
+        {/* Stats Band */}
+        <section className="py-20 lg:py-24 bg-surface transition-colors duration-300">
+          <div className="max-w-7xl mx-auto px-8">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
+              {[
+                { icon: Gauge, end: 94, suffix: '%', label: 'Automation efficiency' },
+                { icon: Clock, end: 30, suffix: '+', label: 'Hours saved monthly' },
+                { icon: ShieldCheck, end: 100, suffix: '%', label: 'Audit-ready books' },
+                { icon: TrendingUp, end: 24, suffix: '/7', label: 'Live financial visibility' },
+              ].map((stat, i) => {
+                const Icon = stat.icon;
+                return (
+                  <motion.div
+                    key={stat.label}
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, amount: 0.4 }}
+                    transition={{ duration: 0.5, delay: i * 0.08 }}
+                  >
+                    <SpotlightCard className="h-full bg-surface-container-lowest border border-border rounded-2xl p-6 lg:p-8 shadow-ambient transition-all hover:-translate-y-1 hover:shadow-xl">
+                      <div className="w-12 h-12 rounded-xl bg-secondary/10 flex items-center justify-center mb-5">
+                        <Icon className="text-secondary" size={24} />
+                      </div>
+                      <div className="text-4xl lg:text-5xl font-display font-extrabold tracking-tight mb-2 tabular-nums text-text-main">
+                        <AnimatedCounter value={stat.end} suffix={stat.suffix} />
+                      </div>
+                      <div className="text-sm text-text-muted">{stat.label}</div>
+                    </SpotlightCard>
+                  </motion.div>
+                );
+              })}
+            </div>
+          </div>
+        </section>
 
         {/* Core Capabilities */}
         <section className="py-32 bg-surface transition-colors duration-300" id="services">
@@ -319,28 +431,7 @@ export default function App() {
               <div className="w-24 h-1.5 bg-secondary mx-auto rounded-full"></div>
             </motion.div>
 
-            <div className="relative grid grid-cols-1 md:grid-cols-5 gap-8 md:gap-4">
-              {/* Connector Line (Hidden on mobile) */}
-              <div className="hidden md:block absolute top-8 left-0 w-full h-px bg-border -z-0 transition-colors duration-300"></div>
-
-              {[
-                { step: 1, title: 'Diagnose', desc: 'Full operational & financial health audit.' },
-                { step: 2, title: 'Design', desc: 'Architect your custom system blueprint.' },
-                { step: 3, title: 'Implement', desc: 'Deploy infrastructure and clean books.' },
-                { step: 4, title: 'Automate', desc: 'Eliminate manual bottlenecks with logic.' },
-                { step: 5, title: 'Optimize', desc: 'Continuous scaling & performance tuning.' },
-              ].map((item, i) => (
-                <motion.div key={item.step} {...scrollStagger} transition={{ duration: 0.5, delay: i * 0.1 }} className="relative z-10 text-center space-y-6 group">
-                  <div className="w-16 h-16 rounded-full bg-surface-container-lowest shadow-ambient mx-auto flex items-center justify-center font-display font-black text-xl text-text-main border-4 border-surface-container-low group-hover:border-secondary transition-colors duration-300">
-                    {item.step}
-                  </div>
-                  <div>
-                    <h4 className="font-display font-bold text-lg mb-2 text-text-main">{item.title}</h4>
-                    <p className="text-sm text-text-muted px-4 leading-relaxed">{item.desc}</p>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
+            <ProcessSteps />
           </div>
         </section>
 
@@ -401,12 +492,14 @@ export default function App() {
           <div className="absolute inset-0 dot-matrix-dark opacity-20"></div>
           <motion.div {...scrollFadeIn} className="max-w-7xl mx-auto px-8 grid lg:grid-cols-2 gap-20 items-center relative z-10">
             <div className="order-2 lg:order-1">
-              <img
-                src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2015&auto=format&fit=crop"
-                alt="Business Analytics Dashboard"
-                className="rounded-3xl shadow-2xl border border-white/10 opacity-80 mix-blend-luminosity hover:mix-blend-normal transition-all duration-700"
-                referrerPolicy="no-referrer"
-              />
+              <TiltCard max={9}>
+                <img
+                  src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2015&auto=format&fit=crop"
+                  alt="Business Analytics Dashboard"
+                  className="rounded-3xl shadow-2xl border border-white/10 opacity-80 mix-blend-luminosity hover:mix-blend-normal transition-all duration-700"
+                  referrerPolicy="no-referrer"
+                />
+              </TiltCard>
             </div>
             <div className="text-white order-1 lg:order-2">
               <h2 className="text-4xl md:text-5xl font-display font-extrabold mb-8 tracking-tight leading-tight">Clarity at every level of your business</h2>
@@ -442,18 +535,21 @@ export default function App() {
             </motion.div>
 
             <div className="grid md:grid-cols-3 gap-8">
-              <motion.div {...scrollStagger} transition={{ duration: 0.5, delay: 0 }} whileHover={{ y: -5 }} className="p-12 bg-surface-container-lowest rounded-3xl shadow-ambient transition-colors duration-300">
-                <Truck className="text-secondary mx-auto mb-6" size={48} strokeWidth={1.5} />
-                <h4 className="text-xl font-display font-bold text-text-main">Logistics & Transportation</h4>
-              </motion.div>
-              <motion.div {...scrollStagger} transition={{ duration: 0.5, delay: 0.1 }} whileHover={{ y: -5 }} className="p-12 bg-surface-container-lowest rounded-3xl shadow-ambient transition-colors duration-300">
-                <Briefcase className="text-secondary mx-auto mb-6" size={48} strokeWidth={1.5} />
-                <h4 className="text-xl font-display font-bold text-text-main">Service-Based Companies</h4>
-              </motion.div>
-              <motion.div {...scrollStagger} transition={{ duration: 0.5, delay: 0.2 }} whileHover={{ y: -5 }} className="p-12 bg-surface-container-lowest rounded-3xl shadow-ambient transition-colors duration-300">
-                <TrendingUp className="text-secondary mx-auto mb-6" size={48} strokeWidth={1.5} />
-                <h4 className="text-xl font-display font-bold text-text-main">Growth-Stage Businesses</h4>
-              </motion.div>
+              {[
+                { icon: Truck, title: 'Logistics & Transportation' },
+                { icon: Briefcase, title: 'Service-Based Companies' },
+                { icon: TrendingUp, title: 'Growth-Stage Businesses' },
+              ].map((ind, i) => {
+                const Icon = ind.icon;
+                return (
+                  <motion.div key={ind.title} {...scrollStagger} transition={{ duration: 0.5, delay: i * 0.1 }} whileHover={{ y: -5 }}>
+                    <SpotlightCard className="h-full p-12 bg-surface-container-lowest rounded-3xl shadow-ambient transition-all duration-300 hover:shadow-xl group">
+                      <Icon className="text-secondary mx-auto mb-6 group-hover:scale-110 transition-transform" size={48} strokeWidth={1.5} />
+                      <h4 className="text-xl font-display font-bold text-text-main">{ind.title}</h4>
+                    </SpotlightCard>
+                  </motion.div>
+                );
+              })}
             </div>
           </div>
         </section>

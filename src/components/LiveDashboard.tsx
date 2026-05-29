@@ -42,9 +42,9 @@ export function LiveDashboard() {
     .join(" ");
 
   return (
-    <div className="relative rounded-2xl border border-border bg-surface shadow-2xl overflow-hidden glow-ring">
+    <div className="relative rounded-2xl border border-border bg-surface-container-lowest shadow-2xl overflow-hidden glow-ring">
       {/* Window chrome */}
-      <div className="flex items-center justify-between px-5 py-3 border-b border-border bg-surface-alt/60">
+      <div className="flex items-center justify-between px-5 py-3 border-b border-border bg-surface-container-low/60">
         <div className="flex items-center gap-2">
           <span className="w-3 h-3 rounded-full bg-red-400/80" />
           <span className="w-3 h-3 rounded-full bg-amber-400/80" />
