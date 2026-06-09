@@ -11,6 +11,67 @@
     <meta property="og:url" content="https://infometrix.us" />
     <link rel="canonical" href="https://infometrix.us" />
 
+    <!-- Brand favicon (inline SVG: chart glyph on navy) -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230F172A'/%3E%3Cpath d='M7 23 L13 15 L18 19 L25 9' stroke='%232563EB' stroke-width='3' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3Ccircle cx='25' cy='9' r='2.5' fill='%2306B6D4'/%3E%3C/svg%3E" />
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#F8FAFC" />
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#020617" />
+
+    <!-- Font performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <!-- Structured data: business + FAQ (keep FAQ in sync with src/components/FAQ.tsx) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ProfessionalService",
+      "name": "InfoMetrix",
+      "url": "https://infometrix.us",
+      "email": "info@infometrix.us",
+      "description": "Outsourced CFO services, financial systems design, and workflow automation for growing businesses.",
+      "areaServed": "US",
+      "knowsAbout": ["Outsourced CFO", "Financial Operations", "Workflow Automation", "Business Intelligence", "Accounting Infrastructure"]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What does an engagement with InfoMetrix look like?",
+          "acceptedAnswer": { "@type": "Answer", "text": "We start with a diagnostic of your financial operations, then design and implement the systems: clean books, reporting structure, automation, and dashboards. Most clients continue with an ongoing fractional engagement where we operate and optimize what we built." }
+        },
+        {
+          "@type": "Question",
+          "name": "Do you replace our bookkeeper or CPA?",
+          "acceptedAnswer": { "@type": "Answer", "text": "No — we build and operate the infrastructure around them. Day-to-day bookkeeping can be absorbed into our systems, but tax preparation and filings stay with your CPA. We make their job easier by handing them audit-ready books." }
+        },
+        {
+          "@type": "Question",
+          "name": "Which tools and platforms do you work with?",
+          "acceptedAnswer": { "@type": "Answer", "text": "QuickBooks Online, NetSuite, and Xero on the accounting side; Ramp, Brex, Bill.com, and Stripe for spend and payments; Power BI and Tableau for dashboards — plus custom automation that connects them all." }
+        },
+        {
+          "@type": "Question",
+          "name": "How long until we see results?",
+          "acceptedAnswer": { "@type": "Answer", "text": "The first systems are typically live within weeks. Full automation of your core workflows usually lands in one to three months, depending on the state of your books and the number of systems involved." }
+        },
+        {
+          "@type": "Question",
+          "name": "How is pricing structured?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Fixed monthly engagements, scoped after the diagnostic — no hourly billing surprises. The strategy call is where we figure out what scope actually fits your business." }
+        },
+        {
+          "@type": "Question",
+          "name": "Do you provide tax or legal advice?",
+          "acceptedAnswer": { "@type": "Answer", "text": "No. InfoMetrix provides consulting and financial-systems services only. We coordinate closely with your CPA and counsel, but tax and legal advice stay with them." }
+        }
+      ]
+    }
+    </script>
+
     <!-- Calendly popup widget styles -->
     <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet" />
   </head>
