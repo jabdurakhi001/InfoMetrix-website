@@ -11,6 +11,10 @@ import { useTheme } from './components/ThemeProvider';
 import { AnimatedCounter } from './components/AnimatedCounter';
 import { LiveDashboard } from './components/LiveDashboard';
 import { SmoothScroll, scrollToSection } from './components/SmoothScroll';
+import { FlowDiagram } from './components/FlowDiagram';
+import { CompareSlider } from './components/CompareSlider';
+import { ROICalculator } from './components/ROICalculator';
+import { FAQ } from './components/FAQ';
 import { CustomCursor } from './components/CustomCursor';
 import { Preloader } from './components/Preloader';
 import { ConstellationField } from './components/ConstellationField';
@@ -138,6 +142,7 @@ export default function App() {
             <a href="#services" className="nav-link text-text-muted hover:text-secondary transition-colors duration-300">Services</a>
             <a href="#process" className="nav-link text-text-muted hover:text-secondary transition-colors duration-300">Process</a>
             <a href="#why-us" className="nav-link text-text-muted hover:text-secondary transition-colors duration-300">Why Us</a>
+            <a href="#faq" className="nav-link text-text-muted hover:text-secondary transition-colors duration-300">FAQ</a>
           </div>
           <div className="flex items-center gap-3 sm:gap-6">
             <button onClick={toggleTheme} className="p-2 text-text-muted hover:text-text-main transition-colors" aria-label="Toggle Dark Mode">
@@ -170,6 +175,7 @@ export default function App() {
                 <a href="#services" data-self-scroll onClick={(e) => handleMobileNav(e, '#services')} className="block text-text-muted hover:text-secondary transition-colors font-display font-medium text-lg">Services</a>
                 <a href="#process" data-self-scroll onClick={(e) => handleMobileNav(e, '#process')} className="block text-text-muted hover:text-secondary transition-colors font-display font-medium text-lg">Process</a>
                 <a href="#why-us" data-self-scroll onClick={(e) => handleMobileNav(e, '#why-us')} className="block text-text-muted hover:text-secondary transition-colors font-display font-medium text-lg">Why Us</a>
+                <a href="#faq" data-self-scroll onClick={(e) => handleMobileNav(e, '#faq')} className="block text-text-muted hover:text-secondary transition-colors font-display font-medium text-lg">FAQ</a>
                 <button
                   onClick={() => { openCalendly(); setMobileMenuOpen(false); }}
                   className="md:hidden w-full bg-primary text-white px-6 py-3 font-display font-semibold text-sm rounded-md active:scale-95 transition-transform cursor-pointer mt-2"
@@ -479,33 +485,7 @@ export default function App() {
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                <div className="space-y-4">
-                  <div className="p-8 bg-surface-container-low rounded-2xl h-full transition-colors duration-300">
-                    <p className="font-sans font-bold text-xs uppercase mb-6 text-text-muted tracking-wider">Traditional Firms</p>
-                    <ul className="space-y-4 text-sm font-medium text-text-muted">
-                      <li className="flex items-center gap-3"><X size={16} className="text-text-muted opacity-60" /> Reactive Reporting</li>
-                      <li className="flex items-center gap-3"><X size={16} className="text-text-muted opacity-60" /> Manual Processes</li>
-                      <li className="flex items-center gap-3"><X size={16} className="text-text-muted opacity-60" /> Fragmented Systems</li>
-                      <li className="flex items-center gap-3"><X size={16} className="text-text-muted opacity-60" /> Limited Visibility</li>
-                    </ul>
-                  </div>
-                </div>
-                <div className="space-y-4">
-                  <div className="p-8 bg-primary text-white rounded-2xl shadow-ambient h-full relative overflow-hidden">
-                    <div className="absolute inset-0 bg-gradient-to-br from-primary to-slate-800"></div>
-                    <div className="relative z-10">
-                      <p className="font-sans font-bold text-xs uppercase text-tertiary mb-6 tracking-wider">InfoMetrix</p>
-                      <ul className="space-y-4 text-sm font-medium">
-                        <li className="flex items-center gap-3"><Check size={16} className="text-tertiary" /> System-Driven Ops</li>
-                        <li className="flex items-center gap-3"><Check size={16} className="text-tertiary" /> Automated Workflows</li>
-                        <li className="flex items-center gap-3"><Check size={16} className="text-tertiary" /> Integrated Systems</li>
-                        <li className="flex items-center gap-3"><Check size={16} className="text-tertiary" /> Real-time Visibility</li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <CompareSlider />
             </motion.div>
           </div>
         </section>
@@ -515,13 +495,8 @@ export default function App() {
           <div className="absolute inset-0 dot-matrix-dark opacity-20"></div>
           <motion.div {...scrollFadeIn} className="max-w-7xl mx-auto px-8 grid lg:grid-cols-2 gap-20 items-center relative z-10">
             <div className="order-2 lg:order-1">
-              <TiltCard max={9}>
-                <img
-                  src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2015&auto=format&fit=crop"
-                  alt="Business Analytics Dashboard"
-                  className="rounded-3xl shadow-2xl border border-white/10 opacity-80 mix-blend-luminosity hover:mix-blend-normal transition-all duration-700"
-                  referrerPolicy="no-referrer"
-                />
+              <TiltCard max={6}>
+                <FlowDiagram />
               </TiltCard>
             </div>
             <div className="text-white order-1 lg:order-2">
@@ -549,8 +524,26 @@ export default function App() {
           </motion.div>
         </section>
 
+        {/* ROI Calculator */}
+        <section className="py-32 bg-surface transition-colors duration-300" id="roi">
+          <div className="max-w-7xl mx-auto px-8">
+            <motion.div {...scrollFadeIn} className="max-w-2xl mb-16">
+              <span className="text-secondary font-sans font-bold uppercase tracking-widest text-sm mb-4 block">What's it worth?</span>
+              <h2 className="text-4xl md:text-5xl font-display font-extrabold text-text-main mb-6 tracking-tight">
+                Put a number on the manual work
+              </h2>
+              <p className="text-lg text-text-muted leading-relaxed">
+                Drag the sliders. The math updates live — and the diagnostic makes it real.
+              </p>
+            </motion.div>
+            <motion.div {...scrollFadeIn}>
+              <ROICalculator />
+            </motion.div>
+          </div>
+        </section>
+
         {/* Industries */}
-        <section className="py-32 bg-surface transition-colors duration-300">
+        <section className="py-32 bg-surface-container-low transition-colors duration-300">
           <div className="max-w-7xl mx-auto px-8 text-center">
             <motion.div {...scrollFadeIn}>
               <h2 className="text-4xl md:text-5xl font-display font-extrabold text-text-main mb-6 tracking-tight">Built for operational businesses</h2>
@@ -574,6 +567,21 @@ export default function App() {
                 );
               })}
             </div>
+          </div>
+        </section>
+
+        {/* FAQ */}
+        <section className="py-32 bg-surface transition-colors duration-300" id="faq">
+          <div className="max-w-7xl mx-auto px-8">
+            <motion.div {...scrollFadeIn} className="text-center mb-16">
+              <span className="text-secondary font-sans font-bold uppercase tracking-widest text-sm mb-4 block">FAQ</span>
+              <h2 className="text-4xl md:text-5xl font-display font-extrabold text-text-main tracking-tight">
+                Questions, answered
+              </h2>
+            </motion.div>
+            <motion.div {...scrollFadeIn}>
+              <FAQ />
+            </motion.div>
           </div>
         </section>
 

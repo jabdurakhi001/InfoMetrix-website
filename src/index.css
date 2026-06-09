@@ -258,6 +258,42 @@ html[data-custom-cursor="true"] [role="button"] {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
+/* ROI calculator range sliders */
+.roi-range {
+  appearance: none;
+  -webkit-appearance: none;
+  height: 6px;
+  border-radius: 9999px;
+  background: linear-gradient(90deg, var(--color-secondary), var(--color-tertiary));
+  outline: none;
+  cursor: pointer;
+}
+.roi-range::-webkit-slider-thumb {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 26px;
+  height: 26px;
+  border-radius: 9999px;
+  background: var(--color-surface-container-lowest);
+  border: 3px solid var(--color-secondary);
+  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35);
+  transition: transform 0.15s ease;
+}
+.roi-range::-webkit-slider-thumb:hover {
+  transform: scale(1.15);
+}
+.roi-range::-moz-range-thumb {
+  width: 26px;
+  height: 26px;
+  border-radius: 9999px;
+  background: var(--color-surface-container-lowest);
+  border: 3px solid var(--color-secondary);
+  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35);
+}
+.roi-range:focus-visible {
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-secondary) 35%, transparent);
+}
+
 /* Respect reduced motion */
 @media (prefers-reduced-motion: reduce) {
   *,
@@ -267,5 +303,9 @@ html[data-custom-cursor="true"] [role="button"] {
     animation-iteration-count: 1 !important;
     transition-duration: 0.001ms !important;
     scroll-behavior: auto !important;
+  }
+  /* SMIL pulses in the flow diagram aren't covered by the rules above */
+  .flow-pulse {
+    display: none;
   }
 }
