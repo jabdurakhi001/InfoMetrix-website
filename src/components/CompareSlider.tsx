@@ -108,7 +108,7 @@ export function CompareSlider() {
         </div>
       </div>
 
-      <p className="absolute bottom-2 left-1/2 -translate-x-1/2 text-[10px] uppercase tracking-widest text-text-muted/70 pointer-events-none">
+      <p className="absolute bottom-3 left-1/2 -translate-x-1/2 text-[10px] uppercase tracking-widest text-text-muted px-3 py-1 rounded-full bg-surface-container-lowest/90 border border-border shadow-sm pointer-events-none whitespace-nowrap">
         Drag to compare
       </p>
     </div>

@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import type { MouseEvent } from 'react';
 import { motion, AnimatePresence, useScroll, useTransform } from 'motion/react';
 import {
@@ -108,6 +108,33 @@ function ProcessSteps() {
 export default function App() {
   const { theme, toggleTheme } = useTheme();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [activeSection, setActiveSection] = useState('');
+
+  // Nav shadow once the page is scrolled.
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 12);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  // Scrollspy: highlight the nav link for the section in view.
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) setActiveSection(entry.target.id);
+        }
+      },
+      { rootMargin: '-40% 0px -55% 0px' },
+    );
+    for (const id of ['services', 'process', 'why-us', 'roi', 'faq']) {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    }
+    return () => observer.disconnect();
+  }, []);
 
   const openCalendly = () => {
     if (window.Calendly) {
@@ -133,16 +160,28 @@ export default function App() {
       <ScrollProgress />
       <BackToTop />
       {/* Navigation */}
-      <nav className="fixed top-0 w-full z-50 glass-nav border-b border-border transition-colors duration-300">
+      <nav className={`fixed top-0 w-full z-50 glass-nav border-b border-border transition-all duration-300 ${scrolled ? 'shadow-lg shadow-primary/5' : ''}`}>
         <div className="max-w-7xl mx-auto px-6 sm:px-8 flex justify-between items-center h-16 sm:h-20">
           <div className="text-2xl font-black tracking-tighter font-display">
             <span className="text-secondary">Info</span><span className="text-text-main">Metrix</span>
           </div>
           <div className="hidden md:flex items-center space-x-12 font-display font-medium tracking-tight">
-            <a href="#services" className="nav-link text-text-muted hover:text-secondary transition-colors duration-300">Services</a>
-            <a href="#process" className="nav-link text-text-muted hover:text-secondary transition-colors duration-300">Process</a>
-            <a href="#why-us" className="nav-link text-text-muted hover:text-secondary transition-colors duration-300">Why Us</a>
-            <a href="#faq" className="nav-link text-text-muted hover:text-secondary transition-colors duration-300">FAQ</a>
+            {[
+              ['services', 'Services'],
+              ['process', 'Process'],
+              ['why-us', 'Why Us'],
+              ['faq', 'FAQ'],
+            ].map(([id, label]) => (
+              <a
+                key={id}
+                href={`#${id}`}
+                className={`nav-link transition-colors duration-300 hover:text-secondary ${
+                  activeSection === id ? 'text-secondary' : 'text-text-muted'
+                }`}
+              >
+                {label}
+              </a>
+            ))}
           </div>
           <div className="flex items-center gap-3 sm:gap-6">
             <button onClick={toggleTheme} className="p-2 text-text-muted hover:text-text-main transition-colors" aria-label="Toggle Dark Mode">
@@ -169,7 +208,7 @@ export default function App() {
               animate={{ height: 'auto', opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
               transition={{ duration: 0.2 }}
-              className="md:hidden overflow-hidden border-t border-border"
+              className="md:hidden overflow-hidden border-t border-border bg-surface shadow-xl"
             >
               <div className="px-6 py-6 space-y-4">
                 <a href="#services" data-self-scroll onClick={(e) => handleMobileNav(e, '#services')} className="block text-text-muted hover:text-secondary transition-colors font-display font-medium text-lg">Services</a>
@@ -236,7 +275,7 @@ export default function App() {
             </motion.div>
 
             <motion.div
-              className="relative hidden lg:block"
+              className="relative mt-8 lg:mt-0"
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.8, delay: 0.2 }}
@@ -244,7 +283,7 @@ export default function App() {
               <div className="absolute inset-0 bg-secondary/5 rounded-[40px] rotate-3 -z-10"></div>
               <TiltCard max={8}>
                 <LiveDashboard />
-                <div className="absolute -bottom-10 -left-10 bg-surface-container-lowest p-6 rounded-2xl shadow-ambient border border-border flex items-center gap-4" style={{ transform: 'translateZ(60px)' }}>
+                <div className="absolute -bottom-6 left-2 sm:-bottom-10 sm:-left-10 bg-surface-container-lowest p-4 sm:p-6 rounded-2xl shadow-ambient border border-border flex items-center gap-4" style={{ transform: 'translateZ(60px)' }}>
                   <div className="h-12 w-12 rounded-full bg-tertiary/10 flex items-center justify-center text-tertiary">
                     <Zap size={24} className="fill-current" />
                   </div>
@@ -456,6 +495,7 @@ export default function App() {
         <section className="py-32 bg-surface-container-low transition-colors duration-300" id="process">
           <div className="max-w-7xl mx-auto px-8">
             <motion.div {...scrollFadeIn} className="text-center mb-24">
+              <span className="text-secondary font-sans font-bold uppercase tracking-widest text-sm mb-4 block">Our Process</span>
               <h2 className="text-4xl md:text-5xl font-display font-extrabold text-text-main mb-6 tracking-tight">A structured approach to control and scale</h2>
               <div className="w-24 h-1.5 bg-secondary mx-auto rounded-full"></div>
             </motion.div>
@@ -469,6 +509,7 @@ export default function App() {
           <div className="max-w-7xl mx-auto px-8">
             <motion.div {...scrollFadeIn} className="grid lg:grid-cols-2 gap-20 items-center">
               <div>
+                <span className="text-secondary font-sans font-bold uppercase tracking-widest text-sm mb-4 block">Why InfoMetrix</span>
                 <h2 className="text-4xl md:text-5xl font-display font-extrabold text-text-main mb-8 tracking-tight leading-tight">
                   We are not accountants.<br/>
                   <span className="text-secondary">We are operators.</span>
@@ -546,6 +587,7 @@ export default function App() {
         <section className="py-32 bg-surface-container-low transition-colors duration-300">
           <div className="max-w-7xl mx-auto px-8 text-center">
             <motion.div {...scrollFadeIn}>
+              <span className="text-secondary font-sans font-bold uppercase tracking-widest text-sm mb-4 block">Industries</span>
               <h2 className="text-4xl md:text-5xl font-display font-extrabold text-text-main mb-6 tracking-tight">Built for operational businesses</h2>
               <p className="text-lg text-text-muted mb-16 max-w-2xl mx-auto">If your business has moving parts, we bring structure to it.</p>
             </motion.div>
@@ -627,6 +669,8 @@ export default function App() {
                 <li><a href="#services" className="hover:text-secondary transition-colors">Services</a></li>
                 <li><a href="#process" className="hover:text-secondary transition-colors">Process</a></li>
                 <li><a href="#why-us" className="hover:text-secondary transition-colors">Why Us</a></li>
+                <li><a href="#roi" className="hover:text-secondary transition-colors">ROI Calculator</a></li>
+                <li><a href="#faq" className="hover:text-secondary transition-colors">FAQ</a></li>
               </ul>
             </div>
 

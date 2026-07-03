@@ -74,14 +74,15 @@ export function LiveDashboard() {
           </div>
         </div>
 
-        {/* Bar chart */}
-        <div className="flex items-end justify-between gap-2 h-32 pt-2">
+        {/* Bar chart — bar heights in px (28–96) against a fixed 96px track,
+            since %-heights don't resolve inside an auto-height flex column */}
+        <div className="flex items-end justify-between gap-2 pt-2">
           {bars.map((h, i) => (
             <div key={i} className="flex-1 flex flex-col items-center gap-2">
-              <div className="w-full flex items-end h-full">
+              <div className="w-full h-24 flex items-end">
                 <div
                   className="live-bar w-full rounded-t-md bg-gradient-to-t from-secondary to-tertiary"
-                  style={{ height: `${h}%` }}
+                  style={{ height: `${Math.round(h)}px` }}
                 />
               </div>
               <span className="text-[10px] text-text-muted">{months[i]}</span>
