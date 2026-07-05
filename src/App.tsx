@@ -338,7 +338,7 @@ export default function App() {
         </motion.section>
 
         {/* Stats Band */}
-        <section className="py-20 lg:py-24 bg-surface transition-colors duration-300">
+        <section className="py-24 bg-surface transition-colors duration-300">
           <div className="max-w-7xl mx-auto px-8">
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
               {[
@@ -375,16 +375,14 @@ export default function App() {
         {/* Core Capabilities */}
         <section className="py-32 bg-surface transition-colors duration-300" id="services">
           <div className="max-w-7xl mx-auto px-8">
-            <motion.div {...scrollFadeIn} className="flex flex-col md:flex-row justify-between items-end mb-20 gap-8">
-              <div className="max-w-2xl">
-                <span className="text-secondary font-sans font-bold uppercase tracking-widest text-sm mb-4 block">Our Expertise</span>
-                <h2 className="text-4xl md:text-6xl font-display font-extrabold text-text-main leading-tight tracking-tight">
-                  Financial Operations. System Architecture. Automation.
-                </h2>
-              </div>
-              <div className="text-text-muted text-lg font-medium">
+            <motion.div {...scrollFadeIn} className="max-w-3xl mb-16">
+              <span className="text-secondary font-sans font-bold uppercase tracking-widest text-sm mb-4 block">Our Expertise</span>
+              <h2 className="text-4xl md:text-5xl font-display font-extrabold text-text-main leading-tight tracking-tight mb-6">
+                Financial Operations. System Architecture. Automation.
+              </h2>
+              <p className="text-lg text-text-muted leading-relaxed">
                 Structured logic for complex business environments.
-              </div>
+              </p>
             </motion.div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -393,7 +391,7 @@ export default function App() {
                 {...scrollStagger}
                 transition={{ duration: 0.5, delay: 0 }}
                 whileHover={{ y: -8 }}
-                className="bg-surface-container-lowest p-10 rounded-2xl shadow-ambient group transition-colors duration-300"
+                className="bg-surface-container-lowest p-10 rounded-2xl border border-border shadow-ambient hover:shadow-xl hover:border-secondary/30 group transition-colors duration-300"
               >
                 <div className="mb-6">
                   <Landmark className="text-secondary" size={40} strokeWidth={1.5} />
@@ -413,7 +411,7 @@ export default function App() {
                 {...scrollStagger}
                 transition={{ duration: 0.5, delay: 0.1 }}
                 whileHover={{ y: -8 }}
-                className="bg-surface-container-lowest p-10 rounded-2xl shadow-ambient group lg:col-span-1 transition-colors duration-300"
+                className="bg-surface-container-lowest p-10 rounded-2xl border border-border shadow-ambient hover:shadow-xl hover:border-secondary/30 group lg:col-span-1 transition-colors duration-300"
               >
                 <div className="mb-6">
                   <Network className="text-secondary" size={40} strokeWidth={1.5} />
@@ -432,7 +430,7 @@ export default function App() {
                 {...scrollStagger}
                 transition={{ duration: 0.5, delay: 0.2 }}
                 whileHover={{ y: -8 }}
-                className="bg-surface-container-lowest p-10 rounded-2xl shadow-ambient group transition-colors duration-300"
+                className="bg-surface-container-lowest p-10 rounded-2xl border border-border shadow-ambient hover:shadow-xl hover:border-secondary/30 group transition-colors duration-300"
               >
                 <div className="mb-6">
                   <LineChart className="text-secondary" size={40} strokeWidth={1.5} />
@@ -475,7 +473,7 @@ export default function App() {
                 {...scrollStagger}
                 transition={{ duration: 0.5, delay: 0.4 }}
                 whileHover={{ y: -8 }}
-                className="bg-surface-container-lowest p-10 rounded-2xl shadow-ambient group transition-colors duration-300"
+                className="bg-surface-container-lowest p-10 rounded-2xl border border-border shadow-ambient hover:shadow-xl hover:border-secondary/30 group transition-colors duration-300"
               >
                 <div className="mb-6">
                   <BarChart3 className="text-secondary" size={40} strokeWidth={1.5} />
@@ -601,7 +599,7 @@ export default function App() {
                 const Icon = ind.icon;
                 return (
                   <motion.div key={ind.title} {...scrollStagger} transition={{ duration: 0.5, delay: i * 0.1 }} whileHover={{ y: -5 }}>
-                    <SpotlightCard className="h-full p-12 bg-surface-container-lowest rounded-3xl shadow-ambient transition-all duration-300 hover:shadow-xl group">
+                    <SpotlightCard className="h-full p-12 bg-surface-container-lowest rounded-3xl border border-border shadow-ambient transition-all duration-300 hover:shadow-xl hover:border-secondary/30 group">
                       <Icon className="text-secondary mx-auto mb-6 group-hover:scale-110 transition-transform" size={48} strokeWidth={1.5} />
                       <h4 className="text-xl font-display font-bold text-text-main">{ind.title}</h4>
                     </SpotlightCard>
