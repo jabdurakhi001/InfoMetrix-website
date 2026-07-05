@@ -91,7 +91,7 @@ function ProcessSteps() {
 
       {processStepData.map((item, i) => (
         <motion.div key={item.step} {...scrollStagger} transition={{ duration: 0.5, delay: i * 0.1 }} className="relative z-10 text-center space-y-6 group">
-          <div className="w-16 h-16 rounded-full bg-surface-container-lowest shadow-ambient mx-auto flex items-center justify-center font-display font-black text-xl text-text-main border-4 border-surface-container-low group-hover:border-secondary group-hover:scale-110 transition-all duration-300">
+          <div className="w-16 h-16 rounded-full bg-surface-container-lowest shadow-ambient mx-auto flex items-center justify-center font-display font-black text-xl text-text-main border-4 border-border group-hover:border-secondary group-hover:scale-110 transition-all duration-300">
             {item.step}
           </div>
           <div>
@@ -186,7 +186,7 @@ export default function App() {
               {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
             </button>
             <Magnetic strength={0.4} className="hidden md:block">
-              <button onClick={openCalendly} className="bg-primary text-white px-6 py-3 font-display font-semibold text-sm rounded-md active:scale-95 transition-transform hover:bg-primary/90 cursor-pointer">
+              <button onClick={openCalendly} className="bg-secondary text-white px-6 py-3 font-display font-semibold text-sm rounded-md active:scale-95 transition-all hover:bg-secondary/90 hover:shadow-lg cursor-pointer">
                 Book a Strategy Call
               </button>
             </Magnetic>
@@ -214,7 +214,7 @@ export default function App() {
                 <a href="#faq" data-self-scroll onClick={(e) => handleMobileNav(e, '#faq')} className="block text-text-muted hover:text-secondary transition-colors font-display font-medium text-lg">FAQ</a>
                 <button
                   onClick={() => { openCalendly(); setMobileMenuOpen(false); }}
-                  className="md:hidden w-full bg-primary text-white px-6 py-3 font-display font-semibold text-sm rounded-md active:scale-95 transition-transform cursor-pointer mt-2"
+                  className="md:hidden w-full bg-secondary text-white px-6 py-3 font-display font-semibold text-sm rounded-md active:scale-95 transition-all hover:bg-secondary/90 cursor-pointer mt-2"
                 >
                   Book a Strategy Call
                 </button>
@@ -255,7 +255,7 @@ export default function App() {
               </motion.p>
               <motion.div variants={fadeIn} className="flex flex-wrap gap-4">
                 <Magnetic strength={0.4}>
-                  <button onClick={openCalendly} className="bg-primary text-white px-8 py-4 rounded-md font-display font-bold text-lg hover:shadow-lg transition-all active:scale-95 cursor-pointer">
+                  <button onClick={openCalendly} className="bg-secondary text-white px-8 py-4 rounded-md font-display font-bold text-lg hover:bg-secondary/90 hover:shadow-lg transition-all active:scale-95 cursor-pointer">
                     Book a Strategy Call
                   </button>
                 </Magnetic>
