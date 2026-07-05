@@ -344,7 +344,7 @@ export default function App() {
               {[
                 { icon: Gauge, end: 94, suffix: '%', label: 'Automation efficiency' },
                 { icon: Clock, end: 30, suffix: '+', label: 'Hours saved monthly' },
-                { icon: ShieldCheck, end: 100, suffix: '%', label: 'Audit-ready books' },
+                { icon: ShieldCheck, end: 10, suffix: '+', label: 'Platforms integrated' },
                 { icon: TrendingUp, end: 24, suffix: '/7', label: 'Live financial visibility' },
               ].map((stat, i) => {
                 const Icon = stat.icon;
