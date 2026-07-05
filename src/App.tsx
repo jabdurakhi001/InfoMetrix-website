@@ -639,7 +639,7 @@ export default function App() {
                 </p>
                 <button
                   onClick={openCalendly}
-                  className="block bg-secondary text-white px-10 py-5 rounded-md font-display font-bold text-lg hover:bg-blue-700 hover:shadow-xl transition-all active:scale-95 cursor-pointer mx-auto w-full sm:w-auto sm:min-w-[280px]"
+                  className="block bg-secondary text-white px-10 py-5 rounded-md font-display font-bold text-lg hover:opacity-90 hover:shadow-xl transition-all active:scale-95 cursor-pointer mx-auto w-full sm:w-auto sm:min-w-[280px]"
                 >
                   Schedule a Strategy Call
                 </button>

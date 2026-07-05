@@ -54,11 +54,11 @@ export function FlowDiagram() {
       <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto select-none" aria-hidden>
         <defs>
           <linearGradient id="engineFill" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stopColor="#1E293B" />
-            <stop offset="100%" stopColor="#0F172A" />
+            <stop offset="0%" stopColor="#292524" />
+            <stop offset="100%" stopColor="#0C0A09" />
           </linearGradient>
           <filter id="engineGlow" x="-40%" y="-40%" width="180%" height="180%">
-            <feDropShadow dx="0" dy="0" stdDeviation="14" floodColor="#22D3EE" floodOpacity="0.25" />
+            <feDropShadow dx="0" dy="0" stdDeviation="14" floodColor="#FBBF24" floodOpacity="0.25" />
           </filter>
         </defs>
 
@@ -72,12 +72,12 @@ export function FlowDiagram() {
 
         {/* Travelling pulses */}
         {SOURCES.map((_, i) => (
-          <circle key={`pin-${i}`} className="flow-pulse" r="4" fill="#22D3EE">
+          <circle key={`pin-${i}`} className="flow-pulse" r="4" fill="#FBBF24">
             <animateMotion dur="2.6s" begin={`${i * 0.65}s`} repeatCount="indefinite" path={pathFrom(i)} />
           </circle>
         ))}
         {OUTPUTS.map((_, i) => (
-          <circle key={`pout-${i}`} className="flow-pulse" r="4" fill="#3B82F6">
+          <circle key={`pout-${i}`} className="flow-pulse" r="4" fill="#F59E0B">
             <animateMotion dur="2.6s" begin={`${1.3 + i * 0.65}s`} repeatCount="indefinite" path={pathTo(i)} />
           </circle>
         ))}
@@ -94,22 +94,22 @@ export function FlowDiagram() {
 
         {/* Engine */}
         <g filter="url(#engineGlow)">
-          <rect x={CENTER.x} y={CENTER.y} width={CENTER.w} height={CENTER.h} rx="18" fill="url(#engineFill)" stroke="#22D3EE" strokeOpacity="0.55" strokeWidth="1.5" />
+          <rect x={CENTER.x} y={CENTER.y} width={CENTER.w} height={CENTER.h} rx="18" fill="url(#engineFill)" stroke="#FBBF24" strokeOpacity="0.55" strokeWidth="1.5" />
         </g>
         <text x={W / 2} y={H / 2 - 16} textAnchor="middle" fill="#FFFFFF" fontSize="18" fontWeight="800">
           InfoMetrix Engine
         </text>
-        <text x={W / 2} y={H / 2 + 10} textAnchor="middle" fill="#22D3EE" fontSize="12" fontWeight="600" letterSpacing="2">
+        <text x={W / 2} y={H / 2 + 10} textAnchor="middle" fill="#FBBF24" fontSize="12" fontWeight="600" letterSpacing="2">
           AUTOMATE · RECONCILE
         </text>
-        <text x={W / 2} y={H / 2 + 30} textAnchor="middle" fill="#22D3EE" fontSize="12" fontWeight="600" letterSpacing="2">
+        <text x={W / 2} y={H / 2 + 30} textAnchor="middle" fill="#FBBF24" fontSize="12" fontWeight="600" letterSpacing="2">
           MODEL · ALERT
         </text>
 
         {/* Output nodes */}
         {OUTPUTS.map((label, i) => (
           <g key={label}>
-            <rect x={W - 16 - NODE_W} y={rowY(i) - NODE_H / 2} width={NODE_W} height={NODE_H} rx="12" fill="rgba(59,130,246,0.10)" stroke="rgba(59,130,246,0.45)" />
+            <rect x={W - 16 - NODE_W} y={rowY(i) - NODE_H / 2} width={NODE_W} height={NODE_H} rx="12" fill="rgba(245,158,11,0.10)" stroke="rgba(245,158,11,0.45)" />
             <text x={W - 16 - NODE_W / 2} y={rowY(i) + 5} textAnchor="middle" fill="rgba(255,255,255,0.92)" fontSize="15" fontWeight="600">
               {label}
             </text>
