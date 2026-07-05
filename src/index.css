@@ -32,11 +32,11 @@ html {
   }
 }
 
-/* Charcoal palette: warm stone neutrals with an amber/brass accent. */
+/* Charcoal palette: warm stone neutrals with a steel-blue accent. */
 :root {
   --color-primary: #1C1917;
-  --color-secondary: #B45309;
-  --color-tertiary: #D97706;
+  --color-secondary: #2563EB;
+  --color-tertiary: #0EA5E9;
 
   --color-surface: #FAFAF9;
   --color-surface-container-low: #F5F5F4;
@@ -51,8 +51,8 @@ html {
 
 .dark {
   --color-primary: #1C1917;
-  --color-secondary: #F59E0B;
-  --color-tertiary: #FBBF24;
+  --color-secondary: #3B82F6;
+  --color-tertiary: #38BDF8;
 
   --color-surface: #0C0A09;
   --color-surface-container-low: #1C1917;
@@ -277,7 +277,7 @@ html[data-custom-cursor="true"] [role="button"] {
   border-radius: 9999px;
   background: var(--color-surface-container-lowest);
   border: 3px solid var(--color-secondary);
-  box-shadow: 0 4px 14px rgba(180, 83, 9, 0.35);
+  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35);
   transition: transform 0.15s ease;
 }
 .roi-range::-webkit-slider-thumb:hover {
@@ -289,7 +289,7 @@ html[data-custom-cursor="true"] [role="button"] {
   border-radius: 9999px;
   background: var(--color-surface-container-lowest);
   border: 3px solid var(--color-secondary);
-  box-shadow: 0 4px 14px rgba(180, 83, 9, 0.35);
+  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35);
 }
 .roi-range:focus-visible {
   box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-secondary) 35%, transparent);
