@@ -128,10 +128,10 @@ export function LiveDashboard() {
           <div className="rounded-xl border border-border p-3 flex flex-col justify-between">
             <div className="text-[11px] text-text-muted mb-1">Reconciled</div>
             <div className="text-2xl font-display font-bold text-secondary tabular-nums">
-              100%
+              99.2%
             </div>
             <div className="flex items-center gap-1 text-[11px] text-emerald-500">
-              <ArrowUpRight size={12} /> Audit-ready
+              <ArrowUpRight size={12} /> On track
             </div>
           </div>
         </div>
