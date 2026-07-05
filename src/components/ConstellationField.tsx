@@ -18,7 +18,7 @@ export function ConstellationField({ className = "" }: { className?: string }) {
     const accent = () =>
       getComputedStyle(document.documentElement)
         .getPropertyValue("--color-secondary")
-        .trim() || "#B45309";
+        .trim() || "#2563EB";
 
     let width = 0;
     let height = 0;
