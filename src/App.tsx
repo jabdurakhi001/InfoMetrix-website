@@ -12,7 +12,6 @@ import { AnimatedCounter } from './components/AnimatedCounter';
 import { LiveDashboard } from './components/LiveDashboard';
 import { SmoothScroll, scrollToSection } from './components/SmoothScroll';
 import { FlowDiagram } from './components/FlowDiagram';
-import { CompareSlider } from './components/CompareSlider';
 import { ROICalculator } from './components/ROICalculator';
 import { FAQ } from './components/FAQ';
 import { CustomCursor } from './components/CustomCursor';
@@ -129,7 +128,7 @@ export default function App() {
       },
       { rootMargin: '-40% 0px -55% 0px' },
     );
-    for (const id of ['services', 'process', 'why-us', 'roi', 'faq']) {
+    for (const id of ['services', 'process', 'roi', 'faq']) {
       const el = document.getElementById(id);
       if (el) observer.observe(el);
     }
@@ -169,7 +168,6 @@ export default function App() {
             {[
               ['services', 'Services'],
               ['process', 'Process'],
-              ['why-us', 'Why Us'],
               ['faq', 'FAQ'],
             ].map(([id, label]) => (
               <a
@@ -213,7 +211,6 @@ export default function App() {
               <div className="px-6 py-6 space-y-4">
                 <a href="#services" data-self-scroll onClick={(e) => handleMobileNav(e, '#services')} className="block text-text-muted hover:text-secondary transition-colors font-display font-medium text-lg">Services</a>
                 <a href="#process" data-self-scroll onClick={(e) => handleMobileNav(e, '#process')} className="block text-text-muted hover:text-secondary transition-colors font-display font-medium text-lg">Process</a>
-                <a href="#why-us" data-self-scroll onClick={(e) => handleMobileNav(e, '#why-us')} className="block text-text-muted hover:text-secondary transition-colors font-display font-medium text-lg">Why Us</a>
                 <a href="#faq" data-self-scroll onClick={(e) => handleMobileNav(e, '#faq')} className="block text-text-muted hover:text-secondary transition-colors font-display font-medium text-lg">FAQ</a>
                 <button
                   onClick={() => { openCalendly(); setMobileMenuOpen(false); }}
@@ -502,33 +499,6 @@ export default function App() {
           </div>
         </section>
 
-        {/* Why InfoMetrix (Comparison) */}
-        <section className="py-32 overflow-hidden bg-surface transition-colors duration-300" id="why-us">
-          <div className="max-w-7xl mx-auto px-8">
-            <motion.div {...scrollFadeIn} className="grid lg:grid-cols-2 gap-20 items-center">
-              <div>
-                <span className="text-secondary font-sans font-bold uppercase tracking-widest text-sm mb-4 block">Why InfoMetrix</span>
-                <h2 className="text-4xl md:text-5xl font-display font-extrabold text-text-main mb-8 tracking-tight leading-tight">
-                  We are not accountants.<br/>
-                  <span className="text-secondary">We are operators.</span>
-                </h2>
-                <p className="text-xl text-text-muted mb-12 leading-relaxed">
-                  Traditional accounting looks backward. We build forward-leaning infrastructure that runs your business while you execute.
-                </p>
-                <div className="space-y-6">
-                  <div className="p-8 bg-surface-container-lowest rounded-2xl border-l-4 border-secondary shadow-ambient transition-colors duration-300">
-                    <p className="text-lg font-display font-bold italic leading-relaxed text-text-main">
-                      "We don’t just clean up your books. We build the infrastructure your business runs on."
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <CompareSlider />
-            </motion.div>
-          </div>
-        </section>
-
         {/* Visualization Section */}
         <section className="py-32 bg-primary overflow-hidden relative">
           <div className="absolute inset-0 dot-matrix-dark opacity-20"></div>
@@ -666,7 +636,6 @@ export default function App() {
               <ul className="space-y-4 text-sm text-text-muted font-medium">
                 <li><a href="#services" className="hover:text-secondary transition-colors">Services</a></li>
                 <li><a href="#process" className="hover:text-secondary transition-colors">Process</a></li>
-                <li><a href="#why-us" className="hover:text-secondary transition-colors">Why Us</a></li>
                 <li><a href="#roi" className="hover:text-secondary transition-colors">ROI Calculator</a></li>
                 <li><a href="#faq" className="hover:text-secondary transition-colors">FAQ</a></li>
               </ul>
