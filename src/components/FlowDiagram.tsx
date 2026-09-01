@@ -1,10 +1,14 @@
 import { motion } from "motion/react";
+import { ChevronDown } from "lucide-react";
 
 /* A bespoke animated systems diagram: data sources flow into the
    InfoMetrix engine and out to decision-ready outputs, with pulses
    travelling along the connectors (SMIL animateMotion). Designed for the
    dark Visualization section, so the palette is fixed dark. Pulses are
-   hidden under prefers-reduced-motion via the .flow-pulse CSS rule. */
+   hidden under prefers-reduced-motion via the .flow-pulse CSS rule.
+
+   Below the md breakpoint the SVG would shrink until labels are ~8px, so
+   phones get a stacked Sources → Engine → Outputs layout instead. */
 
 const SOURCES = ["QuickBooks", "Bank Feeds", "Payroll", "CRM / Ops"];
 const OUTPUTS = ["Live Dashboards", "Cash Forecasts", "Board Reports", "Smart Alerts"];
@@ -51,7 +55,34 @@ export function FlowDiagram() {
       aria-label="Diagram: data from QuickBooks, bank feeds, payroll and CRM flows into the InfoMetrix engine and out to live dashboards, cash forecasts, board reports and smart alerts"
       className="rounded-3xl border border-white/10 bg-white/[0.03] backdrop-blur-sm p-4 sm:p-6 shadow-2xl"
     >
-      <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto select-none" aria-hidden>
+      {/* Mobile: stacked layout */}
+      <div className="md:hidden space-y-3 py-2">
+        <p className="text-center text-[10px] font-bold uppercase tracking-[0.2em] text-white/40">Sources</p>
+        <div className="grid grid-cols-2 gap-2">
+          {SOURCES.map((s) => (
+            <div key={s} className="rounded-xl border border-white/15 bg-white/5 px-3 py-2.5 text-center text-sm font-semibold text-white/85">
+              {s}
+            </div>
+          ))}
+        </div>
+        <ChevronDown className="mx-auto text-[#38BDF8]" size={20} aria-hidden />
+        <div className="mx-auto max-w-xs rounded-2xl border border-[#38BDF8]/55 bg-gradient-to-br from-[#292524] to-[#0C0A09] px-5 py-4 text-center shadow-[0_0_40px_-10px_rgba(56,189,248,0.45)]">
+          <div className="text-base font-extrabold text-white">InfoMetrix Engine</div>
+          <div className="mt-1 text-[10px] font-semibold tracking-[0.2em] text-[#38BDF8]">AUTOMATE · RECONCILE · MODEL · ALERT</div>
+        </div>
+        <ChevronDown className="mx-auto text-[#38BDF8]" size={20} aria-hidden />
+        <p className="text-center text-[10px] font-bold uppercase tracking-[0.2em] text-white/40">Outputs</p>
+        <div className="grid grid-cols-2 gap-2">
+          {OUTPUTS.map((o) => (
+            <div key={o} className="rounded-xl border border-[#3B82F6]/45 bg-[#3B82F6]/10 px-3 py-2.5 text-center text-sm font-semibold text-white/90">
+              {o}
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Tablet and up: animated SVG */}
+      <svg viewBox={`0 0 ${W} ${H}`} className="hidden md:block w-full h-auto select-none" aria-hidden>
         <defs>
           <linearGradient id="engineFill" x1="0" y1="0" x2="1" y2="1">
             <stop offset="0%" stopColor="#292524" />

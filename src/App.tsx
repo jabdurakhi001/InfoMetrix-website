@@ -95,8 +95,8 @@ function ProcessSteps() {
             {item.step}
           </div>
           <div>
-            <h4 className="font-display font-bold text-lg mb-2 text-text-main">{item.title}</h4>
-            <p className="text-sm text-text-muted px-4 leading-relaxed">{item.desc}</p>
+            <h4 className="font-display font-bold text-base lg:text-lg mb-2 text-text-main">{item.title}</h4>
+            <p className="text-xs lg:text-sm text-text-muted px-0 lg:px-4 leading-relaxed">{item.desc}</p>
           </div>
         </motion.div>
       ))}
@@ -280,7 +280,7 @@ export default function App() {
               <div className="absolute inset-0 bg-secondary/5 rounded-[40px] rotate-3 -z-10"></div>
               <TiltCard max={8}>
                 <LiveDashboard />
-                <div className="absolute -bottom-6 left-2 sm:-bottom-10 sm:-left-10 bg-surface-container-lowest p-4 sm:p-6 rounded-2xl shadow-ambient border border-border flex items-center gap-4" style={{ transform: 'translateZ(60px)' }}>
+                <div className="absolute -bottom-6 left-2 lg:-bottom-10 lg:-left-10 bg-surface-container-lowest p-4 sm:p-6 rounded-2xl shadow-ambient border border-border flex items-center gap-4" style={{ transform: 'translateZ(60px)' }}>
                   <div className="h-12 w-12 rounded-full bg-tertiary/10 flex items-center justify-center text-tertiary">
                     <Zap size={24} className="fill-current" />
                   </div>
