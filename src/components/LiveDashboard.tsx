@@ -2,9 +2,9 @@ import { useEffect, useState } from "react";
 import { motion, useReducedMotion } from "motion/react";
 import { ArrowUpRight, TrendingUp, Activity } from "lucide-react";
 
-/* A bespoke, self-animating "live" finance dashboard.
-   Replaces a static stock image with motion that reinforces the
-   product story: real-time visibility and automation. */
+/* A self-animating demo finance dashboard for the hero. All figures are
+   sample data — the card must stay clearly labelled as an illustrative
+   example, never as a live client account. */
 export function LiveDashboard() {
   const reduce = useReducedMotion();
 
@@ -50,12 +50,9 @@ export function LiveDashboard() {
           <span className="w-3 h-3 rounded-full bg-amber-400/80" />
           <span className="w-3 h-3 rounded-full bg-emerald-400/80" />
         </div>
-        <div className="flex items-center gap-1.5 text-xs text-text-muted">
-          <span className="relative flex h-2 w-2">
-            <span className="absolute inline-flex h-full w-full rounded-full bg-tertiary opacity-75 animate-ping" />
-            <span className="relative inline-flex rounded-full h-2 w-2 bg-tertiary" />
-          </span>
-          Live
+        <div className="flex items-center gap-2 text-xs text-text-muted">
+          <span className="px-2 py-0.5 rounded-full bg-tertiary/10 text-tertiary font-bold uppercase tracking-wider text-[10px]">Demo</span>
+          Illustrative example
         </div>
       </div>
 
@@ -63,7 +60,7 @@ export function LiveDashboard() {
         {/* Headline metric */}
         <div className="flex items-end justify-between">
           <div>
-            <div className="text-xs text-text-muted mb-1">Cash Position</div>
+            <div className="text-xs text-text-muted mb-1">Cash position (sample data)</div>
             <div className="text-3xl font-display font-bold tabular-nums tracking-tight">
               ${revenue.toLocaleString("en-US")}
             </div>
@@ -95,7 +92,7 @@ export function LiveDashboard() {
           <div className="rounded-xl border border-border p-3">
             <div className="flex items-center gap-1.5 text-[11px] text-text-muted mb-2">
               <Activity size={13} className="text-tertiary" />
-              Automation Efficiency
+              Cash flow trend (sample)
             </div>
             <svg viewBox={`0 0 ${sparkW} ${sparkH}`} className="w-full h-10">
               <defs>
@@ -126,7 +123,7 @@ export function LiveDashboard() {
             </svg>
           </div>
           <div className="rounded-xl border border-border p-3 flex flex-col justify-between">
-            <div className="text-[11px] text-text-muted mb-1">Reconciled</div>
+            <div className="text-[11px] text-text-muted mb-1">Reconciled (sample)</div>
             <div className="text-2xl font-display font-bold text-secondary tabular-nums">
               99.2%
             </div>

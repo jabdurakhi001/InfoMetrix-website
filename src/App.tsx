@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import type { MouseEvent } from 'react';
-import { motion, AnimatePresence, useScroll, useTransform } from 'motion/react';
+import { motion, AnimatePresence, MotionConfig, useScroll, useTransform } from 'motion/react';
 import {
   Zap, BadgeCheck, Ruler, Landmark, Network, LineChart,
   Settings, Link as LinkIcon, BarChart3, X, Check,
@@ -14,11 +14,9 @@ import { SmoothScroll, scrollToSection } from './components/SmoothScroll';
 import { FlowDiagram } from './components/FlowDiagram';
 import { ROICalculator } from './components/ROICalculator';
 import { FAQ } from './components/FAQ';
-import { CustomCursor } from './components/CustomCursor';
 import { Preloader } from './components/Preloader';
-import { ConstellationField } from './components/ConstellationField';
 import {
-  ScrollProgress, BackToTop, Magnetic, SpotlightCard, TiltCard,
+  ScrollProgress, BackToTop, SpotlightCard, TiltCard,
   AnimatedHeadline,
 } from './components/interactive';
 
@@ -152,10 +150,10 @@ export default function App() {
   };
 
   return (
+    <MotionConfig reducedMotion="user">
     <div className="grain bg-surface text-text-main font-sans selection:bg-secondary/20 selection:text-secondary min-h-screen transition-colors duration-300">
       <Preloader />
       <SmoothScroll />
-      <CustomCursor />
       <ScrollProgress />
       <BackToTop />
       {/* Navigation */}
@@ -185,11 +183,9 @@ export default function App() {
             <button onClick={toggleTheme} className="p-2 text-text-muted hover:text-text-main transition-colors" aria-label="Toggle Dark Mode">
               {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
             </button>
-            <Magnetic strength={0.4} className="hidden md:block">
-              <button onClick={openCalendly} className="bg-secondary text-white px-6 py-3 font-display font-semibold text-sm rounded-md active:scale-95 transition-all hover:bg-secondary/90 hover:shadow-lg cursor-pointer">
-                Book a Strategy Call
-              </button>
-            </Magnetic>
+            <button onClick={openCalendly} className="hidden md:block bg-secondary text-white px-6 py-3 font-display font-semibold text-sm rounded-md active:scale-95 transition-all hover:bg-secondary/90 hover:shadow-lg cursor-pointer">
+              Book a Strategy Call
+            </button>
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="md:hidden p-2 text-text-muted hover:text-text-main transition-colors"
@@ -227,71 +223,57 @@ export default function App() {
       <main className="pt-16 sm:pt-20">
         {/* Hero Section */}
         <section className="relative min-h-[90vh] flex items-center overflow-hidden dot-matrix">
-          <div className="aurora" />
-          <ConstellationField className="absolute inset-0 z-[1] opacity-70" />
-          <div className="relative z-10 max-w-7xl mx-auto px-8 grid lg:grid-cols-2 gap-16 items-center py-20">
+          <div className="relative z-10 w-full max-w-7xl mx-auto px-6 sm:px-8 grid lg:grid-cols-2 gap-12 lg:gap-16 items-center py-16 sm:py-20">
             <motion.div
               className="z-10"
               initial="initial"
               animate="animate"
               variants={staggerContainer}
             >
-              <motion.span variants={fadeIn} className="inline-block px-4 py-1.5 rounded-full bg-tertiary/10 text-tertiary font-sans text-xs font-bold uppercase tracking-widest mb-8">
-                System-Driven Finance
+              <motion.span variants={fadeIn} className="inline-block px-4 py-1.5 rounded-full bg-tertiary/10 text-tertiary font-sans text-xs font-bold uppercase tracking-widest mb-6 sm:mb-8">
+                For Trucking & Shop Businesses
               </motion.span>
               <AnimatedHeadline
-                className="text-5xl lg:text-7xl font-display font-extrabold text-text-main leading-[1.1] tracking-tight mb-8"
-                start={0.15}
+                className="text-4xl sm:text-5xl lg:text-6xl font-display font-extrabold text-text-main leading-[1.08] tracking-tight mb-6"
+                start={0.1}
                 segments={[
-                  { text: "Outsourced CFO, Financial Systems &" },
-                  { text: "Workflow Automation", accent: true },
+                  { text: "Clear finances." },
+                  { text: "Better business decisions.", accent: true },
                 ]}
               />
-              <motion.p variants={fadeIn} className="text-xl text-text-muted leading-relaxed mb-6 max-w-xl">
-                We design and operate financial systems that give you control, visibility, and scalability — without the overhead of building an internal team.
+              <motion.p variants={fadeIn} className="text-lg sm:text-xl text-text-muted leading-relaxed mb-6 max-w-xl">
+                InfoMetrix manages the finances and back office of trucking and shop businesses — organized books, dependable monthly reporting, and hands-on management support.
               </motion.p>
-              <motion.p variants={fadeIn} className="text-lg text-text-muted mb-10 border-l-2 border-secondary pl-6 italic">
-                From accounting infrastructure to workflow automation, we turn fragmented operations into structured, decision-ready systems.
+              <motion.p variants={fadeIn} className="text-base sm:text-lg text-text-muted leading-relaxed mb-10 max-w-xl border-l-2 border-secondary pl-5">
+                Know where the money goes, what your trucks and jobs actually cost, and what to do next — in plain terms, not spreadsheets you have to decode.
               </motion.p>
-              <motion.div variants={fadeIn} className="flex flex-wrap gap-4">
-                <Magnetic strength={0.4}>
-                  <button onClick={openCalendly} className="bg-secondary text-white px-8 py-4 rounded-md font-display font-bold text-lg hover:bg-secondary/90 hover:shadow-lg transition-all active:scale-95 cursor-pointer">
-                    Book a Strategy Call
-                  </button>
-                </Magnetic>
-                <a href="#services" className="border border-border text-text-main px-8 py-4 rounded-md font-display font-bold text-lg hover:bg-surface-container-low transition-all inline-block text-center">
-                  View Capabilities
+              <motion.div variants={fadeIn} className="flex flex-col sm:flex-row gap-4">
+                <button onClick={openCalendly} className="w-full sm:w-auto bg-secondary text-white px-8 py-4 rounded-md font-display font-bold text-lg hover:bg-secondary/90 hover:shadow-lg transition-all active:scale-95 cursor-pointer">
+                  Book a Strategy Call
+                </button>
+                <a href="#services" className="w-full sm:w-auto border border-border text-text-main px-8 py-4 rounded-md font-display font-bold text-lg hover:bg-surface-container-low transition-all inline-block text-center">
+                  See What We Do
                 </a>
               </motion.div>
 
               <motion.div variants={fadeIn} className="flex flex-wrap items-center gap-x-6 gap-y-3 mt-10 text-sm text-text-muted font-medium">
-                <span className="inline-flex items-center gap-2"><ShieldCheck size={16} className="text-tertiary" /> Audit-ready systems</span>
-                <span className="inline-flex items-center gap-2"><Clock size={16} className="text-tertiary" /> Real-time visibility</span>
-                <span className="inline-flex items-center gap-2"><Sparkles size={16} className="text-tertiary" /> Built to scale</span>
+                <span className="inline-flex items-center gap-2"><ShieldCheck size={16} className="text-tertiary" /> Organized, audit-ready books</span>
+                <span className="inline-flex items-center gap-2"><Clock size={16} className="text-tertiary" /> Reliable monthly reporting</span>
+                <span className="inline-flex items-center gap-2"><Sparkles size={16} className="text-tertiary" /> Hands-on management support</span>
               </motion.div>
             </motion.div>
 
             <motion.div
-              className="relative mt-8 lg:mt-0"
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
+              className="relative mt-4 lg:mt-0"
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
             >
-              <div className="absolute inset-0 bg-secondary/5 rounded-[40px] rotate-3 -z-10"></div>
-              <TiltCard max={8}>
-                <LiveDashboard />
-                <div className="absolute -bottom-6 left-2 lg:-bottom-10 lg:-left-10 bg-surface-container-lowest p-4 sm:p-6 rounded-2xl shadow-ambient border border-border flex items-center gap-4" style={{ transform: 'translateZ(60px)' }}>
-                  <div className="h-12 w-12 rounded-full bg-tertiary/10 flex items-center justify-center text-tertiary">
-                    <Zap size={24} className="fill-current" />
-                  </div>
-                  <div>
-                    <p className="text-xs font-sans text-text-muted font-bold uppercase tracking-wider">Operational Status</p>
-                    <p className="text-sm font-display font-bold text-text-main">
-                      Automation: <AnimatedCounter value={94} suffix="% Efficiency" />
-                    </p>
-                  </div>
-                </div>
-              </TiltCard>
+              <div className="absolute inset-0 bg-secondary/5 rounded-[40px] rotate-2 -z-10"></div>
+              <LiveDashboard />
+              <p className="mt-4 text-center text-xs sm:text-sm text-text-muted">
+                Illustrative example — demo data, not a live client account.
+              </p>
             </motion.div>
           </div>
         </section>
@@ -334,9 +316,10 @@ export default function App() {
           </div>
         </motion.section>
 
-        {/* Stats Band */}
+        {/* Illustrative metrics, not verified client results */}
         <section className="py-24 bg-surface transition-colors duration-300">
           <div className="max-w-7xl mx-auto px-8">
+            <p className="text-sm text-text-muted mb-6">Illustrative metrics only. These figures are examples, not verified client results or service guarantees.</p>
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
               {[
                 { icon: Gauge, end: 94, suffix: '%', label: 'Automation efficiency' },
@@ -657,5 +640,6 @@ export default function App() {
         </div>
       </footer>
     </div>
+    </MotionConfig>
   );
 }
