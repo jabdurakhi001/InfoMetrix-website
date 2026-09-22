@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="referrer" content="no-referrer">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-z7Wo7/yk4TxOd1wBET0XxtgzTBUkm+iLPTo66e+/bYA='; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'">
+<title>Returning to InfoMetrix AI OS</title>
+<style>body{font:15px/1.5 Arial,sans-serif;max-width:520px;margin:15vh auto;padding:0 20px;color:#222}</style>
+</head>
+<body>
+<p><strong>Returning to your InfoMetrix AI OS&hellip;</strong></p>
+<p>If nothing happens, the local connection helper is not running on this computer. Start it and try connecting again.</p>
+<script>
+(function(){
+  // Forward only the OAuth response fields to the fixed local helper. Nothing is stored or sent elsewhere.
+  var src=new URLSearchParams(window.location.search), out=new URLSearchParams();
+  ["code","state","realmId","error","error_description"].forEach(function(k){var v=src.get(k); if(v!==null && v.length<2048) out.set(k,v);});
+  if(!out.get("state")) return;
+  history.replaceState(null,"",window.location.pathname);
+  window.location.replace("http://127.0.0.1:4320/qbo/callback?"+out.toString());
+})();
+</script>
+</body>
+</html>
