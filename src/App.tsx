@@ -3,6 +3,7 @@ import type { ReactNode } from 'react';
 import { motion, AnimatePresence, MotionConfig, useScroll, useTransform } from 'motion/react';
 import { CostPerMile } from './components/CostPerMile';
 import { Questions } from './components/Questions';
+import { AgentLog } from './components/AgentLog';
 
 // Remotion is heavy; load the hero film after the page's text has painted.
 const HeroFilm = lazy(() => import('./components/HeroFilm').then((m) => ({ default: m.HeroFilm })));
@@ -24,6 +25,7 @@ const EASE = [0.22, 1, 0.36, 1] as const;
 
 const NAV = [
   ['services', 'Services'],
+  ['agents', 'Agents'],
   ['costs', 'Cost per mile'],
   ['process', 'Process'],
   ['questions', 'Questions'],
@@ -60,6 +62,15 @@ const SERVICES = [
     line: 'Fractional CFO judgment and hands-on management support when decisions get big.',
     points: ['Fractional CFO services', 'Company management oversight', 'Lender and partner prep'],
   },
+];
+
+const AGENTS = [
+  { name: 'Bookkeeping', does: 'Categorizes transactions and attaches receipts as they come in.' },
+  { name: 'Reconciliation', does: 'Matches bank and card lines to the ledger every night.' },
+  { name: 'Receivables', does: 'Tracks invoices, sends reminders, and logs payments.' },
+  { name: 'Payables', does: 'Organizes vendor bills and queues approved payments.' },
+  { name: 'Watch', does: 'Flags unusual costs, duplicate charges, and cash dips early.' },
+  { name: 'Reporting', does: 'Delivers cash and cost summaries on your schedule.' },
 ];
 
 const STEPS = [
@@ -336,6 +347,7 @@ export default function App() {
             <span>Truck &amp; job costing</span>
             <span>Cash planning</span>
             <span>Fractional CFO</span>
+            <span>24/7 agents</span>
           </div>
         </div>
 
@@ -348,9 +360,51 @@ export default function App() {
         </section>
 
         {/* ---------- §02 Cost per mile ---------- */}
+        <section id="agents" className="border-t border-rule">
+          <div className="max-w-[1280px] mx-auto px-6 sm:px-10 py-24 lg:py-36">
+            <SectionHead num="02" kicker="Always on" title={<>Our agents work 24/7, <span className="italic text-green">set up around your needs.</span></>} />
+            <div className="grid lg:grid-cols-[1fr_1.1fr] gap-12 lg:gap-20 items-start">
+              <div>
+                <Reveal>
+                  <p className="text-lg text-muted leading-relaxed max-w-lg">
+                    While your trucks run and your shop closes for the night, InfoMetrix agents keep working: entering
+                    transactions, matching statements, following up on invoices, and watching for anything unusual.
+                    You choose which agents run and what they handle, and our team reviews their work every day.
+                  </p>
+                </Reveal>
+                <ul className="mt-10 border-t border-ink">
+                  {AGENTS.map((a, i) => (
+                    <motion.li
+                      key={a.name}
+                      initial={{ opacity: 0, y: 12 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true, amount: 0.5 }}
+                      transition={{ duration: 0.5, delay: i * 0.05, ease: EASE }}
+                      className="grid grid-cols-[8.5rem_1fr] gap-4 py-4 border-b border-rule items-baseline"
+                    >
+                      <span className="font-display text-xl">{a.name}</span>
+                      <span className="text-[15px] text-muted leading-snug">{a.does}</span>
+                    </motion.li>
+                  ))}
+                </ul>
+                <Reveal>
+                  <p className="mt-8 text-[15px] leading-relaxed">
+                    <span className="label text-green mr-2">Your call</span>
+                    Run all six or just the two you need. Set their hours, limits, and who approves what.
+                  </p>
+                </Reveal>
+              </div>
+              <Reveal delay={0.1} className="lg:sticky lg:top-28">
+                <AgentLog />
+              </Reveal>
+            </div>
+          </div>
+        </section>
+
+        {/* ---------- §03 Cost per mile ---------- */}
         <section id="costs" className="bg-paper-deep">
           <div className="max-w-[1280px] mx-auto px-6 sm:px-10 py-24 lg:py-36">
-            <SectionHead num="02" kicker="Try it with your numbers" title={<>What does a mile <span className="italic text-green">really</span> cost you?</>} />
+            <SectionHead num="03" kicker="Try it with your numbers" title={<>What does a mile <span className="italic text-green">really</span> cost you?</>} />
             <Reveal>
               <CostPerMile />
             </Reveal>
@@ -359,14 +413,14 @@ export default function App() {
 
         {/* ---------- §03 Process ---------- */}
         <section id="process" className="max-w-[1280px] mx-auto px-6 sm:px-10 py-24 lg:py-36">
-          <SectionHead num="03" kicker="How it works" title={<>From a shoebox of receipts to a <span className="italic text-green">clean close.</span></>} />
+          <SectionHead num="04" kicker="How it works" title={<>From a shoebox of receipts to a <span className="italic text-green">clean close.</span></>} />
           <Process />
         </section>
 
         {/* ---------- §04 Monthly packet ---------- */}
         <section className="bg-ink text-sheet">
           <div className="max-w-[1280px] mx-auto px-6 sm:px-10 py-24 lg:py-36">
-            <SectionHead num="04" kicker="What arrives every month" title={<>Your month, on <span className="italic text-green-bright">twelve pages.</span></>} dark />
+            <SectionHead num="05" kicker="What arrives every month" title={<>Your month, on <span className="italic text-green-bright">twelve pages.</span></>} dark />
             <div className="grid lg:grid-cols-[1fr_1.3fr] gap-12 lg:gap-24">
               <Reveal>
                 <p className="text-lg text-white/70 leading-relaxed max-w-md">
@@ -397,7 +451,7 @@ export default function App() {
 
         {/* ---------- §05 Questions ---------- */}
         <section id="questions" className="max-w-[1280px] mx-auto px-6 sm:px-10 py-24 lg:py-36">
-          <SectionHead num="05" kicker="Questions" title="Things owners ask us first." />
+          <SectionHead num="06" kicker="Questions" title="Things owners ask us first." />
           <Questions />
         </section>
 
