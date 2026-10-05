@@ -5,9 +5,11 @@ import { CostPerMile } from './components/CostPerMile';
 import { Questions } from './components/Questions';
 import { AgentLog } from './components/AgentLog';
 import { TelegramChat } from './components/TelegramChat';
+import { ShopMath } from './components/ShopMath';
 
 // Remotion is heavy; load the hero film after the page's text has painted.
 const HeroFilm = lazy(() => import('./components/HeroFilm').then((m) => ({ default: m.HeroFilm })));
+const ShopFilm = lazy(() => import('./components/ShopFilm').then((m) => ({ default: m.ShopFilm })));
 
 declare global {
   interface Window {
@@ -27,7 +29,8 @@ const EASE = [0.22, 1, 0.36, 1] as const;
 const NAV = [
   ['services', 'Services'],
   ['agents', 'Agents'],
-  ['costs', 'Cost per mile'],
+  ['shops', 'Shops'],
+  ['costs', 'Calculator'],
   ['process', 'Process'],
   ['questions', 'Questions'],
 ] as const;
@@ -72,6 +75,14 @@ const AGENTS = [
   { name: 'Payables', does: 'Organizes vendor bills and queues approved payments.' },
   { name: 'Watch', does: 'Flags unusual costs, duplicate charges, and cash dips early.' },
   { name: 'Reporting', does: 'Delivers cash and cost summaries on your schedule.' },
+];
+
+const SHOP_METRICS = [
+  ['Effective labor rate', 'What each paid tech hour really earns, not just your posted rate.'],
+  ['Tech efficiency', 'Hours billed against hours paid, by technician and by week.'],
+  ['Parts margin', 'Margin by part type and vendor, with sales below cost flagged.'],
+  ['Repair-order profit', 'Labor, parts, and sublet on every RO, before it hits the books.'],
+  ['WIP and unbilled work', 'Open repair orders and finished jobs that have not been invoiced.'],
 ];
 
 const TELEGRAM_USES = [
@@ -224,6 +235,7 @@ function Process() {
 export default function App() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [calcMode, setCalcMode] = useState<'truck' | 'shop'>('truck');
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -353,6 +365,7 @@ export default function App() {
             <span>Bookkeeping &amp; close</span>
             <span>Monthly reporting</span>
             <span>Truck &amp; job costing</span>
+            <span>Repair-shop profitability</span>
             <span>Cash planning</span>
             <span>Fractional CFO</span>
             <span>24/7 agents</span>
@@ -449,26 +462,100 @@ export default function App() {
           </div>
         </section>
 
-        {/* ---------- §03 Cost per mile ---------- */}
+        {/* ---------- §03 Repair shops ---------- */}
+        <section id="shops" className="border-t border-rule">
+          <div className="max-w-[1280px] mx-auto px-6 sm:px-10 py-24 lg:py-36">
+            <SectionHead num="03" kicker="For repair shops" title={<>Every repair order, priced right <span className="italic text-green">and on the books.</span></>} />
+            <div className="grid lg:grid-cols-[1fr_1.05fr] gap-14 lg:gap-20 items-start">
+              <div>
+                <Reveal>
+                  <p className="text-lg text-muted leading-relaxed max-w-lg">
+                    A busy shop can still lose money one repair order at a time: hours that never get billed, parts
+                    sold too close to cost, finished jobs waiting on an invoice. We connect your shop numbers to your
+                    books so you see which jobs, techs, and customers actually make money.
+                  </p>
+                </Reveal>
+                <ul className="mt-10 border-t border-ink">
+                  {SHOP_METRICS.map(([k, d], i) => (
+                    <motion.li
+                      key={k}
+                      initial={{ opacity: 0, y: 12 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true, amount: 0.5 }}
+                      transition={{ duration: 0.5, delay: i * 0.05, ease: EASE }}
+                      className="grid sm:grid-cols-[12rem_1fr] gap-x-4 gap-y-1 py-4 border-b border-rule items-baseline"
+                    >
+                      <span className="font-display text-xl">{k}</span>
+                      <span className="text-[15px] text-muted leading-snug">{d}</span>
+                    </motion.li>
+                  ))}
+                </ul>
+                <Reveal>
+                  <div className="mt-10 bg-sheet border border-rule p-6">
+                    <p className="label text-green">Works with your shop system</p>
+                    <p className="mt-3 text-[15px] leading-relaxed">
+                      Already running <span className="font-medium">Fullbay</span>, <span className="font-medium">Shopmonkey</span>,
+                      or another shop management system? We work from its repair orders, invoices, and parts data and
+                      match them to QuickBooks, so nothing gets entered twice.
+                    </p>
+                  </div>
+                </Reveal>
+              </div>
+              <Reveal delay={0.1} className="lg:sticky lg:top-28">
+                <Suspense fallback={<div className="aspect-[640/600] w-full" aria-hidden />}>
+                  <ShopFilm />
+                </Suspense>
+              </Reveal>
+            </div>
+          </div>
+        </section>
+
+        {/* ---------- §04 Calculator ---------- */}
         <section id="costs" className="bg-paper-deep">
           <div className="max-w-[1280px] mx-auto px-6 sm:px-10 py-24 lg:py-36">
-            <SectionHead num="03" kicker="Try it with your numbers" title={<>What does a mile <span className="italic text-green">really</span> cost you?</>} />
+            <SectionHead num="04" kicker="Try it with your numbers" title={<>Run your own numbers, <span className="italic text-green">fleet or shop.</span></>} />
             <Reveal>
-              <CostPerMile />
+              <div role="tablist" aria-label="Calculator" className="inline-flex border border-ink mb-12">
+                {([['truck', 'Trucking'], ['shop', 'Repair shop']] as const).map(([key, label]) => (
+                  <button
+                    key={key}
+                    role="tab"
+                    aria-selected={calcMode === key}
+                    onClick={() => setCalcMode(key)}
+                    className={`relative px-5 py-3 text-[14px] cursor-pointer transition-colors ${calcMode === key ? 'text-sheet' : 'text-ink hover:text-green'}`}
+                  >
+                    {calcMode === key && (
+                      <motion.span layoutId="calc-pill" className="absolute inset-0 bg-ink" transition={{ type: 'spring', stiffness: 400, damping: 35 }} />
+                    )}
+                    <span className="relative">{label}</span>
+                  </button>
+                ))}
+              </div>
+              <AnimatePresence mode="wait" initial={false}>
+                <motion.div
+                  key={calcMode}
+                  initial={{ opacity: 0, y: 12 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -8 }}
+                  transition={{ duration: 0.3, ease: EASE }}
+                >
+                  {calcMode === 'truck' ? <CostPerMile /> : <ShopMath />}
+                </motion.div>
+              </AnimatePresence>
             </Reveal>
           </div>
         </section>
 
         {/* ---------- §03 Process ---------- */}
         <section id="process" className="max-w-[1280px] mx-auto px-6 sm:px-10 py-24 lg:py-36">
-          <SectionHead num="04" kicker="How it works" title={<>From a shoebox of receipts to a <span className="italic text-green">clean close.</span></>} />
+          <SectionHead num="05" kicker="How it works" title={<>From a shoebox of receipts to a <span className="italic text-green">clean close.</span></>} />
           <Process />
         </section>
 
         {/* ---------- §04 Monthly packet ---------- */}
         <section className="bg-ink text-sheet">
           <div className="max-w-[1280px] mx-auto px-6 sm:px-10 py-24 lg:py-36">
-            <SectionHead num="05" kicker="What arrives every month" title={<>Your month, on <span className="italic text-green-bright">twelve pages.</span></>} dark />
+            <SectionHead num="06" kicker="What arrives every month" title={<>Your month, on <span className="italic text-green-bright">twelve pages.</span></>} dark />
             <div className="grid lg:grid-cols-[1fr_1.3fr] gap-12 lg:gap-24">
               <Reveal>
                 <p className="text-lg text-white/70 leading-relaxed max-w-md">
@@ -499,7 +586,7 @@ export default function App() {
 
         {/* ---------- §05 Questions ---------- */}
         <section id="questions" className="max-w-[1280px] mx-auto px-6 sm:px-10 py-24 lg:py-36">
-          <SectionHead num="06" kicker="Questions" title="Things owners ask us first." />
+          <SectionHead num="07" kicker="Questions" title="Things owners ask us first." />
           <Questions />
         </section>
 

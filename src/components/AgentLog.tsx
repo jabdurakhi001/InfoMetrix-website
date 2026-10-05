@@ -13,8 +13,10 @@ const FEED: Entry[] = [
   { time: "04:05", agent: "Payables", action: "Queued 6 approved vendor bills for Friday’s payment run" },
   { time: "05:50", agent: "Watch", action: "Flagged truck 14: fuel cost per mile up 18% this week" },
   { time: "07:00", agent: "Reporting", action: "Morning cash summary delivered to the owner’s inbox" },
+  { time: "09:40", agent: "Watch", action: "Flagged WO-1179: brake drums sold below cost" },
   { time: "11:20", agent: "Receivables", action: "Logged $14,600 payment from Lakeside Supply, invoice closed" },
-  { time: "14:45", agent: "Bookkeeping", action: "Attached 9 shop receipts to work orders WO-552 to WO-560" },
+  { time: "14:45", agent: "Bookkeeping", action: "Matched 23 closed repair orders from the shop system to invoices" },
+  { time: "16:20", agent: "Receivables", action: "3 finished repair orders not yet invoiced, sent to the service writer" },
   { time: "18:10", agent: "Watch", action: "Duplicate vendor charge detected and held for approval" },
   { time: "21:30", agent: "Reconciliation", action: "Credit card statement reconciled, zero variance" },
 ];
