@@ -1,11 +1,8 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { ChevronDown } from "lucide-react";
 
-/* FAQ accordion with smooth height animation. Content mirrors the
-   FAQPage JSON-LD in index.html — keep the two in sync. */
-
-export const FAQ_ITEMS = [
+/* FAQ. Wording mirrors the FAQPage JSON-LD in index.html; keep them in sync. */
+export const QUESTIONS = [
   {
     q: "What does an engagement with InfoMetrix look like?",
     a: "We start with a diagnostic of your financial operations, then design and implement the systems: clean books, reporting structure, automation, and dashboards. Most clients continue with an ongoing fractional engagement where we operate and optimize what we built.",
@@ -32,27 +29,29 @@ export const FAQ_ITEMS = [
   },
 ];
 
-export function FAQ() {
+export function Questions() {
   const [open, setOpen] = useState<number | null>(0);
 
   return (
-    <div className="max-w-3xl mx-auto divide-y divide-border border border-border rounded-2xl bg-surface-container-lowest shadow-ambient overflow-hidden">
-      {FAQ_ITEMS.map((item, i) => {
+    <div className="border-t border-ink">
+      {QUESTIONS.map((item, i) => {
         const isOpen = open === i;
         return (
-          <div key={item.q}>
+          <div key={item.q} className="border-b border-rule">
             <button
               onClick={() => setOpen(isOpen ? null : i)}
               aria-expanded={isOpen}
-              className="w-full flex items-center justify-between gap-4 text-left px-6 sm:px-8 py-5 hover:bg-surface-container-low/60 transition-colors cursor-pointer"
+              className="w-full grid grid-cols-[3rem_1fr_1.5rem] items-baseline text-left py-6 cursor-pointer group"
             >
-              <span className="font-display font-bold text-text-main">{item.q}</span>
+              <span className="figures text-sm text-muted">{String(i + 1).padStart(2, "0")}</span>
+              <span className="font-display text-xl sm:text-2xl group-hover:text-green transition-colors">{item.q}</span>
               <motion.span
-                animate={{ rotate: isOpen ? 180 : 0 }}
+                animate={{ rotate: isOpen ? 45 : 0 }}
                 transition={{ duration: 0.25 }}
-                className="shrink-0 text-secondary"
+                className="text-2xl leading-none text-muted justify-self-end"
+                aria-hidden
               >
-                <ChevronDown size={20} />
+                +
               </motion.span>
             </button>
             <AnimatePresence initial={false}>
@@ -61,12 +60,10 @@ export function FAQ() {
                   initial={{ height: 0, opacity: 0 }}
                   animate={{ height: "auto", opacity: 1 }}
                   exit={{ height: 0, opacity: 0 }}
-                  transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                  transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
                   className="overflow-hidden"
                 >
-                  <p className="px-6 sm:px-8 pb-6 text-text-muted leading-relaxed text-sm">
-                    {item.a}
-                  </p>
+                  <p className="pl-12 pr-6 pb-7 max-w-3xl text-muted leading-relaxed">{item.a}</p>
                 </motion.div>
               )}
             </AnimatePresence>

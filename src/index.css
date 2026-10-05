@@ -1,313 +1,105 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;700&display=swap');
 @import "tailwindcss";
 
+/* "The Ledger": an editorial, annual-report identity.
+   Paper and ink, one forest-green accent, hairline rules instead of cards.
+   Fraunces = display, IBM Plex Sans = body, IBM Plex Mono = figures & labels. */
 @theme {
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
-  --font-display: "Manrope", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Fraunces", Georgia, "Times New Roman", serif;
+  --font-sans: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", monospace;
 
-  --color-primary: var(--color-primary);
-  --color-secondary: var(--color-secondary);
-  --color-tertiary: var(--color-tertiary);
-  
-  --color-surface: var(--color-surface);
-  --color-surface-container-low: var(--color-surface-container-low);
-  --color-surface-container-lowest: var(--color-surface-container-lowest);
-  
-  --color-text-main: var(--color-text-main);
-  --color-text-muted: var(--color-text-muted);
-  --color-border: var(--color-border);
-  --color-nav-bg: var(--color-nav-bg);
-
-  --shadow-ambient: var(--shadow-ambient);
+  --color-paper: #F4F1EA;
+  --color-paper-deep: #ECE7DB;
+  --color-sheet: #FBF9F4;
+  --color-ink: #10261F;
+  --color-ink-soft: #1B3A30;
+  --color-muted: #5B6B63;
+  --color-rule: #D9D3C5;
+  --color-green: #1F6B4F;
+  --color-green-bright: #7FC8A6;
 }
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 64px;
+  scroll-padding-top: 80px;
+  -webkit-font-smoothing: antialiased;
 }
 
-/* Keyboard focus must stay visible on every interactive element,
-   including buttons that also style :active/:hover states. */
-:focus-visible {
-  outline: 2px solid var(--color-secondary);
-  outline-offset: 2px;
+body {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
 }
 
-@media (min-width: 640px) {
-  html {
-    scroll-padding-top: 80px;
-  }
+::selection {
+  background: var(--color-green);
+  color: var(--color-sheet);
 }
 
-/* Charcoal palette: warm stone neutrals with a steel-blue accent. */
-:root {
-  --color-primary: #1C1917;
-  --color-secondary: #2563EB;
-  --color-tertiary: #0EA5E9;
-
-  --color-surface: #FAFAF9;
-  --color-surface-container-low: #F5F5F4;
-  --color-surface-container-lowest: #FFFFFF;
-
-  --color-text-main: #1C1917;
-  --color-text-muted: #57534E;
-  --color-border: #E7E5E4;
-  --color-nav-bg: rgba(250, 250, 249, 0.88);
-  --shadow-ambient: 0 20px 50px rgba(28, 25, 23, 0.06);
+/* Tabular figures anywhere money appears */
+.figures {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
 }
 
-.dark {
-  --color-primary: #1C1917;
-  --color-secondary: #3B82F6;
-  --color-tertiary: #38BDF8;
-
-  --color-surface: #0C0A09;
-  --color-surface-container-low: #1C1917;
-  --color-surface-container-lowest: #292524;
-
-  --color-text-main: #FAFAF9;
-  --color-text-muted: #A8A29E;
-  --color-border: #44403C;
-  --color-nav-bg: rgba(12, 10, 9, 0.88);
-  --shadow-ambient: 0 20px 50px rgba(0, 0, 0, 0.3);
+/* Small uppercase labels for section numbers and captions */
+.label {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
 }
 
-@layer utilities {
-  .dot-matrix {
-    background-image: radial-gradient(circle, var(--color-border) 1px, transparent 1px);
-    background-size: 24px 24px;
-  }
-  .dot-matrix-dark {
-    background-image: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
-    background-size: 24px 24px;
-  }
-  .glass-nav {
-    background: var(--color-nav-bg);
-    backdrop-filter: blur(20px);
-  }
+/* Link underline that draws in from the left */
+.draw-link {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 0% 1px;
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  transition: background-size 0.3s ease;
+}
+.draw-link:hover {
+  background-size: 100% 1px;
 }
 
-/* ============== PREMIUM INTERACTIVE STYLES ============== */
-
-/* Animated aurora / gradient-mesh background */
-.aurora {
-  position: absolute;
-  inset: -20%;
-  pointer-events: none;
-  overflow: hidden;
-  z-index: 0;
-}
-.aurora::before,
-.aurora::after {
-  content: "";
-  position: absolute;
-  border-radius: 9999px;
-  filter: blur(110px);
-  opacity: 0.3;
-  will-change: transform;
-}
-.aurora::before {
-  width: 45vw;
-  height: 45vw;
-  left: 0%;
-  top: -5%;
-  background: radial-gradient(circle at center, var(--color-secondary), transparent 70%);
-  animation: aurora-drift-1 18s ease-in-out infinite alternate;
-}
-.aurora::after {
-  width: 40vw;
-  height: 40vw;
-  right: 0%;
-  bottom: -5%;
-  background: radial-gradient(circle at center, var(--color-tertiary), transparent 70%);
-  animation: aurora-drift-2 22s ease-in-out infinite alternate;
-}
-.dark .aurora::before,
-.dark .aurora::after {
-  opacity: 0.28;
-}
-@keyframes aurora-drift-1 {
-  0% { transform: translate(0, 0) scale(1); }
-  100% { transform: translate(14%, 20%) scale(1.25); }
-}
-@keyframes aurora-drift-2 {
-  0% { transform: translate(0, 0) scale(1.1); }
-  100% { transform: translate(-16%, -14%) scale(0.85); }
-}
-
-/* Static accent gradient for headline words — both stops stay close to the
-   brand blue so large text keeps sufficient contrast on light and dark
-   surfaces; intentionally not animated. */
-.gradient-text {
-  background: linear-gradient(
-    100deg,
-    var(--color-secondary) 0%,
-    color-mix(in srgb, var(--color-secondary) 55%, var(--color-tertiary)) 100%
-  );
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  color: transparent;
-}
-
-/* Spotlight card — cursor-tracking glow */
-.spotlight-card {
-  position: relative;
-  isolation: isolate;
-}
-.spotlight-card::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  background: radial-gradient(
-    340px circle at var(--mx, 50%) var(--my, 50%),
-    color-mix(in srgb, var(--color-secondary) 14%, transparent),
-    transparent 60%
-  );
-  opacity: 0;
-  transition: opacity 0.35s ease;
-  z-index: 0;
-  pointer-events: none;
-}
-.spotlight-card:hover::before {
-  opacity: 1;
-}
-.spotlight-card > * {
-  position: relative;
-  z-index: 1;
-}
-
-/* Marquee */
-.marquee {
-  display: flex;
-  width: max-content;
-  animation: marquee-scroll 34s linear infinite;
-}
-.marquee-track:hover .marquee {
-  animation-play-state: paused;
-}
-@keyframes marquee-scroll {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
-}
-
-/* Live dashboard bar transition */
-.live-bar {
-  transition: height 0.7s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-/* Animated underline for nav links */
-.nav-link {
-  position: relative;
-}
-.nav-link::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: -4px;
-  height: 2px;
-  width: 0;
-  border-radius: 2px;
-  background: linear-gradient(90deg, var(--color-secondary), var(--color-tertiary));
-  transition: width 0.3s ease;
-}
-.nav-link:hover::after {
-  width: 100%;
-}
-
-/* Custom scrollbar */
-::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
-}
-::-webkit-scrollbar-track {
-  background: var(--color-surface-container-low);
-}
-::-webkit-scrollbar-thumb {
-  background: color-mix(in srgb, var(--color-secondary) 55%, var(--color-border));
-  border-radius: 9999px;
-  border: 2px solid var(--color-surface-container-low);
-}
-::-webkit-scrollbar-thumb:hover {
-  background: var(--color-secondary);
-}
-
-/* Glow ring utility for premium accents */
-.glow-ring {
-  box-shadow:
-    0 0 0 1px color-mix(in srgb, var(--color-secondary) 22%, transparent),
-    0 24px 70px -24px color-mix(in srgb, var(--color-secondary) 45%, transparent);
-}
-
-/* Hide the native cursor on fine-pointer devices once our custom cursor
-   is mounted (the component adds data-custom-cursor to <html>). */
-html[data-custom-cursor="true"],
-html[data-custom-cursor="true"] a,
-html[data-custom-cursor="true"] button,
-html[data-custom-cursor="true"] [role="button"] {
-  cursor: none;
-}
-
-/* Subtle film-grain texture overlay for depth (very low opacity). */
-.grain::after {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: 1;
-  pointer-events: none;
-  opacity: 0.025;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-}
-
-/* ROI calculator range sliders */
-.roi-range {
+/* Calculator sliders */
+.ledger-range {
   appearance: none;
   -webkit-appearance: none;
-  height: 6px;
-  border-radius: 9999px;
-  background: linear-gradient(90deg, var(--color-secondary), var(--color-tertiary));
+  width: 100%;
+  height: 2px;
+  background: var(--color-rule);
   outline: none;
   cursor: pointer;
 }
-.roi-range::-webkit-slider-thumb {
+.ledger-range::-webkit-slider-thumb {
   appearance: none;
   -webkit-appearance: none;
-  width: 26px;
-  height: 26px;
+  width: 18px;
+  height: 18px;
+  background: var(--color-ink);
+  border: 3px solid var(--color-sheet);
+  box-shadow: 0 0 0 1px var(--color-ink);
   border-radius: 9999px;
-  background: var(--color-surface-container-lowest);
-  border: 3px solid var(--color-secondary);
-  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35);
-  transition: transform 0.15s ease;
 }
-.roi-range::-webkit-slider-thumb:hover {
-  transform: scale(1.15);
-}
-.roi-range::-moz-range-thumb {
-  width: 26px;
-  height: 26px;
+.ledger-range::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  background: var(--color-ink);
+  border: 3px solid var(--color-sheet);
+  box-shadow: 0 0 0 1px var(--color-ink);
   border-radius: 9999px;
-  background: var(--color-surface-container-lowest);
-  border: 3px solid var(--color-secondary);
-  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35);
 }
-.roi-range:focus-visible {
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-secondary) 35%, transparent);
+.ledger-range:focus-visible {
+  outline: 2px solid var(--color-green);
+  outline-offset: 6px;
 }
 
-/* Respect reduced motion */
 @media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
     animation-duration: 0.001ms !important;
-    animation-iteration-count: 1 !important;
     transition-duration: 0.001ms !important;
-    scroll-behavior: auto !important;
-  }
-  /* SMIL pulses in the flow diagram aren't covered by the rules above */
-  .flow-pulse {
-    display: none;
   }
 }
