@@ -18,6 +18,9 @@ declare global {
 }
 
 const CALENDLY_URL = 'https://calendly.com/ajk-networking/30min';
+const PHONE = '(515) 999-5005';
+const PHONE_HREF = 'tel:+15159995005';
+const EMAIL = 'info@infometrix.us';
 
 const openCalendly = () => {
   if (window.Calendly) window.Calendly.initPopupWidget({ url: CALENDLY_URL });
@@ -293,6 +296,9 @@ export default function App() {
                 <button onClick={() => { setMenuOpen(false); openCalendly(); }} className="mt-6 w-full bg-ink text-sheet py-3.5 cursor-pointer">
                   Book a strategy call
                 </button>
+                <a href={PHONE_HREF} className="mt-3 block w-full border border-ink text-center py-3.5">
+                  Call <span className="figures">{PHONE}</span>
+                </a>
               </div>
             </motion.nav>
           )}
@@ -606,6 +612,16 @@ export default function App() {
               <button onClick={openCalendly} className="mt-8 bg-ink text-sheet px-7 py-4 hover:bg-green transition-colors cursor-pointer">
                 Book a strategy call
               </button>
+              <div className="mt-8 pt-6 border-t border-rule grid sm:grid-cols-2 gap-5">
+                <div>
+                  <p className="label text-muted">Or call</p>
+                  <a href={PHONE_HREF} className="draw-link figures text-xl mt-2 inline-block">{PHONE}</a>
+                </div>
+                <div>
+                  <p className="label text-muted">Or email</p>
+                  <a href={`mailto:${EMAIL}`} className="draw-link text-lg mt-2 inline-block">{EMAIL}</a>
+                </div>
+              </div>
             </Reveal>
           </div>
         </section>
@@ -632,7 +648,8 @@ export default function App() {
             <p className="label text-muted mb-4">Contact</p>
             <ul className="space-y-2 text-[15px]">
               <li><button onClick={openCalendly} className="draw-link cursor-pointer">Book a call</button></li>
-              <li><a href="mailto:info@infometrix.us" className="draw-link">info@infometrix.us</a></li>
+              <li><a href={PHONE_HREF} className="draw-link figures">{PHONE}</a></li>
+              <li><a href={`mailto:${EMAIL}`} className="draw-link">{EMAIL}</a></li>
             </ul>
           </div>
         </div>
