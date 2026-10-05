@@ -4,6 +4,7 @@ import { motion, AnimatePresence, MotionConfig, useScroll, useTransform } from '
 import { CostPerMile } from './components/CostPerMile';
 import { Questions } from './components/Questions';
 import { AgentLog } from './components/AgentLog';
+import { TelegramChat } from './components/TelegramChat';
 
 // Remotion is heavy; load the hero film after the page's text has painted.
 const HeroFilm = lazy(() => import('./components/HeroFilm').then((m) => ({ default: m.HeroFilm })));
@@ -71,6 +72,13 @@ const AGENTS = [
   { name: 'Payables', does: 'Organizes vendor bills and queues approved payments.' },
   { name: 'Watch', does: 'Flags unusual costs, duplicate charges, and cash dips early.' },
   { name: 'Reporting', does: 'Delivers cash and cost summaries on your schedule.' },
+];
+
+const TELEGRAM_USES = [
+  ['Ask', 'Cash on hand, who owes you, what a truck cost this month.'],
+  ['Snap', 'Send a photo of a receipt or bill; it gets logged and filed.'],
+  ['Approve', 'Bills and payments, one tap, right from the chat.'],
+  ['Hear first', 'Alerts on unusual costs or cash dips land in your chat.'],
 ];
 
 const STEPS = [
@@ -348,6 +356,7 @@ export default function App() {
             <span>Cash planning</span>
             <span>Fractional CFO</span>
             <span>24/7 agents</span>
+            <span>Telegram access</span>
           </div>
         </div>
 
@@ -396,6 +405,45 @@ export default function App() {
               </div>
               <Reveal delay={0.1} className="lg:sticky lg:top-28">
                 <AgentLog />
+              </Reveal>
+            </div>
+
+            {/* Telegram */}
+            <div className="mt-24 lg:mt-32 pt-16 border-t border-ink grid lg:grid-cols-[1.1fr_1fr] gap-14 lg:gap-20 items-center">
+              <div>
+                <Reveal>
+                  <p className="label text-green">Also on Telegram</p>
+                  <h3 className="font-display text-4xl sm:text-5xl tracking-tight leading-[1.05] mt-5 max-w-xl">
+                    Talk to your agents <span className="italic text-green">from your phone.</span>
+                  </h3>
+                  <p className="text-lg text-muted leading-relaxed mt-6 max-w-lg">
+                    No new app and no logins to remember. Your agents are available in Telegram, so you can check
+                    numbers, send receipts, and approve bills from the cab, the shop floor, or the couch.
+                  </p>
+                </Reveal>
+                <dl className="mt-10 border-t border-rule">
+                  {TELEGRAM_USES.map(([k, v], i) => (
+                    <motion.div
+                      key={k}
+                      initial={{ opacity: 0, y: 12 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true, amount: 0.6 }}
+                      transition={{ duration: 0.5, delay: i * 0.06, ease: EASE }}
+                      className="grid grid-cols-[8.5rem_1fr] gap-4 py-4 border-b border-rule items-baseline"
+                    >
+                      <dt className="font-display text-xl">{k}</dt>
+                      <dd className="text-[15px] text-muted leading-snug">{v}</dd>
+                    </motion.div>
+                  ))}
+                </dl>
+                <Reveal>
+                  <p className="mt-8 text-[15px] text-muted leading-relaxed max-w-lg">
+                    Prefer email or a weekly call? That works too. Telegram is there for when it is faster.
+                  </p>
+                </Reveal>
+              </div>
+              <Reveal delay={0.1}>
+                <TelegramChat />
               </Reveal>
             </div>
           </div>
