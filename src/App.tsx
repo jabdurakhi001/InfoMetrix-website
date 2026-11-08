@@ -6,6 +6,7 @@ import { Questions } from './components/Questions';
 import { AgentLog } from './components/AgentLog';
 import { TelegramChat } from './components/TelegramChat';
 import { ShopMath } from './components/ShopMath';
+import { VoiceDemo } from './components/VoiceDemo';
 
 // Remotion is heavy; load the hero film after the page's text has painted.
 const HeroFilm = lazy(() => import('./components/HeroFilm').then((m) => ({ default: m.HeroFilm })));
@@ -32,6 +33,7 @@ const EASE = [0.22, 1, 0.36, 1] as const;
 const NAV = [
   ['services', 'Services'],
   ['agents', 'Agents'],
+  ['voice', 'Voice'],
   ['shops', 'Shops'],
   ['costs', 'Calculator'],
   ['process', 'Process'],
@@ -86,6 +88,23 @@ const SHOP_METRICS = [
   ['Parts margin', 'Margin by part type and vendor, with sales below cost flagged.'],
   ['Repair-order profit', 'Labor, parts, and sublet on every RO, before it hits the books.'],
   ['WIP and unbilled work', 'Open repair orders and finished jobs that have not been invoiced.'],
+];
+
+const VOICE_USES = [
+  ['Answer every call', 'Day, night, weekends, and the lunch rush. No voicemail, no hold music.'],
+  ['Book and reschedule', 'Appointments go straight into your calendar or shop system.'],
+  ['Take the details', 'Name, number, vehicle or job, and what they need, captured the same way every time.'],
+  ['Route what is urgent', 'Breakdowns, emergencies, and VIP customers go to a person right away.'],
+  ['Follow up by text', 'Confirmations, reminders, and directions sent automatically.'],
+];
+
+const VOICE_INDUSTRIES = ['Repair shops', 'Trucking & dispatch', 'Clinics & dental', 'Home services', 'Professional offices'];
+
+const AUTOMATIONS = [
+  ['Intake to CRM', 'Web forms, calls, and emails become clean records without retyping.'],
+  ['Shop system to books', 'Closed repair orders and invoices flow into QuickBooks.'],
+  ['Approvals that route themselves', 'Bills and purchase requests reach the right person, with reminders.'],
+  ['Reports that send themselves', 'Daily and weekly numbers land in your inbox or Telegram on schedule.'],
 ];
 
 const TELEGRAM_USES = [
@@ -375,6 +394,8 @@ export default function App() {
             <span>Cash planning</span>
             <span>Fractional CFO</span>
             <span>24/7 agents</span>
+            <span>Voice agents</span>
+            <span>Process automation</span>
             <span>Telegram access</span>
           </div>
         </div>
@@ -468,10 +489,93 @@ export default function App() {
           </div>
         </section>
 
-        {/* ---------- §03 Repair shops ---------- */}
+        {/* ---------- §03 Voice agents & automation ---------- */}
+        <section id="voice" className="bg-paper-deep">
+          <div className="max-w-[1280px] mx-auto px-6 sm:px-10 py-24 lg:py-36">
+            <SectionHead num="03" kicker="Voice agents & automation" title={<>Every call answered. <span className="italic text-green">Every appointment booked.</span></>} />
+            <div className="grid lg:grid-cols-[1fr_1.15fr] gap-14 lg:gap-20 items-start">
+              <div>
+                <Reveal>
+                  <p className="text-lg text-muted leading-relaxed max-w-lg">
+                    We build voice agents that answer your phone the way your best front-desk person would. They know
+                    your hours, services, and calendar, book and reschedule appointments, take down the details, and
+                    hand urgent calls to your team right away.
+                  </p>
+                </Reveal>
+                <ul className="mt-10 border-t border-ink">
+                  {VOICE_USES.map(([k, d], i) => (
+                    <motion.li
+                      key={k}
+                      initial={{ opacity: 0, y: 12 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true, amount: 0.5 }}
+                      transition={{ duration: 0.5, delay: i * 0.05, ease: EASE }}
+                      className="grid sm:grid-cols-[11rem_1fr] gap-x-4 gap-y-1 py-4 border-b border-rule items-baseline"
+                    >
+                      <span className="font-display text-xl">{k}</span>
+                      <span className="text-[15px] text-muted leading-snug">{d}</span>
+                    </motion.li>
+                  ))}
+                </ul>
+                <Reveal>
+                  <p className="label text-muted mt-10 mb-3">Built for</p>
+                  <div className="flex flex-wrap gap-2">
+                    {VOICE_INDUSTRIES.map((x) => (
+                      <span key={x} className="text-[14px] border border-rule bg-sheet px-3 py-1.5">{x}</span>
+                    ))}
+                  </div>
+                  <p className="mt-8 text-[15px] leading-relaxed max-w-lg">
+                    <span className="label text-green mr-2">You stay in control</span>
+                    You decide what the agent can book, quote, or promise, and when it hands off to a person. Every
+                    call is saved with a transcript and a short summary.
+                  </p>
+                </Reveal>
+              </div>
+              <Reveal delay={0.1} className="lg:sticky lg:top-28">
+                <VoiceDemo />
+              </Reveal>
+            </div>
+
+            {/* Business process automation */}
+            <div className="mt-24 lg:mt-32 pt-14 border-t border-ink">
+              <Reveal>
+                <div className="grid lg:grid-cols-[1fr_1.15fr] gap-6 lg:gap-20 items-end">
+                  <div>
+                    <p className="label text-green">Beyond the phone</p>
+                    <h3 className="font-display text-4xl sm:text-5xl tracking-tight leading-[1.05] mt-5">
+                      Business process <span className="italic text-green">automation.</span>
+                    </h3>
+                  </div>
+                  <p className="text-lg text-muted leading-relaxed max-w-xl">
+                    The same thinking, applied to the rest of the office. We map how work moves today and automate the
+                    repetitive steps between your tools, so your team spends its time on customers instead of copy-paste.
+                  </p>
+                </div>
+              </Reveal>
+              <ol className="mt-12 grid sm:grid-cols-2 lg:grid-cols-4 border-t border-rule">
+                {AUTOMATIONS.map(([k, d], i) => (
+                  <motion.li
+                    key={k}
+                    initial={{ opacity: 0, y: 14 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, amount: 0.4 }}
+                    transition={{ duration: 0.5, delay: i * 0.07, ease: EASE }}
+                    className="py-7 sm:pr-8 border-b border-rule lg:border-b-0"
+                  >
+                    <span className="figures text-sm text-muted">{String(i + 1).padStart(2, '0')}</span>
+                    <p className="font-display text-xl mt-3">{k}</p>
+                    <p className="text-[15px] text-muted leading-snug mt-2">{d}</p>
+                  </motion.li>
+                ))}
+              </ol>
+            </div>
+          </div>
+        </section>
+
+        {/* ---------- §04 Repair shops ---------- */}
         <section id="shops" className="border-t border-rule">
           <div className="max-w-[1280px] mx-auto px-6 sm:px-10 py-24 lg:py-36">
-            <SectionHead num="03" kicker="For repair shops" title={<>Every repair order, priced right <span className="italic text-green">and on the books.</span></>} />
+            <SectionHead num="04" kicker="For repair shops" title={<>Every repair order, priced right <span className="italic text-green">and on the books.</span></>} />
             <div className="grid lg:grid-cols-[1fr_1.05fr] gap-14 lg:gap-20 items-start">
               <div>
                 <Reveal>
@@ -519,7 +623,7 @@ export default function App() {
         {/* ---------- §04 Calculator ---------- */}
         <section id="costs" className="bg-paper-deep">
           <div className="max-w-[1280px] mx-auto px-6 sm:px-10 py-24 lg:py-36">
-            <SectionHead num="04" kicker="Try it with your numbers" title={<>Run your own numbers, <span className="italic text-green">fleet or shop.</span></>} />
+            <SectionHead num="05" kicker="Try it with your numbers" title={<>Run your own numbers, <span className="italic text-green">fleet or shop.</span></>} />
             <Reveal>
               <div role="tablist" aria-label="Calculator" className="inline-flex border border-ink mb-12">
                 {([['truck', 'Trucking'], ['shop', 'Repair shop']] as const).map(([key, label]) => (
@@ -554,14 +658,14 @@ export default function App() {
 
         {/* ---------- §03 Process ---------- */}
         <section id="process" className="max-w-[1280px] mx-auto px-6 sm:px-10 py-24 lg:py-36">
-          <SectionHead num="05" kicker="How it works" title={<>From a shoebox of receipts to a <span className="italic text-green">clean close.</span></>} />
+          <SectionHead num="06" kicker="How it works" title={<>From a shoebox of receipts to a <span className="italic text-green">clean close.</span></>} />
           <Process />
         </section>
 
         {/* ---------- §04 Monthly packet ---------- */}
         <section className="bg-ink text-sheet">
           <div className="max-w-[1280px] mx-auto px-6 sm:px-10 py-24 lg:py-36">
-            <SectionHead num="06" kicker="What arrives every month" title={<>Your month, on <span className="italic text-green-bright">twelve pages.</span></>} dark />
+            <SectionHead num="07" kicker="What arrives every month" title={<>Your month, on <span className="italic text-green-bright">twelve pages.</span></>} dark />
             <div className="grid lg:grid-cols-[1fr_1.3fr] gap-12 lg:gap-24">
               <Reveal>
                 <p className="text-lg text-white/70 leading-relaxed max-w-md">
@@ -592,7 +696,7 @@ export default function App() {
 
         {/* ---------- §05 Questions ---------- */}
         <section id="questions" className="max-w-[1280px] mx-auto px-6 sm:px-10 py-24 lg:py-36">
-          <SectionHead num="07" kicker="Questions" title="Things owners ask us first." />
+          <SectionHead num="08" kicker="Questions" title="Things owners ask us first." />
           <Questions />
         </section>
 
