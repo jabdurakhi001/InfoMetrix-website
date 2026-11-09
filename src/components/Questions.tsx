@@ -16,6 +16,10 @@ export const QUESTIONS = [
     a: "QuickBooks Online, NetSuite, and Xero on the accounting side; Ramp, Brex, Bill.com, and Stripe for spend and payments; Power BI and Tableau for dashboards — plus custom automation that connects them all.",
   },
   {
+    q: "What can a voice agent do, and when does a person step in?",
+    a: "It answers calls around the clock, books and reschedules appointments, takes down the caller’s details, and sends confirmations by text. You set the rules for what it can book or promise. Urgent calls, and anything outside those rules, go to your team right away, and every call is saved with a transcript and a summary.",
+  },
+  {
     q: "How long until we see results?",
     a: "The first systems are typically live within weeks. Full automation of your core workflows usually lands in one to three months, depending on the state of your books and the number of systems involved.",
   },
