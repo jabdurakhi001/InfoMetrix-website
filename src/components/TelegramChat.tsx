@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { motion, AnimatePresence, useReducedMotion } from "motion/react";
+import { useEffect, useRef, useState } from "react";
+import { motion, AnimatePresence, useInView, useReducedMotion } from "motion/react";
 
 /* A phone-style preview of an owner talking to InfoMetrix agents in
    Telegram. Styled in the site's own palette (not Telegram's branding);
@@ -32,12 +32,15 @@ export function TelegramChat() {
   const reduce = useReducedMotion();
   const [shown, setShown] = useState(reduce ? SCRIPT.length : 1);
   const [cycle, setCycle] = useState(0);
+  const rootRef = useRef<HTMLElement>(null);
+  const inView = useInView(rootRef, { amount: 0.3 });
 
   useEffect(() => {
     if (reduce) {
       setShown(SCRIPT.length);
       return;
     }
+    if (!inView) return;
     const id = setInterval(() => {
       // Pause two ticks on the full thread, then clear and replay.
       setShown((n) => {
@@ -49,13 +52,13 @@ export function TelegramChat() {
       });
     }, 1700);
     return () => clearInterval(id);
-  }, [reduce]);
+  }, [reduce, inView]);
 
   const visible = SCRIPT.slice(0, Math.min(shown, SCRIPT.length));
   const typing = !reduce && shown < SCRIPT.length && SCRIPT[shown]?.from === "agent";
 
   return (
-    <figure className="mx-auto w-full max-w-[360px]">
+    <figure ref={rootRef} className="mx-auto w-full max-w-[360px]">
       <div className="rounded-[2.2rem] bg-ink p-2.5 shadow-[0_40px_80px_-40px_rgba(16,38,31,0.6)]">
         <div className="rounded-[1.8rem] bg-sheet overflow-hidden">
           {/* Chat header */}

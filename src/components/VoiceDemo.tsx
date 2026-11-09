@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { motion, AnimatePresence, useReducedMotion } from "motion/react";
+import { useEffect, useRef, useState } from "react";
+import { motion, AnimatePresence, useInView, useReducedMotion } from "motion/react";
 
 /* An interactive preview of an InfoMetrix voice agent taking a call.
    Visitors pick an industry; the call transcript plays line by line with a
@@ -120,28 +120,32 @@ export function VoiceDemo() {
   const reduce = useReducedMotion();
   const [pick, setPick] = useState(0);
   const [step, setStep] = useState(0);
+  const rootRef = useRef<HTMLDivElement>(null);
+  // Only run the call while it is on screen, and start it from the first line
+  // each time it scrolls into view.
+  const inView = useInView(rootRef, { amount: 0.35 });
   const sc = SCENARIOS[pick];
   const total = sc.lines.length;
 
   useEffect(() => {
     setStep(reduce ? total + 1 : 1);
-  }, [pick, reduce, total]);
+  }, [pick, reduce, total, inView]);
 
   useEffect(() => {
-    if (reduce) return;
+    if (reduce || !inView) return;
     const id = setInterval(() => {
       // Play each line, show the outcome, hold, then replay.
       setStep((s) => (s >= total + 3 ? 1 : s + 1));
     }, STEP_MS);
     return () => clearInterval(id);
-  }, [pick, reduce, total]);
+  }, [pick, reduce, total, inView]);
 
   const shown = sc.lines.slice(0, Math.min(step, total));
   const speaking = step >= 1 && step <= total ? sc.lines[step - 1].who : null;
   const done = step > total;
 
   return (
-    <div>
+    <div ref={rootRef}>
       {/* Industry picker */}
       <div role="tablist" aria-label="Choose an industry" className="flex flex-wrap gap-2 mb-6">
         {SCENARIOS.map((s, i) => (
@@ -192,7 +196,7 @@ export function VoiceDemo() {
           </div>
 
           {/* Transcript */}
-          <div className="px-6 py-5 h-[440px] sm:h-[290px] flex flex-col justify-end overflow-hidden [mask-image:linear-gradient(to_bottom,transparent,black_18%)]">
+          <div className="px-6 py-5 h-[300px] sm:h-[290px] flex flex-col justify-end overflow-hidden [mask-image:linear-gradient(to_bottom,transparent,black_18%)]">
             <AnimatePresence initial={false}>
               {shown.map((l, i) => (
                 <motion.div

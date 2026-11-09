@@ -236,7 +236,7 @@ function Process() {
               key={s.title}
               initial={{ opacity: 0.25 }}
               whileInView={{ opacity: 1 }}
-              viewport={{ amount: 0.8, margin: '-30% 0px -30% 0px' }}
+              viewport={{ once: true, amount: 0.6, margin: '0px 0px -30% 0px' }}
               transition={{ duration: 0.5 }}
               className="relative"
             >
@@ -266,6 +266,22 @@ export default function App() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
+  // Highlight the menu item for the section currently in view.
+  const [active, setActive] = useState('');
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) if (e.isIntersecting) setActive(e.target.id);
+      },
+      { rootMargin: '-45% 0px -50% 0px' },
+    );
+    for (const [id] of NAV) {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    }
+    return () => observer.disconnect();
+  }, []);
+
   const headline = ['Clear finances.', 'Better business', 'decisions.'];
 
   return (
@@ -278,10 +294,20 @@ export default function App() {
           </a>
           <nav className="hidden md:flex items-center gap-9 text-[15px]">
             {NAV.map(([id, label]) => (
-              <a key={id} href={`#${id}`} className="draw-link">{label}</a>
+              <a
+                key={id}
+                href={`#${id}`}
+                aria-current={active === id ? 'true' : undefined}
+                className={`draw-link transition-colors ${active === id ? 'draw-link-active text-green' : ''}`}
+              >
+                {label}
+              </a>
             ))}
           </nav>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-4">
+            <button onClick={openCalendly} className="md:hidden bg-ink text-sheet px-3.5 py-2 text-[13px] cursor-pointer">
+              Book a call
+            </button>
             <span className="hidden md:inline-flex">
               <button onClick={openCalendly} className="bg-ink text-sheet px-5 py-2.5 text-[15px] hover:bg-green transition-colors cursor-pointer">
                 Book a call
@@ -333,7 +359,7 @@ export default function App() {
             transition={{ duration: 0.6 }}
             className="label text-green mb-8"
           >
-            Financial operations for trucking &amp; shop businesses
+            Finance, automation &amp; voice agents for trucking &amp; shop businesses
           </motion.p>
 
           <div className="grid lg:grid-cols-[1.15fr_1fr] gap-14 lg:gap-16 items-end">
@@ -360,8 +386,9 @@ export default function App() {
               >
                 <p className="mt-10 text-lg sm:text-xl leading-relaxed text-muted max-w-xl">
                   InfoMetrix manages the finances and back office of trucking and shop businesses: organized books,
-                  dependable monthly reporting, and hands-on management support. Know where the money goes and what
-                  your trucks and jobs actually cost, in plain terms.
+                  dependable monthly reporting, and hands-on management support. Know what your trucks and jobs
+                  actually cost, in plain terms, while our agents keep the paperwork moving and the phones answered
+                  around the clock.
                 </p>
                 <div className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-4">
                   <button onClick={openCalendly} className="bg-ink text-sheet px-7 py-4 text-base hover:bg-green transition-colors cursor-pointer">
@@ -386,17 +413,14 @@ export default function App() {
 
         {/* ---------- Masthead strip ---------- */}
         <div className="border-y border-ink">
-          <div className="max-w-[1280px] mx-auto px-6 sm:px-10 py-4 flex flex-wrap gap-x-10 gap-y-2 label text-muted">
+          <div className="max-w-[1280px] mx-auto px-6 sm:px-10 py-4 flex flex-wrap lg:flex-nowrap lg:justify-between gap-x-8 gap-y-2 label text-muted whitespace-nowrap">
             <span>Bookkeeping &amp; close</span>
             <span>Monthly reporting</span>
             <span>Truck &amp; job costing</span>
-            <span>Repair-shop profitability</span>
-            <span>Cash planning</span>
-            <span>Fractional CFO</span>
+            <span>Shop profitability</span>
             <span>24/7 agents</span>
             <span>Voice agents</span>
             <span>Process automation</span>
-            <span>Telegram access</span>
           </div>
         </div>
 
@@ -737,7 +761,7 @@ export default function App() {
           <div>
             <p className="font-display text-2xl">InfoMetrix<span className="text-green">.</span></p>
             <p className="text-sm text-muted mt-3 max-w-sm leading-relaxed">
-              Financial operations, reporting, and management support for trucking and shop businesses.
+              Financial operations, reporting, automation, and voice agents for trucking and shop businesses.
             </p>
           </div>
           <div>

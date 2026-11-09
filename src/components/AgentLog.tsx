@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { motion, AnimatePresence, useReducedMotion } from "motion/react";
+import { useEffect, useRef, useState } from "react";
+import { motion, AnimatePresence, useInView, useReducedMotion } from "motion/react";
 
 /* A rolling activity log showing what InfoMetrix agents do around the
    clock. Entries are illustrative examples, labeled as such on the page. */
@@ -26,12 +26,14 @@ const VISIBLE = 6;
 export function AgentLog() {
   const reduce = useReducedMotion();
   const [start, setStart] = useState(0);
+  const rootRef = useRef<HTMLElement>(null);
+  const inView = useInView(rootRef, { amount: 0.3 });
 
   useEffect(() => {
-    if (reduce) return;
+    if (reduce || !inView) return;
     const id = setInterval(() => setStart((s) => (s + 1) % FEED.length), 2400);
     return () => clearInterval(id);
-  }, [reduce]);
+  }, [reduce, inView]);
 
   // Newest entry on top.
   const rows = Array.from({ length: VISIBLE }, (_, i) => {
@@ -40,7 +42,7 @@ export function AgentLog() {
   });
 
   return (
-    <figure>
+    <figure ref={rootRef}>
       <div className="bg-ink text-sheet border border-ink">
         <div className="flex items-center justify-between px-6 py-4 border-b border-white/15">
           <span className="label text-white/60">Agent activity log</span>
@@ -52,7 +54,7 @@ export function AgentLog() {
             Running
           </span>
         </div>
-        <ul className="relative h-[372px] overflow-hidden" aria-live="off">
+        <ul className="relative h-[372px] overflow-hidden [mask-image:linear-gradient(to_bottom,black_78%,transparent)]" aria-live="off">
           <AnimatePresence initial={false}>
             {rows.map((r) => (
               <motion.li

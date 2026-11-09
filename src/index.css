@@ -59,7 +59,8 @@ body {
   background-repeat: no-repeat;
   transition: background-size 0.3s ease;
 }
-.draw-link:hover {
+.draw-link:hover,
+.draw-link-active {
   background-size: 100% 1px;
 }
 
